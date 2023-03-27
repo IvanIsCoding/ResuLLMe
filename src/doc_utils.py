@@ -1,16 +1,8 @@
-import pypdf
+from pdfminer.high_level import extract_text
 import docx2txt
 
 def extract_text_from_pdf(file):
-    text = []
-
-    pdf_reader = pypdf.PdfReader(file)
-        
-    for page_num in range(len(pdf_reader.pages)):
-        page_obj = pdf_reader.pages[page_num]
-        text.append(page_obj.extract_text())
-
-    return "\n".join(text)
+    return extract_text(file)
 
 def extract_text_from_docx(file):
     return docx2txt.process(file)

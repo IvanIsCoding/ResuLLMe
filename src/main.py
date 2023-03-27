@@ -11,11 +11,11 @@ uploaded_file = st.file_uploader(
 if uploaded_file is not None:
     st.write(uploaded_file.type)
 
-    # Read text from uploaded file
+    # Get the CV data that we need to convert to json
     text = extract_text_from_upload(uploaded_file)
-    st.write(f"Lenght of text: {len(text)}")
+    st.write(text)
 
-    # Get Job Post Description
+    # Get the Job Post Description
     job_post_description = st.text_area("Job Post Description", height=200)
 
     generate_button = st.button("Generate Resume")
