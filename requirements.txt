@@ -3,3 +3,4 @@ langchain
 pdfminer-six
 python-docx
 streamlit
+Jinja2
