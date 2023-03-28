@@ -26,6 +26,7 @@ def use_template(template_name, jinja_env, json_resume):
     resume_template = jinja_env.get_template(f"{PREFIX}/resume.{EXTENSION}")
     basics_template = jinja_env.get_template(f"{PREFIX}/basics.{EXTENSION}")
     education_template = jinja_env.get_template(f"{PREFIX}/education.{EXTENSION}")
+    work_template = jinja_env.get_template(f"{PREFIX}/work.{EXTENSION}")
 
     sections = []
     if "basics" in json_resume:
@@ -35,6 +36,10 @@ def use_template(template_name, jinja_env, json_resume):
     if "education" in json_resume:
         sections.append(
             education_template.render(schools = json_resume["education"], heading="Education")
+        )
+    if "work" in json_resume:
+        sections.append(
+            work_template.render(works = json_resume["work"], heading="Work Experience")
         )
     
     resume = resume_template.render(sections=sections)
