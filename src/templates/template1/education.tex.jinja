@@ -2,7 +2,13 @@
 \header{\VAR{heading}}
 \BLOCK{ for school in schools }
 \BLOCK{ if school.institution } \textbf{\VAR{school.institution}} \BLOCK{ endif } 
-\BLOCK{ if school.location } \hfill \VAR{school.location} \BLOCK{ endif } \\
-% TODO: add second line
+\BLOCK{ if school.location } \hfill \VAR{school.location} \BLOCK{ endif }\\
+\BLOCK{ if school.studyType } \VAR{school.studyType}  \BLOCK{ endif }
+\BLOCK{ if school.area } in \VAR{school.area}  \BLOCK{ endif }
+\BLOCK{ if school.score } \textit{GPA: \VAR{school.score}} \BLOCK{ endif }
+\hfill
+\BLOCK{ if school.startDate} \VAR{school.startDate} - \BLOCK{ endif }
+\BLOCK{ if school.endDate} \VAR{school.endDate} \BLOCK{ endif }
+\\
 \vspace{2mm}
 \BLOCK{ endfor }
