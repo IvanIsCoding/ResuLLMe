@@ -1,0 +1,8 @@
+%==== Education ====%
+\header{\VAR{heading}}
+\BLOCK{ for school in schools }
+\BLOCK{ if school.institution } \textbf{\VAR{school.institution}} \BLOCK{ endif } 
+\BLOCK{ if school.location } \hfill \VAR{school.location} \BLOCK{ endif } \\
+% TODO: add second line
+\vspace{2mm}
+\BLOCK{ endfor }

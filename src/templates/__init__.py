@@ -1,12 +1,6 @@
 import jinja2
 import os
 
-from .template1 import template1
-
-templates = {
-    'template1': template1
-}
-
 def generate_latex(template_name, json_resume):
     dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -24,4 +18,24 @@ def generate_latex(template_name, json_resume):
         loader = jinja2.FileSystemLoader(dir_path)
     )
     
-    return templates[template_name](latex_jinja_env, json_resume)
+    return use_template(template_name, latex_jinja_env, json_resume)
+
+def use_template(template_name, jinja_env, json_resume):
+    PREFIX = f"{template_name}"
+    EXTENSION = "tex.jinja"
+    resume_template = jinja_env.get_template(f"{PREFIX}/resume.{EXTENSION}")
+    basics_template = jinja_env.get_template(f"{PREFIX}/basics.{EXTENSION}")
+    education_template = jinja_env.get_template(f"{PREFIX}/education.{EXTENSION}")
+
+    sections = []
+    if "basics" in json_resume:
+        sections.append(
+            basics_template.render(**json_resume["basics"])
+        )
+    if "education" in json_resume:
+        sections.append(
+            education_template.render(schools = json_resume["education"], heading="Education")
+        )
+    
+    resume = resume_template.render(sections=sections)
+    return resume
