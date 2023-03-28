@@ -1,5 +1,7 @@
 import streamlit as st
 from doc_utils import extract_text_from_upload
+from templates import generate_latex
+import json
 
 st.title('ResuLLMe')
 
@@ -21,16 +23,21 @@ if uploaded_file is not None:
     generate_button = st.button("Generate Resume")
 
     if generate_button:
-        st.download_button(
-            label="Download Resume",
-            data=text, # TODO: replace with PDF from LaTeX
-            file_name='resullme.json',
-            mime='text/json',
-        )
 
-        st.download_button(
-            label="Download Raw Data for Resume",
-            data=text, # TODO: replace with JSON from GPT-4
-            file_name='resullme.json',
-            mime='text/json',
-        )
+        json_resume = json.loads(text)
+        latex_resume = generate_latex('template1', json_resume)
+        st.write(f"```\n{latex_resume}\n```")
+
+        #st.download_button(
+        #    label="Download Resume",
+        #    data=text, # TODO: replace with PDF from LaTeX
+        #    file_name='resullme.json',
+        #    mime='text/json',
+        #)
+
+        #st.download_button(
+        #    label="Download Raw Data for Resume",
+        #    data=text, # TODO: replace with JSON from GPT-4
+        #    file_name='resullme.json',
+        #    mime='text/json',
+        #)
