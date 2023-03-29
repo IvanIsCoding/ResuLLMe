@@ -1,6 +1,7 @@
 import streamlit as st
 from doc_utils import extract_text_from_upload
 from templates import generate_latex
+from render import render_latex
 import json
 
 st.title('ResuLLMe')
@@ -11,11 +12,8 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
-    st.write(uploaded_file.type)
-
     # Get the CV data that we need to convert to json
     text = extract_text_from_upload(uploaded_file)
-    st.write(text)
 
     # Get the Job Post Description
     job_post_description = st.text_area("Job Post Description", height=200)
@@ -28,16 +26,28 @@ if uploaded_file is not None:
         latex_resume = generate_latex('template1', json_resume)
         st.write(f"```\n{latex_resume}\n```")
 
-        #st.download_button(
-        #    label="Download Resume",
-        #    data=text, # TODO: replace with PDF from LaTeX
-        #    file_name='resullme.json',
-        #    mime='text/json',
-        #)
+        resume_bytes = render_latex(['pdflatex', '-interaction=nonstopmode', 'resume.tex'], latex_resume)
 
-        #st.download_button(
-        #    label="Download Raw Data for Resume",
-        #    data=text, # TODO: replace with JSON from GPT-4
-        #    file_name='resullme.json',
-        #    mime='text/json',
-        #)
+        try:
+            btn = st.download_button(
+                label="Download PDF",
+                data=resume_bytes,
+                file_name="resume.pdf",
+                mime="application/pdf"
+            )
+        except Exception as e:
+            st.write(e)
+
+        st.download_button(
+            label="Download LaTeX Source",
+            data=latex_resume,
+            file_name='resume.tex',
+            mime='application/x-tex',
+        )
+
+        st.download_button(
+            label="Download Raw JSON Data for Resume",
+            data=text,
+            file_name='resume.json',
+            mime='text/json',
+        )
