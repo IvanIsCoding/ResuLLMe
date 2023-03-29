@@ -1,0 +1,8 @@
+%==== Skills ====%
+\header{\VAR{heading}}
+\begin{tabular}{ l l }
+	\BLOCK{ for skill in skills }
+    \VAR{skill.name}: & \VAR{skill.keywords[0]}\BLOCK{ for keyword in skill.keywords[1:]}, \VAR{keyword}\BLOCK{ endfor }\\
+    \BLOCK{ endfor }
+\end{tabular}
+\vspace{2mm}
