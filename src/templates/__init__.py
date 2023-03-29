@@ -23,28 +23,34 @@ def generate_latex(template_name, json_resume):
 def use_template(template_name, jinja_env, json_resume):
     PREFIX = f"{template_name}"
     EXTENSION = "tex.jinja"
+
     resume_template = jinja_env.get_template(f"{PREFIX}/resume.{EXTENSION}")
     basics_template = jinja_env.get_template(f"{PREFIX}/basics.{EXTENSION}")
     education_template = jinja_env.get_template(f"{PREFIX}/education.{EXTENSION}")
     work_template = jinja_env.get_template(f"{PREFIX}/work.{EXTENSION}")
     skills_template = jinja_env.get_template(f"{PREFIX}/skills.{EXTENSION}")
+    projects_template = jinja_env.get_template(f"{PREFIX}/projects.{EXTENSION}")
 
     sections = []
     if "basics" in json_resume:
         sections.append(
             basics_template.render(**json_resume["basics"])
         )
-    if "education" in json_resume:
+    if "education" in json_resume and len(json_resume["education"]) > 0:
         sections.append(
             education_template.render(schools = json_resume["education"], heading="Education")
         )
-    if "work" in json_resume:
+    if "work" in json_resume and len(json_resume["work"]) > 0:
         sections.append(
             work_template.render(works = json_resume["work"], heading="Work Experience")
         )
-    if "skills" in json_resume:
+    if "skills" in json_resume and len(json_resume["skills"]) > 0:
         sections.append(
             skills_template.render(skills = json_resume["skills"], heading="Skills")
+        )
+    if "projects" in json_resume and len(json_resume["projects"]) > 0:
+        sections.append(
+            projects_template.render(projects = json_resume["projects"], heading="Projects")
         )
     
     resume = resume_template.render(sections=sections)
