@@ -20,7 +20,6 @@ if uploaded_file is not None:
     if generate_button:
         json_resume = json.loads(text)
         latex_resume = generate_latex("template1", json_resume)
-        st.write(f"```\n{latex_resume}\n```")
 
         resume_bytes = render_latex(
             ["pdflatex", "-interaction=nonstopmode", "resume.tex"], latex_resume
