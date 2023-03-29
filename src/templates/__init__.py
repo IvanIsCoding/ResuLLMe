@@ -30,6 +30,7 @@ def use_template(template_name, jinja_env, json_resume):
     work_template = jinja_env.get_template(f"{PREFIX}/work.{EXTENSION}")
     skills_template = jinja_env.get_template(f"{PREFIX}/skills.{EXTENSION}")
     projects_template = jinja_env.get_template(f"{PREFIX}/projects.{EXTENSION}")
+    awards_template = jinja_env.get_template(f"{PREFIX}/awards.{EXTENSION}")
 
     sections = []
     if "basics" in json_resume:
@@ -51,6 +52,10 @@ def use_template(template_name, jinja_env, json_resume):
     if "projects" in json_resume and len(json_resume["projects"]) > 0:
         sections.append(
             projects_template.render(projects = json_resume["projects"], heading="Projects")
+        )
+    if "awards" in json_resume and len(json_resume["awards"]) > 0:
+        sections.append(
+            awards_template.render(awards = json_resume["awards"], heading="Awards")
         )
     
     resume = resume_template.render(sections=sections)

@@ -1,0 +1,11 @@
+%==== Awards ====%
+\header{\VAR{heading}}
+\BLOCK{for award in awards}
+\BLOCK{ if award.title }\textbf{\VAR{award.title}}\BLOCK{ endif }
+\hfill
+\BLOCK{ if award.awarder }\VAR{award.awarder}\BLOCK{ endif } \\
+\BLOCK{ if award.summary }\VAR{award.summary}\BLOCK{ endif }
+\hfill
+\BLOCK{ if award.date }\VAR{award.date}\BLOCK{ endif }\\
+\vspace*{2mm}
+\BLOCK{ endfor }
