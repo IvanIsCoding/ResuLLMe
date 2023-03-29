@@ -1,12 +1,14 @@
 import streamlit as st
 from doc_utils import extract_text_from_upload
-from templates import generate_latex
+from templates import generate_latex, template_commands
 from render import render_latex
 import json
 
 st.title("ResuLLMe")
 
 uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt", "json"])
+
+template_options = list(template_commands.keys())
 
 if uploaded_file is not None:
     # Get the CV data that we need to convert to json
@@ -15,14 +17,20 @@ if uploaded_file is not None:
     # Get the Job Post Description
     job_post_description = st.text_area("Job Post Description", height=200)
 
+    chosen_option = st.selectbox(
+        "Select a template to use for your resume",
+        template_options,
+        index=0, # default to the first option
+    )
+
     generate_button = st.button("Generate Resume")
 
     if generate_button:
         json_resume = json.loads(text)
-        latex_resume = generate_latex("template1", json_resume)
+        latex_resume = generate_latex(chosen_option , json_resume)
 
         resume_bytes = render_latex(
-            ["pdflatex", "-interaction=nonstopmode", "resume.tex"], latex_resume
+            template_commands[chosen_option ], latex_resume
         )
 
         try:

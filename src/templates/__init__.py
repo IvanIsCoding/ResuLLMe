@@ -1,6 +1,9 @@
 import jinja2
 import os
 
+template_commands = {
+    "Template1": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
+}
 
 def generate_latex(template_name, json_resume):
     dir_path = os.path.dirname(os.path.realpath(__file__))
