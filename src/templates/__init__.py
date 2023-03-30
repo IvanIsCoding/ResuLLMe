@@ -2,8 +2,8 @@ import jinja2
 import os
 
 template_commands = {
-    "TemplateSimple": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
-    "TemplateAwesome": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
+    "Simple": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
+    "Awesome": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
 }
 
 
