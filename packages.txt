@@ -1,10 +1,11 @@
+texlive-latex-base
+texlive-latex-recommended
 texlive-latex-extra
 texlive-xetex
 fonts-noto
 fonts-freefont-otf
 fonts-freefont-ttf
-texlive-fonts-recommended-doc
-texlive-latex-base-doc
-texlive-latex-recommended-doc
 cm-super
 texlive-fonts-extra
+texlive-fonts-recommended
+texlive-fonts-extra-links
