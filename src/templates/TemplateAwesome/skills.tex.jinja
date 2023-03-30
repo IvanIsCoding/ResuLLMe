@@ -1,0 +1,18 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     Skills
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cvsection{\VAR{heading}}
+\begin{cventries}
+	\cventry
+	{}
+	{\def\arraystretch{1.15}{\begin{tabular}{ l l }
+		\BLOCK{ for skill in skills }
+        \VAR{skill.name}:  & {\skill{ \VAR{skill.keywords[0]}\BLOCK{ for keyword in skill.keywords[1:]}, \VAR{keyword}\BLOCK{ endfor }}}\\
+        \BLOCK{ endfor }
+		\end{tabular}}}
+	{}
+	{}
+	{}
+\end{cventries}
+
+\vspace{-7mm}
