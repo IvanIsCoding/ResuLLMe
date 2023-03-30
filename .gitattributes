@@ -1,0 +1,2 @@
+src/render/inputs/** linguist-vendored
+*.jinja linguist-language=Python
