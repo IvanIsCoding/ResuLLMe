@@ -1,0 +1,2 @@
+texlive-latex-extra
+texlive-xetex
