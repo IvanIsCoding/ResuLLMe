@@ -4,3 +4,4 @@ pdfminer-six
 python-docx
 streamlit
 Jinja2
+doc2txt
