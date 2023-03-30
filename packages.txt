@@ -1,2 +1,8 @@
 texlive-latex-extra
 texlive-xetex
+fonts-noto
+fonts-freefont-otf
+fonts-freefont-ttf
+texlive-fonts-recommended-doc
+texlive-latex-base-doc
+texlive-latex-recommended-doc
