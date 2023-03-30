@@ -12,33 +12,36 @@
 % Template license:
 % CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
 %
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Configuration
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Themes: Awesome-CV
-\\documentclass[]{awesome-cv}
-\\usepackage{textcomp}
+\documentclass[]{awesome-cv}
+\usepackage{textcomp}
 %%% Override a directory location for fonts(default: 'fonts/')
-%%% \\fontdir[fonts/]
+\fontdir[fonts/]
 
 %%% Configure a directory location for sections
-\\newcommand*{\\sectiondir}{resume/}
+\newcommand*{\sectiondir}{resume/}
+
 %%% Override color
 % Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
 %                 awesome-nephritis, awesome-concrete, awesome-darknight
 %% Color for highlight
 % Define your custom color if you don't like awesome colors
-\\colorlet{awesome}{awesome-red}
-%\\definecolor{awesome}{HTML}{CA63A8}
+\colorlet{awesome}{awesome-red}
+%\definecolor{awesome}{HTML}{CA63A8}
 %% Colors for text
-%\\definecolor{darktext}{HTML}{414141}
-%\\definecolor{text}{HTML}{414141}
-%\\definecolor{graytext}{HTML}{414141}
-%\\definecolor{lighttext}{HTML}{414141}
-%%% Override a separator for social informations in header(default: ' | ')
-%\\headersocialsep[\\quad\\textbar\\quad]
+%\definecolor{darktext}{HTML}{414141}
+%\definecolor{text}{HTML}{414141}
+%\definecolor{graytext}{HTML}{414141}
+%\definecolor{lighttext}{HTML}{414141}
 
-\\begin{document}
+%%% Override a separator for social informations in header(default: ' | ')
+%\headersocialsep[\quad\textbar\quad]
+\begin{document}
 
 \BLOCK{ for section in sections }
 

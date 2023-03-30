@@ -17,7 +17,7 @@ def generate_latex(template_name, json_resume):
         variable_end_string="}",
         comment_start_string="\#{",
         comment_end_string="}",
-        line_statement_prefix="%%",
+        line_statement_prefix="%-",
         line_comment_prefix="%#",
         trim_blocks=True,
         autoescape=False,
@@ -41,7 +41,11 @@ def use_template(template_name, jinja_env, json_resume):
 
     sections = []
     if "basics" in json_resume:
-        sections.append(basics_template.render(**json_resume["basics"]))
+        firstName = json_resume["basics"]["name"].split(" ")[0]
+        lastName = " ".join(json_resume["basics"]["name"].split(" ")[1:])
+        sections.append(basics_template.render(
+            firstName = firstName, lastName = lastName, **json_resume["basics"]
+        ))
     if "education" in json_resume and len(json_resume["education"]) > 0:
         sections.append(
             education_template.render(
