@@ -1,5 +1,5 @@
 import streamlit as st
-from doc_utils import extract_text_from_upload
+from doc_utils import extract_text_from_upload, escape_for_latex
 from templates import generate_latex, template_commands
 from render import render_latex
 import json
@@ -20,18 +20,17 @@ if uploaded_file is not None:
     chosen_option = st.selectbox(
         "Select a template to use for your resume",
         template_options,
-        index=0, # default to the first option
+        index=0,  # default to the first option
     )
 
     generate_button = st.button("Generate Resume")
 
     if generate_button:
         json_resume = json.loads(text)
-        latex_resume = generate_latex(chosen_option , json_resume)
+        escaped_json_resume = escape_for_latex(json_resume)
+        latex_resume = generate_latex(chosen_option, escaped_json_resume)
 
-        resume_bytes = render_latex(
-            template_commands[chosen_option ], latex_resume
-        )
+        resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
 
         try:
             btn = st.download_button(

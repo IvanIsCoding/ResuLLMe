@@ -24,3 +24,35 @@ def extract_text_from_upload(file):
         return file.getvalue().decode("utf-8")
     else:
         return file.getvalue().decode("utf-8")
+
+
+def escape_for_latex(data):
+    if isinstance(data, dict):
+        new_data = {}
+        for key in data.keys():
+            new_data[key] = escape_for_latex(data[key])
+        return new_data
+    elif isinstance(data, list):
+        return [escape_for_latex(item) for item in data]
+    elif isinstance(data, str):
+        # Adapted from https://stackoverflow.com/q/16259923
+        latex_special_chars = {
+            "&": r"\&",
+            "%": r"\%",
+            "$": r"\$",
+            "#": r"\#",
+            "_": r"\_",
+            "{": r"\{",
+            "}": r"\}",
+            "~": r"\textasciitilde{}",
+            "^": r"\^{}",
+            "\\": r"\textbackslash{}",
+            "\n": "\\newline%\n",
+            "-": r"{-}",
+            "\xA0": "~",  # Non-breaking space
+            "[": r"{[}",
+            "]": r"{]}",
+        }
+        return "".join([latex_special_chars.get(c, c) for c in data])
+
+    return data
