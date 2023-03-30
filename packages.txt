@@ -6,3 +6,4 @@ fonts-freefont-ttf
 texlive-fonts-recommended-doc
 texlive-latex-base-doc
 texlive-latex-recommended-doc
+cm-super
