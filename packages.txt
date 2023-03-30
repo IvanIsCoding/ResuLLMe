@@ -7,3 +7,4 @@ texlive-fonts-recommended-doc
 texlive-latex-base-doc
 texlive-latex-recommended-doc
 cm-super
+texlive-fonts-extra
