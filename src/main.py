@@ -34,26 +34,31 @@ if uploaded_file is not None:
 
         resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
 
+        col1, col2, col3 = st.columns(3)
+
         try:
-            btn = ste.download_button(
-                label="Download PDF",
-                data=resume_bytes,
-                file_name="resume.pdf",
-                mime="application/pdf",
-            )
+            with col1:
+                btn = ste.download_button(
+                    label="Download PDF",
+                    data=resume_bytes,
+                    file_name="resume.pdf",
+                    mime="application/pdf",
+                )
         except Exception as e:
             st.write(e)
 
-        ste.download_button(
-            label="Download LaTeX Source",
-            data=latex_resume,
-            file_name="resume.tex",
-            mime="application/x-tex",
-        )
+        with col2:
+            ste.download_button(
+                label="Download LaTeX Source",
+                data=latex_resume,
+                file_name="resume.tex",
+                mime="application/x-tex",
+            )
 
-        ste.download_button(
-            label="Download Raw JSON Data for Resume",
-            data=text,
-            file_name="resume.json",
-            mime="text/json",
-        )
+        with col3:
+            ste.download_button(
+                label="Download JSON Source",
+                data=text,
+                file_name="resume.json",
+                mime="text/json",
+            )
