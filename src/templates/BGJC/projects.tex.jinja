@@ -1,0 +1,14 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{\VAR{heading}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}[leftmargin=*]
+\BLOCK{ for project in projects }
+\item[]
+\project
+{\BLOCK{ if project.name } \VAR{project.name} \BLOCK{ endif }}
+{\BLOCK{ if project.keywords }
+        \VAR{project.keywords[0]}\BLOCK{ for keyword in project.keywords[1:]}, \VAR{keyword}\BLOCK{ endfor } \BLOCK{ endif }}
+{\BLOCK{ if project.url } \VAR{project.url} \BLOCK{ endif }}
+{\\ \BLOCK{ if project.description } \VAR{project.description} \BLOCK{ endif }}
+\BLOCK{ endfor }
+\end{itemize}

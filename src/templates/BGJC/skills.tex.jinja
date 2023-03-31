@@ -1,0 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{\VAR{heading}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}[leftmargin=*]
+	\setlength\itemsep{0em}
+    \BLOCK{ for skill in skills }
+	\item[] \skill{\VAR{skill.name}:}{\skill{ \VAR{skill.keywords[0]}\BLOCK{ for keyword in skill.keywords[1:]}, \VAR{keyword}\BLOCK{ endfor }}}
+	\BLOCK{ endfor }
+\end{itemize}
