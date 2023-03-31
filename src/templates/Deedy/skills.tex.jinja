@@ -2,13 +2,11 @@
 %     SKILLS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Skills}
-\subsection{Programming}
-\location{Over 5000 lines:}
-Java \textbullet{}   Shell \textbullet{} Python \textbullet{} Javascript \\
-OCaml \textbullet{} Matlab \textbullet{} Rails \textbullet{} \LaTeX\ \\ 
-\location{Over 1000 lines:}
-C \textbullet{} C++ \textbullet{} CSS \textbullet{} PHP \textbullet{} Assembly \\
-\location{Familiar:}
-AS3 \textbullet{} iOS \textbullet{} Android \textbullet{} MySQL
-\sectionsep
+\section{\VAR{heading}}
+\BLOCK{ for skill in skills }
+\subsection{\VAR{skill.name}}
+\BLOCK{ for keyword in skill.keywords }
+\VAR{keyword} \BLOCK{ if loop.index0 % 3 != 2 and loop.revindex0 != 0}\textbullet{}\BLOCK{ endif } \BLOCK{ if loop.index0 % 3 == 2}\\ \BLOCK{ endif }
+\BLOCK{ endfor }
+\BLOCK{ endfor }
+\sectionsep\\

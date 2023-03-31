@@ -5,9 +5,9 @@
 \begin{cventries}
 \BLOCK{ for work in works }
 	\cventry
-	{\BLOCK{ if work.position } \textit{\VAR{work.position}} \BLOCK{ endif } }
-	{\BLOCK{ if work.company } \textbf{\VAR{work.company}} \BLOCK{ endif } }
-	{\BLOCK{ if work.location } \hfill \VAR{work.location} \BLOCK{ endif }}
+	{\BLOCK{ if work.position } \VAR{work.position} \BLOCK{ endif } }
+	{\BLOCK{ if work.company } \VAR{work.company} \BLOCK{ endif } }
+	{\BLOCK{ if work.location } \VAR{work.location} \BLOCK{ endif }}
 	{\BLOCK{ if work.startDate} \VAR{work.startDate} - \BLOCK{ endif } \BLOCK{ if work.endDate} \VAR{work.endDate} \BLOCK{ endif }}
 	{\BLOCK{ if work.highlights } \begin{cvitems} \BLOCK{ for highlight in work.highlights }
 		\item \VAR{highlight}

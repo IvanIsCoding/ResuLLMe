@@ -1,16 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     RESEARCH
+%     Projects
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Research}
-\runsubsection{Cornell Robot Learning Lab}
-\descript{| Researcher}
-\location{Jan 2014 – Jan 2015 | Ithaca, NY}
-Worked with \textbf{\href{http://www.cs.cornell.edu/~ashesh/}{Ashesh Jain}} and \textbf{\href{http://www.cs.cornell.edu/~asaxena/}{Prof Ashutosh Saxena}} to create \textbf{PlanIt}, a tool which  learns from large scale user preference feedback to plan robot trajectories in human environments.  
-\sectionsep
-
-\runsubsection{Cornell Phonetics Lab}
-\descript{| Head Undergraduate Researcher}
-\location{Mar 2012 – May 2013 | Ithaca, NY}
-Led the development of \textbf{QuickTongue}, the first ever breakthrough tongue-controlled game with \textbf{\href{http://conf.ling.cornell.edu/~tilsen/}{Prof Sam Tilsen}} to aid in Linguistics research. 
-\sectionsep
+\section{\VAR{heading}}
+\BLOCK{ for project in projects }
+\runsubsection{\BLOCK{ if project.name } \VAR{project.name} \BLOCK{ endif }}
+\descript{\BLOCK{ if project.keywords }
+        \VAR{"|" + project.keywords[0]}\BLOCK{ for keyword in project.keywords[1:]}, \VAR{keyword}\BLOCK{ endfor } 
+    \BLOCK{ endif }}
+\location{\BLOCK{ if project.url } \VAR{project.url} \BLOCK{ endif }}
+\BLOCK{ if project.description } \VAR{project.description} \BLOCK{ endif }
+\sectionsep\\
+\BLOCK{ endfor }
