@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{\VAR{heading}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}[leftmargin=*]
+\BLOCK{ for work in works }
+\item[]
+      \job
+      {\BLOCK{ if work.company } \VAR{work.company} \BLOCK{ endif } }
+      {\BLOCK{ if work.location } \VAR{work.location} \BLOCK{ endif }}
+      {\BLOCK{ if work.position } \VAR{work.position} \BLOCK{ endif }}
+      {\BLOCK{ if work.startDate} \VAR{work.startDate} | \BLOCK{ endif } \BLOCK{ if work.endDate} \VAR{work.endDate} \BLOCK{ endif }}
+      \BLOCK{ if work.highlights }
+      \begin{itemize}
+      	\BLOCK{ for highlight in work.highlights }
+		\item \VAR{highlight}
+		\BLOCK{ endfor }
+      \end{itemize}
+      \BLOCK{ endif }
+\BLOCK{ endfor }
+\end{itemize}

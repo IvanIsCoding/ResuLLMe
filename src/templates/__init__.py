@@ -4,6 +4,7 @@ import os
 template_commands = {
     "Simple": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
     "Awesome": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
+    "BGJC": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
     "Deedy": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
 }
 

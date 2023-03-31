@@ -1,0 +1,14 @@
+\resheading{Education}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}[leftmargin=*]
+	
+\BLOCK{ for school in schools }
+\item[]
+\school
+{\BLOCK{ if school.institution } \VAR{school.institution} \BLOCK{ endif }}
+{\BLOCK{ if school.location } \VAR{school.location} \BLOCK{ endif }\\}
+{\VAR{school.studyType} \BLOCK{ if school.area } in \VAR{school.area}  \BLOCK{ endif }\BLOCK{ if school.score }, GPA: \VAR{school.score} \BLOCK{ endif }}
+{\BLOCK{ if school.startDate} \VAR{school.startDate} | \BLOCK{ endif } \BLOCK{ if school.endDate} \VAR{school.endDate} \BLOCK{ endif }}
+\BLOCK{ endfor }
+
+\end{itemize}
