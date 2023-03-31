@@ -25,12 +25,20 @@ if uploaded_file is not None:
         index=0,  # default to the first option
     )
 
+    section_ordering = st.multiselect(
+        "Optional: which section ordering would you like to use?",
+        ["education", "work", "skills", "projects", "awards"],
+        ["education", "work", "skills", "projects", "awards"],
+    )
+
     generate_button = st.button("Generate Resume")
 
     if generate_button:
         json_resume = json.loads(text)
         escaped_json_resume = escape_for_latex(json_resume)
-        latex_resume = generate_latex(chosen_option, escaped_json_resume)
+        latex_resume = generate_latex(
+            chosen_option, escaped_json_resume, section_ordering
+        )
 
         resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
 

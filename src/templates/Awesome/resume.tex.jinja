@@ -43,9 +43,9 @@
 %\headersocialsep[\quad\textbar\quad]
 \begin{document}
 
-\BLOCK{ for section in sections }
+\BLOCK{ for section in section_ordering }
 
-\VAR{section}
+\VAR{sections.get(section, "")}
 
 \BLOCK{ endfor }
 \
