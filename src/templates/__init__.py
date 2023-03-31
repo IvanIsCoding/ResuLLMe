@@ -43,9 +43,11 @@ def use_template(template_name, jinja_env, json_resume):
     if "basics" in json_resume:
         firstName = json_resume["basics"]["name"].split(" ")[0]
         lastName = " ".join(json_resume["basics"]["name"].split(" ")[1:])
-        sections.append(basics_template.render(
-            firstName = firstName, lastName = lastName, **json_resume["basics"]
-        ))
+        sections.append(
+            basics_template.render(
+                firstName=firstName, lastName=lastName, **json_resume["basics"]
+            )
+        )
     if "education" in json_resume and len(json_resume["education"]) > 0:
         sections.append(
             education_template.render(
