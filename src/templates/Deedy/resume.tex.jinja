@@ -47,7 +47,8 @@
 
 \documentclass[]{deedy-resume-openfont}
 \usepackage{fancyhdr}
- 
+ \usepackage{paracol}
+
 \pagestyle{fancy}
 \fancyhf{}
  
@@ -61,11 +62,15 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{minipage}[t]{0.33\textwidth} 
+\columnratio{0.34}
+\begin{paracol}{2}
+\setlength{\columnsep}{8mm}
 
 \VAR{sections.get("education", "")}
 
 \VAR{sections.get("skills", "")}
+
+\VAR{sections.get("awards", "")}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -73,15 +78,11 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\end{minipage} 
-\hfill
-\begin{minipage}[t]{0.66\textwidth} 
+\switchcolumn
 
 \VAR{sections.get("work", "")}
 
 \VAR{sections.get("projects", "")}
 
-\VAR{sections.get("awards", "")}
-
-\end{minipage} 
+\end{paracol}
 \end{document}
