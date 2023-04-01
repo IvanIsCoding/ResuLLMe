@@ -1,0 +1,10 @@
+\cvsection{\VAR{heading}}
+
+\BLOCK{ for school in schools }
+\cvevent{\BLOCK{ if school.institution }\VAR{school.institution} \BLOCK{ endif }}{\VAR{school.studyType} \BLOCK{ if school.area } in \VAR{school.area}  \BLOCK{ endif }}{\BLOCK{ if school.startDate} \VAR{school.startDate} - \BLOCK{ endif } \BLOCK{ if school.endDate} \VAR{school.endDate} \BLOCK{ endif }}{}
+
+\BLOCK{ if school.location } \location{\VAR{school.location}} \BLOCK{ endif } \BLOCK{ if school.score } \hfill GPA: \VAR{school.score} \BLOCK{ endif }
+
+\BLOCK{ if not loop.last} \divider \BLOCK{ endif }
+
+\BLOCK{ endfor }

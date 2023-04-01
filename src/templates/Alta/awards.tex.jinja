@@ -1,0 +1,8 @@
+\medskip
+\cvsection{\VAR{heading}}
+\BLOCK{for award in awards}
+\cvachievement{\faTrophy}{\BLOCK{ if award.title }\VAR{award.title}\BLOCK{ endif }}{\BLOCK{ if award.summary }\VAR{award.summary}\BLOCK{ endif }}
+
+\BLOCK{ if not loop.last} \divider \\ \BLOCK{ endif }
+
+\BLOCK{ endfor }

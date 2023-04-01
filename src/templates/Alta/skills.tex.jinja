@@ -1,0 +1,11 @@
+\cvsection{\VAR{heading}}
+
+\BLOCK{ for skill in skills }
+\textcolor{emphasis}{\textbf{\VAR{skill.name}}}\\
+\smallskip
+\BLOCK{ for keyword in skill.keywords }
+\cvtag{\VAR{keyword}} \BLOCK{ if loop.index0 % 2 == 1 and loop.revindex0 != 0} \smallskip  \BLOCK{ endif }
+\BLOCK{ endfor }
+
+\BLOCK{ if not loop.last} \\ \divider \BLOCK{ endif }
+\BLOCK{ endfor }
