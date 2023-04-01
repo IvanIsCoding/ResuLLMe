@@ -1,0 +1,6 @@
+%%% Skills
+%%% ------------------------------------------------------------
+\NewPart{\VAR{heading}}{}
+\BLOCK{ for skill in skills }
+    \SkillsEntry{\VAR{skill.name}:}{\VAR{skill.keywords[0]}\BLOCK{ for keyword in skill.keywords[1:]}, \VAR{keyword}\BLOCK{ endfor }}
+\BLOCK{ endfor }

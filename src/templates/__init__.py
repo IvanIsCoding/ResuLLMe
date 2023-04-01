@@ -6,6 +6,7 @@ template_commands = {
     "Awesome": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
     "BGJC": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
     "Deedy": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
+    "Modern": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
 }
 
 
