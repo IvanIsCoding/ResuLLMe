@@ -37,6 +37,8 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
+\usepackage{paracol}
+
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -53,7 +55,9 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{minipage}[t]{0.70\textwidth} 
+\columnratio{0.7}
+\begin{paracol}{2}
+\setlength{\columnsep}{4mm}
 
 
 \VAR{sections.get("work", "")}
@@ -66,9 +70,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\end{minipage} 
-\hfill
-\begin{minipage}[t]{0.25\textwidth} 
+\switchcolumn
 
 \VAR{sections.get("education", "")}
 
@@ -76,5 +78,5 @@
 
 \VAR{sections.get("awards", "")}
 
-\end{minipage} 
+\end{paracol} 
 \end{document}
