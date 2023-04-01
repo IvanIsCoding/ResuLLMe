@@ -189,7 +189,6 @@
 \ExplSyntaxOff
 
 \newcommand{\name}[1]{\def\@name{#1}}
-\newcommand{\tagline}[1]{\def\@tagline{#1}}
 \newcommand{\personalinfo}[1]{\def\@personalinfo{#1}}
 \NewInfoField{email}{\faAt}[mailto:]
 \NewInfoField{mailaddress}{\faEnvelope}
@@ -256,11 +255,8 @@
     \raggedright%
     {\namefont\color{name}\MakeUppercase{\@name}\par}
     \medskip
-    {\taglinefont\color{tagline}\@tagline\par}
-    \medskip
     {\personalinfofont\@personalinfo\par}
-    \end{minipage}\hfill%
-    \altacv@right@photos\par%
+    \end{minipage}
   \endgroup\medskip
 }
 
