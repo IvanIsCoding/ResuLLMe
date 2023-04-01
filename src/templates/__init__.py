@@ -8,7 +8,7 @@ template_commands = {
     "Deedy": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
     "Modern": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
     "Plush": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
-    "Alta": ["xelatex", "-interaction=nonstopmode", "-shell-escape", '-output-driver="xdvipdfmx -z 0"', "resume.tex"],
+    "Alta": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
 }
 
 
