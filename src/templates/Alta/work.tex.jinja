@@ -1,0 +1,13 @@
+\cvsection{\VAR{heading}}
+
+\BLOCK{ for work in works }
+\cvevent{\BLOCK{ if work.position } \VAR{work.position} \BLOCK{ endif }}{\BLOCK{ if work.company } \VAR{work.company} \BLOCK{ endif }}{\BLOCK{ if work.startDate} \VAR{work.startDate} | \BLOCK{ endif } \BLOCK{ if work.endDate} \VAR{work.endDate} \BLOCK{ endif }}{\BLOCK{ if work.location } \VAR{work.location} \BLOCK{ endif }}
+\BLOCK{ if work.highlights }
+\begin{itemize}
+\BLOCK{ for highlight in work.highlights }
+	\item \VAR{highlight}
+\BLOCK{ endfor }
+\end{itemize}
+\BLOCK{ endif }
+\BLOCK{ if not loop.last} \divider \BLOCK{ endif }
+\BLOCK{ endfor }
