@@ -15,6 +15,9 @@
 % \documentclass[10pt,a4paper,normalphoto]{altacv}
 \fontdir[fonts/]
 
+% This is a hacky way to get ride of a buggy blank first page on the document... but it works!
+\AddToHook{shipout/before}[nofirstpage]{\SkipFirstPage}
+\newcommand\SkipFirstPage{\DiscardShipoutBox\RemoveFromHook{shipout/before}[nofirstpage]}
 \documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
 %% AltaCV uses the fontawesome5 and packages.
 %% See http://texdoc.net/pkg/fontawesome5 for full list of symbols.
