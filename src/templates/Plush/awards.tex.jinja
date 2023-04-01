@@ -1,0 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     AWARDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\VAR{heading}} 
+\BLOCK{for award in awards}
+\subsection{\BLOCK{ if award.title }\VAR{award.title}\BLOCK{ endif }}
+\descript{\BLOCK{ if award.date }\VAR{award.date}\BLOCK{ endif }}
+\location{\BLOCK{ if award.awarder }\VAR{award.awarder}\BLOCK{ endif }}
+\BLOCK{ if award.summary }\VAR{award.summary}\BLOCK{ endif }
+
+\sectionsep
+\BLOCK{ endfor }

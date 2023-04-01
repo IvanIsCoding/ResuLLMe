@@ -1,0 +1,15 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EDUCATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\VAR{heading}} 
+\BLOCK{ for school in schools }
+\subsection{\BLOCK{ if school.institution }\VAR{school.institution} \BLOCK{ endif }}
+\descript{\VAR{school.studyType} \BLOCK{ if school.area } in \VAR{school.area}  \BLOCK{ endif }}
+\location{ \BLOCK{ if school.startDate} \VAR{school.startDate} - \BLOCK{ endif } \BLOCK{ if school.endDate} \VAR{school.endDate} \BLOCK{ endif }\\
+\BLOCK{ if school.location } \VAR{school.location} \BLOCK{ endif }
+}
+\BLOCK{ if school.score } \location{GPA: \VAR{school.score}} \BLOCK{ endif }
+
+\sectionsep
+\BLOCK{ endfor }

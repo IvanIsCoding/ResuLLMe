@@ -1,0 +1,14 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     SKILLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\VAR{heading}}
+\BLOCK{ for skill in skills }
+\subsection{\VAR{skill.name}}
+\BLOCK{ for keyword in skill.keywords }
+\VAR{keyword} \BLOCK{ if loop.index0 % 3 != 2 and loop.revindex0 != 0}\textbullet{}\BLOCK{ endif } \BLOCK{ if loop.index0 % 3 == 2}\\ \BLOCK{ endif }
+ \BLOCK{ if loop.revindex0 == 0} \sectionsep \BLOCK{ endif }
+\BLOCK{ endfor }
+\BLOCK{ endfor }
+\sectionsep
+\newline
