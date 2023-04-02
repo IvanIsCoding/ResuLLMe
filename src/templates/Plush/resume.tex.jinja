@@ -60,9 +60,11 @@
 \setlength{\columnsep}{4mm}
 
 
-\VAR{sections.get("work", "")}
-
-\VAR{sections.get("projects", "")}
+\BLOCK{ for section in section_ordering }
+\BLOCK{ if section == "work" or section == "projects"}
+\VAR{sections.get(section, "")}
+\BLOCK{ endif }
+\BLOCK{ endfor }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -72,11 +74,11 @@
 
 \switchcolumn
 
-\VAR{sections.get("education", "")}
-
-\VAR{sections.get("skills", "")}
-
-\VAR{sections.get("awards", "")}
+\BLOCK{ for section in section_ordering }
+\BLOCK{ if section == "education" or section == "skills" or section == "awards"}
+\VAR{sections.get(section, "")}
+\BLOCK{ endif }
+\BLOCK{ endfor }
 
 \end{paracol} 
 \end{document}
