@@ -27,7 +27,7 @@ Now consider the following JSON schema:
     ]
 }
 
-Write the education section according to the schema
+Write the education section according to the schema. On the response, include only the JSON.
 """
 
 awards_prompt = """
@@ -55,5 +55,33 @@ Now consider the following JSON schema:
     ]
 }
 
-Write the awards section according to the schema. Include only the awards section.
+Write the awards section according to the schema. Include only the awards section. On the response, include only the JSON.
+"""
+
+projects_prompt = """
+You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
+{JOB_POST_DESCRIPTION}
+
+Consider the following CV:
+{CV_TEXT}
+
+Now consider the following JSON schema:
+{
+    "projects": [
+        {
+            "name": "Harvard Lisp Experimental Compiler",
+            "description": "A compiler for the Lisp programming language written in Haskell for CS510 to try functional programming on embedded systems. The compiler is open soruce and has over 500 stars on Github.",
+            "keywords": ["Haskell", "Lisp", "Embedded Systems", "Arduino"],
+            "url": "https://www.github.com/Harvard-SEAS-Alumn/hlec",
+        },
+        {
+            "name": "New York Stock Exchange Arbtitrage Finder",
+            "description": "A C++ program that finds arbitrage opportunities in the New York Stock Exchange using Bloomberg's API and low-latency network code.",
+            "keywords": ["C++", "Bloomberg", "UDP", "Linux"],
+            "url": "https://github.com/Harvard-SEAS/nyse-arbitrage-finder",
+        }
+    ]
+}
+
+Write the projects section according to the schema. Include only the most relevant projects to the job post on this section. On the response, include only the JSON.
 """
