@@ -1,5 +1,5 @@
 education_prompt = """
-You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
+You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
 {JOB_POST_DESCRIPTION}
 
 Consider the following CV:
@@ -59,7 +59,7 @@ Write the awards section according to the schema. Include only the awards sectio
 """
 
 projects_prompt = """
-You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
+You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
 {JOB_POST_DESCRIPTION}
 
 Consider the following CV:
@@ -84,4 +84,32 @@ Now consider the following JSON schema:
 }
 
 Write the projects section according to the schema. Include only the most relevant projects to the job post on this section. On the response, include only the JSON.
+"""
+
+skills_prompt = """
+You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
+{JOB_POST_DESCRIPTION}
+
+Consider the following CV:
+{CV_TEXT}
+
+Now consider the following JSON schema:
+{
+    "skills": [
+        {
+            "name": "Programming Languages",
+            "keywords": ["C", "C++", "Java", "JavaScript", "Haskell", "Clojure"]
+        },
+        {
+            "name": "Frameworks"
+            "keywords": ["React", "Vue", "Redux", "Spring", "Quarkus"]
+        },
+        {
+            "name": "Certifications",
+            "keywords": ["AWS Certified Solutions Architect", "AWS Certified Developer", "AWS Certified SysOps Administrator"]
+        }
+    ]
+}
+
+Write the skills section according to the schema. Include only the most relevant skills to the job post on this section. On the response, include only the JSON.
 """
