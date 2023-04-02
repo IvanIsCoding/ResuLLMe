@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit_ext as ste
+import os
 
 from doc_utils import extract_text_from_upload, escape_for_latex
 from templates import generate_latex, template_commands
@@ -15,6 +16,12 @@ template_options = list(template_commands.keys())
 if uploaded_file is not None:
     # Get the CV data that we need to convert to json
     text = extract_text_from_upload(uploaded_file)
+
+    # If not in the environment variables, we ask for the OpenAI API Key
+    if not os.getenv("OPENAI_API_KEY"):
+        openai_api_key = st.text_input("Enter your OpenAI API Key:", type="password")
+    else:
+        openai_api_key = os.getenv("OPENAI_API_KEY")
 
     # Get the Job Post Description
     job_post_description = st.text_area("Job Post Description", height=200)
