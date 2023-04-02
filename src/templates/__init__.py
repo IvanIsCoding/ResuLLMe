@@ -1,6 +1,11 @@
 import jinja2
 import os
 
+# This is a hack to import from doc_utils
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from doc_utils import escape_for_latex
+
 template_commands = {
     "Simple": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
     "Awesome": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
@@ -29,8 +34,10 @@ def generate_latex(template_name, json_resume, prelim_section_ordering):
         loader=jinja2.FileSystemLoader(dir_path),
     )
 
+    escaped_json_resume = escape_for_latex(json_resume)
+
     return use_template(
-        template_name, latex_jinja_env, json_resume, prelim_section_ordering
+        template_name, latex_jinja_env, escaped_json_resume, prelim_section_ordering
     )
 
 

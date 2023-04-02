@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit_ext as ste
 import os
 
-from doc_utils import extract_text_from_upload, escape_for_latex
+from doc_utils import extract_text_from_upload
 from templates import generate_latex, template_commands
 from render import render_latex
 import json
@@ -42,9 +42,8 @@ if uploaded_file is not None:
 
     if generate_button:
         json_resume = json.loads(text)
-        escaped_json_resume = escape_for_latex(json_resume)
         latex_resume = generate_latex(
-            chosen_option, escaped_json_resume, section_ordering
+            chosen_option, json_resume, section_ordering
         )
 
         resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
