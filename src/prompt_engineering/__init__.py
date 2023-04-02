@@ -1,9 +1,8 @@
 education_prompt = """
-You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
-{JOB_POST_DESCRIPTION}
+You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
 
 Consider the following CV:
-{CV_TEXT}
+<CV_TEXT>
 
 Now consider the following JSON schema:
 {
@@ -31,11 +30,10 @@ Write the education section according to the schema. On the response, include on
 """
 
 awards_prompt = """
-You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
-{JOB_POST_DESCRIPTION}
+You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
 
 Consider the following CV:
-{CV_TEXT}
+<CV_TEXT>
 
 Now consider the following JSON schema:
 {
@@ -59,8 +57,7 @@ Write the awards section according to the schema. Include only the awards sectio
 """
 
 projects_prompt = """
-You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
-{JOB_POST_DESCRIPTION}
+You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
 
 Consider the following CV:
 {CV_TEXT}
@@ -83,12 +80,11 @@ Now consider the following JSON schema:
     ]
 }
 
-Write the projects section according to the schema. Include only the most relevant projects to the job post on this section. On the response, include only the JSON.
+Write the projects section according to the schema. Include all projects, but only the ones present in the CV. On the response, include only the JSON.
 """
 
 skills_prompt = """
-You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for the following job post:
-{JOB_POST_DESCRIPTION}
+You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
 
 Consider the following CV:
 {CV_TEXT}
@@ -111,5 +107,5 @@ Now consider the following JSON schema:
     ]
 }
 
-Write the skills section according to the schema. Include only the most relevant skills to the job post on this section. On the response, include only the JSON.
+Write the skills section according to the schema. Include all skills, but only the ones present in the CV. On the response, include only the JSON.
 """
