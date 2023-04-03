@@ -1,3 +1,23 @@
+basics_prompt = """
+You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
+
+Consider the following CV:
+<CV_TEXT>
+
+Now consider the following JSON schema:
+{
+    "basics": {
+        "name": "John Doe",
+        "email": "john@gmail.com",
+        "phone": "(912) 555-4321",
+        "website": "https://johndoe.com",
+        "location": 
+    }
+}
+
+Write the basics section according to the schema. On the response, include only the JSON.
+"""
+
 education_prompt = """
 You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
 
@@ -87,7 +107,7 @@ skills_prompt = """
 You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
 
 Consider the following CV:
-{CV_TEXT}
+<CV_TEXT>
 
 Now consider the following JSON schema:
 {
