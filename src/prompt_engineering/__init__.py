@@ -11,7 +11,7 @@ Now consider the following JSON schema:
         "email": "john@gmail.com",
         "phone": "(912) 555-4321",
         "website": "https://johndoe.com",
-        "location": 
+        "location": "Atlanta, GA"
     }
 }
 
