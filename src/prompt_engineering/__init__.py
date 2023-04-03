@@ -107,5 +107,23 @@ Now consider the following JSON schema:
     ]
 }
 
+Notice that the schema is a list of skills. Each skill has a name and a list of keywords. This is extremely flexible, as the following is also valid:
+{
+    "skills": [
+        {
+            "name": "Relevant Coursework",
+            "keywords": ["Econometrics", "Quantitative Political Science", "Applied Machine Learning for the Social Sciences", "Mathematical Finance"]
+        },
+        {
+            "name": "Computer Software"
+            "keywords": ["Microsoft Excel", "Microsoft Word", "Microsoft Power Point", "Stata", "Matlab"]
+        },
+        {
+            "name": "Foreign Languages",
+            "keywords": ["French (Fluent)", "Chinese (Intermediate)", "Arabic (Beginner)"]
+        }
+    ]
+}
+
 Write the skills section according to the schema. Include all skills, but only the ones present in the CV. On the response, include only the JSON.
 """
