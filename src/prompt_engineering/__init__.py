@@ -222,5 +222,5 @@ This is extremely flexible, as the following is also valid work JSON:
     ]
 }
 
-Write the work section according to the schema. Include all work positions, but only the ones present in the CV. On the response, include only the JSON.
+Write the work section according to the schema. Include all work positions, but only the ones present in the CV. It is stricly important to include ONLY the work key in the top-level of the JSON. Please only include the work experience and no other data, as including other keys can hurt our applicants prospective job opportunities. Include only the JSON in your response.
 """
