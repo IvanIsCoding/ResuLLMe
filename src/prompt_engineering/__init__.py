@@ -158,7 +158,7 @@ Now consider the following JSON schema:
 {
     "work": [
         {
-            "name": "Apple",
+            "company": "Apple",
             "position": "Senior Software Engineer",
             "startDate": "January 2018",
             "endDate": "Present",
@@ -169,7 +169,7 @@ Now consider the following JSON schema:
             ]
         },
         {
-            "name": "Snap",
+            "company": "Snap",
             "position": "Software Engineer",
             "startDate": "March 2014",
             "endDate": "December 2018",
@@ -189,7 +189,7 @@ This is extremely flexible, as the following is also valid work JSON:
 {
     "work": [
         {
-            "name": "McKinsey & Company",
+            "company": "McKinsey & Company",
             "position": "Associate",
             "startDate": "January 2022",
             "endDate": "Present",
@@ -199,7 +199,7 @@ This is extremely flexible, as the following is also valid work JSON:
             ]
         },
         {
-            "name": "Harvard University Alumni Association",
+            "company": "Harvard University Alumni Association",
             "position": "Alumni Relations Associate",
             "startDate": "January 2021",
             "endDate": "December 2021",
@@ -208,7 +208,7 @@ This is extremely flexible, as the following is also valid work JSON:
             ]
         },
         {
-            "name": "Phi Beta Kappa",
+            "company": "Phi Beta Kappa",
             "position": "President",
             "startDate": "January 2021",
             "endDate": "December 2021",
