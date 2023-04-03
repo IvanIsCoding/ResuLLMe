@@ -147,3 +147,78 @@ Notice that the schema is a list of skills. Each skill has a name and a list of 
 
 Write the skills section according to the schema. Include all skills, but only the ones present in the CV. On the response, include only the JSON.
 """
+
+work_prompt = """
+You are a career adviser at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
+
+Consider the following CV:
+<CV_TEXT>
+
+Now consider the following JSON schema:
+{
+    "work": [
+        {
+            "name": "Apple",
+            "position": "Senior Software Engineer",
+            "startDate": "January 2018",
+            "endDate": "Present",
+            "highlights": [
+                "Developed a new feature for the Apple Watch that allows users to track their heart rate and sleep patterns, saving a famous twitter influencer from a heart attack",
+                "Created the step counting feature in the Apple, leading to over a trillion steps being counted by the Apple Watch",
+                "Made the Mickey Mouse watch face, putting a smile on the faces of millions of users"
+            ]
+        },
+        {
+            "name": "Snap",
+            "position": "Software Engineer",
+            "startDate": "March 2014",
+            "endDate": "December 2018",
+            "highlights": [
+                "Implemented the Snapchat Lens feature, allowing millions of users to add filters to their photos and videos",
+                "Created the Snapchat Lens Studio, allowing users to create their own lenses",
+                "Migrated the codebase after the acquisition of Bitstrips, smoothly integrating Bitmoji",
+                "Met LeBron James and Drake, and got a shoutout from Drake on his Snapchat story"
+            ]
+        }
+    ]
+}
+
+Notice that the schema is a list of work positions. Each work position is a JSON with the fields of name, position, startDate, endDate, and highlights. The higlights are a list of strings. 
+
+This is extremely flexible, as the following is also valid work JSON:
+{
+    "work": [
+        {
+            "name": "McKinsey & Company",
+            "position": "Associate",
+            "startDate": "January 2022",
+            "endDate": "Present",
+            "highlights": [
+                "Consulting for ESG and sustainability for Fortune 500 companies",
+                "Working in a dynamic team of 5 people"
+            ]
+        },
+        {
+            "name": "Harvard University Alumni Association",
+            "position": "Alumni Relations Associate",
+            "startDate": "January 2021",
+            "endDate": "December 2021",
+            "highlights": [
+                "Secured funding of over 5 million dollars for the Harvard Alumni Association in order to secure e-mail addresses of all Harvard alumni"
+            ]
+        },
+        {
+            "name": "Phi Beta Kappa",
+            "position": "President",
+            "startDate": "January 2021",
+            "endDate": "December 2021",
+            "highlights": [
+                "Organized community building events with members of the Cambridge community",
+                "Chaired the Harvard pan-helenic council"
+            ]
+        }
+    ]
+}
+
+Write the work section according to the schema. Include all work positions, but only the ones present in the CV. On the response, include only the JSON.
+"""
