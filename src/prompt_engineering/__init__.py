@@ -31,17 +31,19 @@ Now consider the following JSON schema:
             "institution": "Harvard University",
             "area": "Computer Science",
             "studyType": "Master's of Science",
-            "startDate": "2011-01-01",
-            "endDate": "2013-01-01",
-            "score": "4.0"
+            "startDate": "January 2011",
+            "endDate": "December 2012",
+            "score": "4.0",
+            "location": "Cambridge, MA"
         },
         {
             "institution": "University of California, Los Angeles",
             "area": "Computer Science",
             "studyType": "Bachelor of Science",
-            "startDate": "2006-01-01",
-            "endDate": "2010-01-01",
-            "score": "3.25"
+            "startDate": "September 2005",
+            "endDate": "June 2009",
+            "score": "3.25",
+            "location": "Los Angeles, CA"
         }
     ]
 }
