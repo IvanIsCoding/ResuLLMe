@@ -156,71 +156,7 @@ You are a career adviser at the Harvard Extension School. You are going to write
 Consider the following CV:
 <CV_TEXT>
 
-Now consider the following JSON schema:
-{
-    "work": [
-        {
-            "company": "Apple",
-            "position": "Senior Software Engineer",
-            "startDate": "January 2018",
-            "endDate": "Present",
-            "highlights": [
-                "Developed a new feature for the Apple Watch that allows users to track their heart rate and sleep patterns, saving a famous twitter influencer from a heart attack",
-                "Created the step counting feature in the Apple, leading to over a trillion steps being counted by the Apple Watch",
-                "Made the Mickey Mouse watch face, putting a smile on the faces of millions of users"
-            ]
-        },
-        {
-            "company": "Snap",
-            "position": "Software Engineer",
-            "startDate": "March 2014",
-            "endDate": "December 2018",
-            "highlights": [
-                "Implemented the Snapchat Lens feature, allowing millions of users to add filters to their photos and videos",
-                "Created the Snapchat Lens Studio, allowing users to create their own lenses",
-                "Migrated the codebase after the acquisition of Bitstrips, smoothly integrating Bitmoji",
-                "Met LeBron James and Drake, and got a shoutout from Drake on his Snapchat story"
-            ]
-        }
-    ]
-}
+Write a work experience section for the candidate. Include only the work experience and not the project experience. For each work experience, provide  a company name, position name, start and end date, and bullet point for the highlights. Follow the Harvard Extension School Resume guidelines and phrase the bullet points with the STAR methodology
 
-Notice that the schema is a list of work positions. Each work position is a JSON with the fields of name, position, startDate, endDate, and highlights. The higlights are a list of strings. 
-
-This is extremely flexible, as the following is also valid work JSON:
-{
-    "work": [
-        {
-            "company": "McKinsey & Company",
-            "position": "Associate",
-            "startDate": "January 2022",
-            "endDate": "Present",
-            "highlights": [
-                "Consulting for ESG and sustainability for Fortune 500 companies",
-                "Working in a dynamic team of 5 people"
-            ]
-        },
-        {
-            "company": "Harvard University Alumni Association",
-            "position": "Alumni Relations Associate",
-            "startDate": "January 2021",
-            "endDate": "December 2021",
-            "highlights": [
-                "Secured funding of over 5 million dollars for the Harvard Alumni Association in order to secure e-mail addresses of all Harvard alumni"
-            ]
-        },
-        {
-            "company": "Phi Beta Kappa",
-            "position": "President",
-            "startDate": "January 2021",
-            "endDate": "December 2021",
-            "highlights": [
-                "Organized community building events with members of the Cambridge community",
-                "Chaired the Harvard pan-helenic council"
-            ]
-        }
-    ]
-}
-
-Write the work section according to the schema. Include all work positions, but only the ones present in the CV. It is stricly important to include ONLY the work key in the top-level of the JSON. Please only include the work experience and no other data, as including other keys can hurt our applicants prospective job opportunities. Include only the JSON in your response.
+Work Experience:
 """
