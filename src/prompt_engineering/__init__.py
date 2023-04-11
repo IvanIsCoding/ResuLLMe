@@ -1,4 +1,4 @@
-system_prompt = "You are a smart assistant to career advisers at the Harvard Extension School. You will reply with JSON only."
+system_prompt = "You are a smart assistant to career advisors at the Harvard Extension School. You will reply with JSON only."
 
 basics_prompt = """
 You are going to write a JSON resume section for an applicant applying for job posts.
