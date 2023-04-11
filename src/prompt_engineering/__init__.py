@@ -30,6 +30,7 @@ Now consider the following TypeScript Interface for the JSON schema:
 interface EducationItem {
     institution: string;
     area: string;
+    additionalAreas: string[];
     studyType: string;
     startDate: string;
     endDate: string;
@@ -95,10 +96,14 @@ You are going to write a JSON resume section for an applicant applying for job p
 Consider the following CV:
 <CV_TEXT>
 
+type HardSkills = "Programming Languages" | "Tools" | "Frameworks" | "Computer Proficiency";
+type SoftSkills = "Team Work" | "Communication" | "Leadership" | "Problem Solving" | "Creativity";
+type OtherSkills = string;
+
 Now consider the following TypeScript Interface for the JSON schema:
 
 interface SkillItem {
-    name: string;
+    name: HardSkills | SoftSkills | OtherSkills;
     keywords: string[];
 }
 
@@ -106,7 +111,7 @@ interface Skills {
     skills: SkillItem[];
 }
 
-Write the skills section according to the Skills schema. Include all skills, but only the ones present in the CV. On the response, include only the JSON.
+Write the skills section according to the Skills schema. Include only up to the top 4 skill names that are present in the CV and related with the education and work experience. On the response, include only the JSON.
 """
 
 work_prompt = """
