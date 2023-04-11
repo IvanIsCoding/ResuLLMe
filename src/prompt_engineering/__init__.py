@@ -1,54 +1,46 @@
 basics_prompt = """
-You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
+You are going to write a JSON resume section for an applicant applying for job posts.
 
 Consider the following CV:
 <CV_TEXT>
 
-Now consider the following JSON schema:
-{
-    "basics": {
-        "name": "John Doe",
-        "email": "john@gmail.com",
-        "phone": "(912) 555-4321",
-        "website": "https://johndoe.com",
-        "location": "Atlanta, GA"
-    }
+Now consider the following TypeScript Interface for the JSON schema:
+
+interface Basics {
+    name: string;
+    email: string;
+    phone: string;
+    website: string;
+    address: string;
 }
 
-Write the basics section according to the schema. On the response, include only the JSON.
+Write the basics section according to the Basic schema. On the response, include only the JSON.
 """
 
 education_prompt = """
-You are a career advisor at the Harvard Extension School. You are going to write a JSON resume section for an applicant applying for job posts.
+You are going to write a JSON resume section for an applicant applying for job posts.
 
 Consider the following CV:
 <CV_TEXT>
 
-Now consider the following JSON schema:
-{
-    "education": [
-        {
-            "institution": "Harvard University",
-            "area": "Computer Science",
-            "studyType": "Master's of Science",
-            "startDate": "January 2011",
-            "endDate": "December 2012",
-            "score": "4.0",
-            "location": "Cambridge, MA"
-        },
-        {
-            "institution": "University of California, Los Angeles",
-            "area": "Computer Science",
-            "studyType": "Bachelor of Science",
-            "startDate": "September 2005",
-            "endDate": "June 2009",
-            "score": "3.25",
-            "location": "Los Angeles, CA"
-        }
-    ]
+Now consider the following TypeScript Interface for the JSON schema:
+
+interface EducationItem {
+    institution: string;
+    area: string;
+    studyType: string;
+    startDate: string;
+    endDate: string;
+    score: string;
+    location: string;
 }
 
-Write the education section according to the schema. On the response, include only the JSON.
+interface Education {
+    education: EducationItem[];
+}
+
+
+Write the education section according to the Education schema. On the response, include only the JSON.
 """
 
 awards_prompt = """
