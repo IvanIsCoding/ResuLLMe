@@ -1,4 +1,4 @@
-# ResuLLMe [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://resullme.streamlit.app/)
+# ResuLLMe [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://resullme.streamlit.app/) [![](https://img.shields.io/github/license/IvanIsCoding/ResuLLMe)](https://github.com/IvanIsCoding/ResuLLMe/blob/main/LICENSE)
 
 ResuLLMe is live at [https://resullme.streamlit.app/](https://resullme.streamlit.app/). As of now, you need an OpenAI API token for the application to work.
 
@@ -8,7 +8,7 @@ ResuLLMe is a prototype that uses Large Language Models (LLMs) to tailor resumes
 
 ## 🛠 How It Works
 
-ResuLLMe receives your previous CV in PDF, Docx, our text format. Then, it uses LLMs to:
+ResuLLMe receives your previous CV in PDF or Word Document. Then, it uses LLMs to:
 * Improve the resume following published resume guidelines by well-reputed schools
 * Conver the resume to a JSON Resume format
 * Render the JSON resume using LaTeX to generate a new PDF of the enhanced resume
