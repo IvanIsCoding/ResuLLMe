@@ -4,7 +4,7 @@ import os
 
 from doc_utils import extract_text_from_upload
 from templates import generate_latex, template_commands
-from prompt_engineering import generate_json_resume
+from prompt_engineering import generate_json_resume, tailor_resume
 from render import render_latex
 import json
 
@@ -16,7 +16,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
 
 
 uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt", "json"])
@@ -33,9 +32,6 @@ if uploaded_file is not None:
     else:
         openai_api_key = os.getenv("OPENAI_API_KEY")
 
-    # Get the Job Post Description
-    # job_post_description = st.text_area("Job Post Description", height=200)
-
     chosen_option = st.selectbox(
         "Select a template to use for your resume",
         template_options,
@@ -48,9 +44,15 @@ if uploaded_file is not None:
         ["education", "work", "skills", "projects", "awards"],
     )
 
+    improve_check = st.checkbox("I want to improve the resume with LLMs", value=True)
+
     generate_button = st.button("Generate Resume")
 
     if generate_button:
+        if improve_check:
+            with st.spinner("Tailoring the resume"):
+                text = tailor_resume(text, openai_api_key)
+
         json_resume = generate_json_resume(text, openai_api_key)
         latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
 

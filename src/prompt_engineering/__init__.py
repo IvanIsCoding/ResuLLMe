@@ -6,6 +6,28 @@ SYSTEM_PROMPT = "You are a smart assistant to career advisors at the Harvard Ext
 
 CV_TEXT_PLACEHOLDER = "<CV_TEXT>"
 
+SYSTEM_TAILORING = """
+You are a smart assistant to career advisors at the Harvard Extension School. Your take is to rewrite
+resumes to be more brief and convincing according to the Resumes and Cover Letters guide.
+"""
+
+TAILORING_PROMPT = """
+Consider the following CV:
+<CV_TEXT>
+
+Your task is to rewrite the given CV. Follow these guidelines:
+- Be truthful and objective to the experience listed in the CV
+- Be specific rather than general
+- Rewrite job highlight items using STAR methodology (but do not mention STAR explicitly)
+- Fix spelling and grammar errors
+- Writte to express not impress
+- Articulate and don't be flowery
+- Prefer active voice over passive voice
+- Do not include a summary about the candidate
+
+Improved CV:
+"""
+
 BASICS_PROMPT = """
 You are going to write a JSON resume section for an applicant applying for job posts.
 
@@ -172,13 +194,38 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
 
         try:
             answer = response["choices"][0]["message"]["content"]
-            sections.append(json.loads(answer))
+            answer = json.loads(answer)
+
+            if prompt == BASICS_PROMPT and "basics" not in answer:
+                answer = {"basics": answer}  # common mistake GPT makes
+
+            sections.append(answer)
         except Exception as e:
             print(e)
-            print(response)
 
     final_json = {}
     for section in sections:
         final_json.update(section)
 
     return final_json
+
+
+def tailor_resume(cv_text, api_key, model="gpt-3.5-turbo"):
+    filled_prompt = TAILORING_PROMPT.replace("<CV_TEXT>", cv_text)
+
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": SYSTEM_TAILORING},
+                {"role": "user", "content": filled_prompt},
+            ],
+            api_key=api_key,
+        )
+
+        answer = response["choices"][0]["message"]["content"]
+        return answer
+    except Exception as e:
+        print(e)
+        print("Failed to tailor resume.")
+        return cv_text
