@@ -33,9 +33,7 @@ if uploaded_file is not None:
 
     if generate_button:
         json_resume = json.loads(text)
-        latex_resume = generate_latex(
-            chosen_option, json_resume, section_ordering
-        )
+        latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
 
         resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
 

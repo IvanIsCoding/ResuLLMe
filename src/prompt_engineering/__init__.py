@@ -144,11 +144,22 @@ interface Work {
 Write a work section for the candidate according to the Work schema. Include only the work experience and not the project experience. For each work experience, provide  a company name, position name, start and end date, and bullet point for the highlights. Follow the Harvard Extension School Resume guidelines and phrase the highlights with the STAR methodology
 """
 
+
 def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
     """Generate a JSON resume from a CV text"""
     sections = []
 
-    for prompt in stqdm([BASICS_PROMPT, EDUCATION_PROMPT, AWARDS_PROMPT, PROJECTS_PROMPT, SKILLS_PROMPT, WORK_PROMPT], desc="This may take a while..."):
+    for prompt in stqdm(
+        [
+            BASICS_PROMPT,
+            EDUCATION_PROMPT,
+            AWARDS_PROMPT,
+            PROJECTS_PROMPT,
+            SKILLS_PROMPT,
+            WORK_PROMPT,
+        ],
+        desc="This may take a while...",
+    ):
         filled_prompt = prompt.replace(CV_TEXT_PLACEHOLDER, cv_text)
         response = openai.ChatCompletion.create(
             model=model,
@@ -158,16 +169,16 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
             ],
             api_key=api_key,
         )
- 
+
         try:
-            answer = response['choices'][0]['message']['content']
+            answer = response["choices"][0]["message"]["content"]
             sections.append(json.loads(answer))
         except Exception as e:
             print(e)
             print(response)
-    
+
     final_json = {}
     for section in sections:
         final_json.update(section)
-    
+
     return final_json

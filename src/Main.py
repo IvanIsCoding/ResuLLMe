@@ -25,7 +25,7 @@ if uploaded_file is not None:
         openai_api_key = os.getenv("OPENAI_API_KEY")
 
     # Get the Job Post Description
-    #job_post_description = st.text_area("Job Post Description", height=200)
+    # job_post_description = st.text_area("Job Post Description", height=200)
 
     chosen_option = st.selectbox(
         "Select a template to use for your resume",
@@ -43,9 +43,7 @@ if uploaded_file is not None:
 
     if generate_button:
         json_resume = generate_json_resume(text, openai_api_key)
-        latex_resume = generate_latex(
-            chosen_option, json_resume, section_ordering
-        )
+        latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
 
         resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
 

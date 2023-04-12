@@ -3,6 +3,7 @@ import os
 
 # This is a hack to import from doc_utils
 import sys
+
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from doc_utils import escape_for_latex
 
