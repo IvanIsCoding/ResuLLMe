@@ -1,5 +1,6 @@
 import openai
 import json
+from stqdm import stqdm
 
 SYSTEM_PROMPT = "You are a smart assistant to career advisors at the Harvard Extension School. You will reply with JSON only."
 
@@ -147,7 +148,7 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
     """Generate a JSON resume from a CV text"""
     sections = []
 
-    for prompt in [BASICS_PROMPT, EDUCATION_PROMPT, AWARDS_PROMPT, PROJECTS_PROMPT, SKILLS_PROMPT, WORK_PROMPT]:
+    for prompt in stqdm([BASICS_PROMPT, EDUCATION_PROMPT, AWARDS_PROMPT, PROJECTS_PROMPT, SKILLS_PROMPT, WORK_PROMPT], desc="This may take a while..."):
         filled_prompt = prompt.replace(CV_TEXT_PLACEHOLDER, cv_text)
         response = openai.ChatCompletion.create(
             model=model,
