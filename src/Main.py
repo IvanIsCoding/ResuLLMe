@@ -17,6 +17,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.markdown("Welcome to ResuLLMe! Drop your previous CV below, select one of the templates, and let the LLMs generate your resume for you")
+
 
 uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt", "json"])
 
@@ -28,12 +30,12 @@ if uploaded_file is not None:
 
     # If not in the environment variables, we ask for the OpenAI API Key
     if not os.getenv("OPENAI_API_KEY"):
-        openai_api_key = st.text_input("Enter your OpenAI API Key:", type="password")
+        openai_api_key = st.text_input("Enter your OpenAI API Key: [(click here to obtain a new key if you do not have one)](https://platform.openai.com/account/api-keys)", type="password")
     else:
         openai_api_key = os.getenv("OPENAI_API_KEY")
 
     chosen_option = st.selectbox(
-        "Select a template to use for your resume",
+        "Select a template to use for your resume [(see templates)](/Template_Gallery)",
         template_options,
         index=0,  # default to the first option
     )

@@ -16,6 +16,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.markdown("Do you want to regenerate your resume with edited information or with a different template? Simply provide the JSON Resume and we will render it for you")
+
 
 uploaded_file = st.file_uploader("Choose a file", type=["json"])
 
