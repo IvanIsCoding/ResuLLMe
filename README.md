@@ -1,5 +1,8 @@
 # ResuLLMe [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://resullme.streamlit.app/) [![](https://img.shields.io/github/license/IvanIsCoding/ResuLLMe)](https://github.com/IvanIsCoding/ResuLLMe/blob/main/LICENSE) ![](https://img.shields.io/badge/code%20style-black-black)
 
+---
+
+![](./.github/Preview.png)
 
 ## 🚀 Concept
 
