@@ -1,6 +1,6 @@
 import streamlit as st
 
-nav_script = """
-    <meta http-equiv="refresh" content="0; url='https://www.github.com/IvanIsCoding/ResuLLMe'">
+st.markdown("""
+We will provide the link to Overleaf once the template gets accepted into the Gallery.
 """
-st.write(nav_script, unsafe_allow_html=True)
+)

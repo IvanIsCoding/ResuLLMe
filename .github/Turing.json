@@ -1,0 +1,139 @@
+{
+    "basics": {
+        "name": "Alan Turing",
+        "email": "alan@turing.org.uk",
+        "phone": "+1 (123) 456-7890",
+        "website": "https://www.turing.org.uk/",
+        "address": "1234 Bletchley Park, Milton Keynes, MK3 6EB, UK"
+    },
+    "education": [
+        {
+            "institution": "Princeton",
+            "area": "Mathematics",
+            "additionalAreas": [],
+            "studyType": "PhD",
+            "startDate": null,
+            "endDate": null,
+            "score": "",
+            "location": "Princeton, United States"
+        },
+        {
+            "institution": "King's College, Cambridge",
+            "area": "Mathematics",
+            "additionalAreas": [],
+            "studyType": "AM",
+            "startDate": null,
+            "endDate": null,
+            "score": "",
+            "location": " Cambridge, England"
+        },
+        {
+            "institution": "King's College, Cambridge University",
+            "area": "Mathematics",
+            "additionalAreas": [],
+            "studyType": "AB",
+            "startDate": null,
+            "endDate": null,
+            "score": "",
+            "location": "Cambridge, England"
+        }
+    ],
+    "awards": [
+        {
+            "title": "Fellow of the Royal Society",
+            "date": "1951-03-21",
+            "awarder": "The Royal Society",
+            "summary": "For his contributions to mathematical logic and theoretical computer science"
+        },
+        {
+            "title": "Order of the British Empire",
+            "date": "1946-06-04",
+            "awarder": "King George VI",
+            "summary": "For his services in the development of the Automatic Computing Engine"
+        },
+        {
+            "title": "Honorary Doctor of Science",
+            "date": "1948-06-22",
+            "awarder": "The University of Manchester",
+            "summary": "In recognition of his work on the Electronic Computer Pilot ACE"
+        }
+    ],
+    "projects": [
+        {
+            "name": "Cracking the Enigma Machine",
+            "description": "Worked with the Government Code and Cypher School to aid Britain's efforts in cracking intercepted messages from the Nazi Party. Estimated to have shortened the war and saved over 14 million human lives.",
+            "keywords": [
+                "cryptanalysis",
+                "code breaking",
+                "War effort"
+            ],
+            "url": ""
+        },
+        {
+            "name": "Turing Test",
+            "description": "Created an imitation game to test a machine's ability to exhibit intelligent behavior. Widely influenced the concept of artificial intelligence philosophy.",
+            "keywords": [
+                "artificial intelligence",
+                "machine learning"
+            ],
+            "url": ""
+        },
+        {
+            "name": "First Chess Computer Program",
+            "description": "Co-wrote a computer program for the Ferranti Mark 1 with DG Cahmpernowne.",
+            "keywords": [
+                "chess",
+                "computer program",
+                "Ferranti Mark 1"
+            ],
+            "url": ""
+        }
+    ],
+    "skills": [
+        {
+            "name": "Problem Solving",
+            "keywords": [
+                "Cryptanalysis",
+                "Artificial intelligence"
+            ]
+        }
+    ],
+    "work": [
+        {
+            "company": "University of Manchester",
+            "position": "Deputy Director of the Computing Machine Laboratory",
+            "startDate": "1948",
+            "endDate": "1951",
+            "location": "Manchester, UK",
+            "highlights": [
+                "Designed a group of machines to speed up the decryption process.",
+                "Developed a chess program and a baby computer called the Manchester Mark I.",
+                "Proved that every computer program can be represented by a combination of a few simple instructions."
+            ]
+        },
+        {
+            "company": "National Physical Laboratory",
+            "position": "Head of the Computing Division",
+            "startDate": "1945",
+            "endDate": "1948",
+            "location": "London, UK",
+            "highlights": [
+                "Built the world's first electronic computer, the Colossus.",
+                "Estimated to have shorted World War II by two years.",
+                "Proposed the Universal Turing Machine, which revolutionized computational science."
+            ]
+        },
+        {
+            "company": "Government Code and Cypher School",
+            "position": "Cryptanalyst",
+            "startDate": "1940",
+            "endDate": "1945",
+            "location": "Bletchley Park, UK",
+            "highlights": [
+                "Led a team in developing a method to crack the German Enigma machine, saving over 14 million lives.",
+                "Received the Officer of the Order of the British Empire for contributions to wartime intelligence.",
+                "Developed techniques that would lay the foundation for modern computer science and artificial intelligence."
+            ]
+        }
+    ]
+}
