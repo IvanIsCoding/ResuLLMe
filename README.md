@@ -2,7 +2,7 @@
 
 ---
 
-![](./.github/Preview.png)
+![](./.github/images/Preview.png)
 
 ## 🚀 Concept
 
