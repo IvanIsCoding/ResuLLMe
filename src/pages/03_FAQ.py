@@ -9,7 +9,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown("""
+st.markdown(
+    """
 
 ## There is information on my resume that is not accurate. How do I fix it?
 

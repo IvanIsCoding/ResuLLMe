@@ -13,7 +13,8 @@ st.markdown(
 )
 
 
-st.markdown("""
+st.markdown(
+    """
 ### Table of Contents
 
 - [Simple](#simple)
