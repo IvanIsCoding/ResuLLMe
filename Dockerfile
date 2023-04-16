@@ -8,10 +8,11 @@ FROM python:3.9
 WORKDIR /app
 
 # copy the dependencies file to the working directory
-COPY requirements.txt .
+COPY requirements.txt packages.txt /app/
 
 # install dependencies
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt && \
+    pip install -r packages.txt
 
 # copy the content of the local src directory to the working directory
 COPY src .
