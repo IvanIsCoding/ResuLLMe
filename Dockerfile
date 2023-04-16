@@ -12,7 +12,7 @@ COPY requirements.txt packages.txt /app/
 
 # install dependencies
 RUN pip install -r requirements.txt && \
-    ap install -y < packages.txt
+    apt install -y < packages.txt
 
 # copy the content of the local src directory to the working directory
 COPY src .
