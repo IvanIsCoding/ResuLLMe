@@ -27,9 +27,9 @@ streamlit run src/Main.py
 
 Notice that you will need to install the dependencies in `requirements.txt` for your code to work, and install the packages in `packages.txt` for the LaTeX rendering to work (or equivalent if not using Ubuntu).
 
-#INSTALLATION
+#I 🪄 Installation
 
-$ sudo apt-get install package-name
+$ sudo apt-get install < packages.txt
 
 ## 🤲 Contributing
 
