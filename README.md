@@ -29,9 +29,7 @@ Notice that you will need to install the dependencies in `requirements.txt` for 
 
 #INSTALLATION
 
-$ pip install -r requirements.txt
-
-$ pip install package-name
+$ sudo apt-get install package-name
 
 ## 🤲 Contributing
 
