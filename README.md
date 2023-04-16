@@ -19,18 +19,25 @@ ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs
 
 ## 🏃 Running
 
-To run ResuLLMe locally, execute:
+To run ResuLLMe locally,  execute:
 
 ```
 streamlit run src/Main.py
 ```
 
-Notice that you will need to install the dependencies in `requirements.txt` for your code to work, and install the packages in `packages.txt` for the LaTeX rendering to work (or equivalent if not using Ubuntu).
+### 🪄 Installation Instructions
 
-#I 🪄 Installation
+Notice that you will need to install two things for the app to work. The first are the Python dependencies:
 
-$ sudo apt-get install < packages.txt
+```
+pip install -r requirements.txt
+```
 
+The second is the LaTeX packages:
+
+```
+sudo apt install -y < packages.txt
+```
 ## 🤲 Contributing
 
 ResuLLMe is an open source project.
