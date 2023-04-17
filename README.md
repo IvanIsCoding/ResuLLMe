@@ -17,6 +17,13 @@ ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs
 * Convert the résumés to a JSON Resume format
 * Render the JSON resume using LaTeX to generate a new PDF of the enhanced resume
 
+### 🐳 Docker installation For Linux
+
+```bash
+apt install docker docker-compose
+```
+
+
 ## 🏃 Running
 
 To run ResuLLMe locally, the simplest way is to use Docker:
