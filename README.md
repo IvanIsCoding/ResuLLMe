@@ -19,8 +19,12 @@ ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs
 
 ### 🐳 Docker installation For Linux
 
+To install Docker on Linux, follow the instructions on the [Docker website](https://docs.docker.com/engine/install/ubuntu/).
+
+To install Docker Compose, run the following command:
+
 ```bash
-apt install docker docker-compose
+apt install docker-compose
 ```
 
 
