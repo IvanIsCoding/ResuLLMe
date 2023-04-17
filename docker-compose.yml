@@ -1,0 +1,8 @@
+version: '3'
+services:
+  resullme:
+    build:
+        context: ./
+        dockerfile: Dockerfile
+    ports:
+      - 8501:8501

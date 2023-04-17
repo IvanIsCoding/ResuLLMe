@@ -19,25 +19,34 @@ ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs
 
 ## 🏃 Running
 
-To run ResuLLMe locally,  execute:
+To run ResuLLMe locally, the simplest way is to use Docker:
 
 ```
-streamlit run src/Main.py
+docker-compose up -d
 ```
 
-### 🪄 Installation Instructions
+This will make the app avaialable at [`https://localhost:8501/`](https://localhost:8501/)
 
-Notice that you will need to install two things for the app to work. The first are the Python dependencies:
+### 🪄 Installation Instructions for Running Natively
+
+To run the app without Docker, you will need to install two things for the app to work. The first item is to install the Python dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
-The second is the LaTeX packages:
+The second item is to install the LaTeX packages:
 
 ```
-sudo apt install -y < packages.txt
+xargs sudo apt install -y < packages.txt
 ```
+
+Lastly, to run ResuLLMe locally, execute:
+
+```
+streamlit run src/Main.py
+```
+
 ## 🤲 Contributing
 
 ResuLLMe is an open source project.
