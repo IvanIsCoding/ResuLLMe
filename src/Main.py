@@ -11,6 +11,13 @@ import json
 
 IFRAME = '<iframe src="https://ghbtns.com/github-btn.html?user=IvanIsCoding&repo=ResuLLMe&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>'
 
+st.set_page_config(
+    page_title="ResuLLMe",
+    page_icon=":clipboard:",
+    layout="wide",
+    initial_sidebar_state="auto"
+)
+
 st.markdown(
     f"""
     # ResuLLMe {IFRAME}
@@ -31,14 +38,13 @@ if uploaded_file is not None:
     # Get the CV data that we need to convert to json
     text = extract_text_from_upload(uploaded_file)
 
-    # If not in the environment variables, we ask for the OpenAI API Key
-    if not os.getenv("OPENAI_API_KEY"):
+    # If the OpenAI API Key is not set as an environment variable, prompt the user for it
+    openai_api_key = os.getenv("OPENAI_API_KEY")
+    if not openai_api_key:
         openai_api_key = st.text_input(
             "Enter your OpenAI API Key: [(click here to obtain a new key if you do not have one)](https://platform.openai.com/account/api-keys)",
             type="password",
         )
-    else:
-        openai_api_key = os.getenv("OPENAI_API_KEY")
 
     chosen_option = st.selectbox(
         "Select a template to use for your resume [(see templates)](/Template_Gallery)",
@@ -100,3 +106,8 @@ if uploaded_file is not None:
                 "It looks like you do not have OpenAI API credits left. Check [OpenAI's usage webpage for more information](https://platform.openai.com/account/usage)"
             )
             st.write(e)
+        except Exception as e:
+            st.error("An error occurred while generating the resume. Please try again.")
+            st.write(e)
+else:
+    st.info("Please upload a file to get started.")
