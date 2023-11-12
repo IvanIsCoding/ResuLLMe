@@ -101,7 +101,7 @@ if uploaded_file is not None:
                     file_name="resume.json",
                     mime="text/json",
                 )
-        except openai.error.RateLimitError as e:
+        except openai.RateLimitError as e:
             st.markdown(
                 "It looks like you do not have OpenAI API credits left. Check [OpenAI's usage webpage for more information](https://platform.openai.com/account/usage)"
             )

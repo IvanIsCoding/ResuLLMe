@@ -1,4 +1,6 @@
-import openai
+from openai import OpenAI
+
+client = OpenAI()
 import json
 from stqdm import stqdm
 
@@ -183,14 +185,12 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
         desc="This may take a while...",
     ):
         filled_prompt = prompt.replace(CV_TEXT_PLACEHOLDER, cv_text)
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": filled_prompt},
-            ],
-            api_key=api_key,
-        )
+        response = client.chat.completions.create(model=model,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": filled_prompt},
+        ],
+        api_key=api_key)
 
         try:
             answer = response["choices"][0]["message"]["content"]
@@ -214,14 +214,12 @@ def tailor_resume(cv_text, api_key, model="gpt-3.5-turbo"):
     filled_prompt = TAILORING_PROMPT.replace("<CV_TEXT>", cv_text)
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": SYSTEM_TAILORING},
-                {"role": "user", "content": filled_prompt},
-            ],
-            api_key=api_key,
-        )
+        response = client.chat.completions.create(model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": SYSTEM_TAILORING},
+            {"role": "user", "content": filled_prompt},
+        ],
+        api_key=api_key)
 
         answer = response["choices"][0]["message"]["content"]
         return answer
