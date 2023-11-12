@@ -1,6 +1,5 @@
 from openai import OpenAI
 
-client = OpenAI()
 import json
 from stqdm import stqdm
 
@@ -172,6 +171,7 @@ Write a work section for the candidate according to the Work schema. Include onl
 def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
     """Generate a JSON resume from a CV text"""
     sections = []
+    client = OpenAI(api_key=api_key)
 
     for prompt in stqdm(
         [
@@ -191,7 +191,6 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": filled_prompt},
             ],
-            api_key=api_key,
         )
 
         try:
@@ -214,6 +213,7 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
 
 def tailor_resume(cv_text, api_key, model="gpt-3.5-turbo"):
     filled_prompt = TAILORING_PROMPT.replace("<CV_TEXT>", cv_text)
+    client = OpenAI(api_key=api_key)
 
     try:
         response = client.chat.completions.create(
@@ -222,7 +222,6 @@ def tailor_resume(cv_text, api_key, model="gpt-3.5-turbo"):
                 {"role": "system", "content": SYSTEM_TAILORING},
                 {"role": "user", "content": filled_prompt},
             ],
-            api_key=api_key,
         )
 
         answer = response["choices"][0]["message"]["content"]
