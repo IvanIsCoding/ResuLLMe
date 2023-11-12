@@ -194,7 +194,7 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
         )
 
         try:
-            answer = response["choices"][0]["message"]["content"]
+            answer = response.choices[0].message.content
             answer = json.loads(answer)
 
             if prompt == BASICS_PROMPT and "basics" not in answer:
@@ -224,7 +224,7 @@ def tailor_resume(cv_text, api_key, model="gpt-3.5-turbo"):
             ],
         )
 
-        answer = response["choices"][0]["message"]["content"]
+        answer = response.choices[0].message.content
         return answer
     except Exception as e:
         print(e)
