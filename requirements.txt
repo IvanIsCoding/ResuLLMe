@@ -4,5 +4,6 @@ python-docx
 streamlit==1.28.0
 Jinja2
 docx2txt
-streamlit-ext==0.1.7
+streamlit-ext==0.1.9
 stqdm==0.0.5
+setuptools==68.2.2
