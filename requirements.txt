@@ -1,8 +1,7 @@
-openai
-langchain
+openai>1,<2
 pdfminer-six
 python-docx
-streamlit==1.21.0
+streamlit==1.28.0
 Jinja2
 docx2txt
 streamlit-ext==0.1.7
