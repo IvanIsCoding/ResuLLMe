@@ -15,7 +15,7 @@ st.set_page_config(
     page_title="ResuLLMe",
     page_icon=":clipboard:",
     layout="wide",
-    initial_sidebar_state="auto"
+    initial_sidebar_state="auto",
 )
 
 st.markdown(
