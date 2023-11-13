@@ -30,7 +30,7 @@ with st.expander("**I want to use my own custom format to render my résumé. Is
     """
     )
 
-with st.expander("What is the LaTeX format?"):
+with st.expander("**What is the LaTeX format?**"):
     st.markdown(
     """
     LaTeX is a document preperation system that is used to render PDFs. ResuLLMe uses LaTeX to render a new AI-curated résumé in a format chosen by you!
