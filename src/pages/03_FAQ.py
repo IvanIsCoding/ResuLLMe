@@ -9,27 +9,51 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.markdown(
+with st.expander("**Do I need an OpenAI API Key to run ResuLLMe?**"):
+    st.markdown(
     """
+    **Yes**, as we currently only support ChatGPT. You can obtain your key [here](https://platform.openai.com/account/api-keys).
+    """
+    )
 
-## There is information on my resume that is not accurate. How do I fix it?
+with st.expander("**Can I store my OpenAI API Key instead of manually re-entering it?**"):
+    st.markdown(
+    """
+    **Yes**, you can store your key in an environment variable, but if the environment variable `OPENAI_API_KEY` is not defined, ResuLLMe will prompt the user for a key.
+    """
+    )
 
-Sometimes, LLMs can hallucinate and produce information that is not correct. If this happend to your resume,
-there are two options to editing it:
-* Download the JSON file, manually edit it using a text editor and [render it again by going to Render JSON Resume](/Render_JSON_Resume)
-* Download the LaTeX file [and edit it on Overleaf (or your favorite LaTeX editor)](/Edit_LaTeX_on_Overleaf)
+with st.expander("**I want to use my own custom format to render my résumé. Is this possible?**"):
+    st.markdown(
+    """
+    Currently, you **cannot** use your own custom format for your résumé.
+    """
+    )
 
-## What is the JSON schema for the Resume?
+with st.expander("**What is the LaTeX format?**"):
+    st.markdown(
+    """
+    LaTeX is a document preperation system that is used to render PDFs. ResuLLMe uses LaTeX to render a new AI-curated résumé in a format chosen by you!
+    """
+    )
 
-We follow a subset of the JSON Resume Schema. You can look at [Alan Turing's JSON Resume for an example of the schema](https://github.com/IvanIsCoding/ResuLLMe/blob/main/.github/Turing.json).
 
-## Is an OpenAI API Key requried to run the application?
+with st.expander("**What is the JSON schema for the résumé?**"):
+    st.markdown(
+    """
+    To render the LaTeX file, we use a JSON schema to format data and allow standardized processing. You can look at this [example](https://github.com/IvanIsCoding/ResuLLMe/blob/main/.github/Turing.json) to examine the schema.
+    """
+    )
 
-As of now, the only LLM we support is ChatGPT. Hence, an OpenAI API Key is required. 
-You can get one at [OpenAI's website](https://platform.openai.com/account/api-keys).
+with st.expander("**There is information on my résumé that is not accurate. How do I fix it?**"):
+    st.markdown(
+    """
+    Sometimes, LLMs can hallucinate and produce information that is not correct. If this happened to your résumé,
+    there are two options to editing it:
+        
+    * Download the JSON file, and manually edit it using a text editor and render it again by going to [Render JSON Resume](/Render_JSON_Resume).
+        
+    * Download the LaTeX file and edit it on [Overleaf (or your favorite LaTeX editor)](/Edit_LaTeX_on_Overleaf).    
 
-If the environment variable `OPENAI_API_KEY` is not defined, ResuLLMe will prompt the user for a key.
-Otherwise, it will use the key defined in the environment variable. 
-
-"""
-)
+    """
+    )
