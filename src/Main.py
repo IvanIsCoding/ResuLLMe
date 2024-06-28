@@ -54,9 +54,8 @@ if __name__ == '__main__':
         # If the OpenAI API Key is not set as an environment variable, prompt the user for it
         openai_api_key = os.getenv("OPENAI_API_KEY")
         if not openai_api_key:
-            st.info('[Click here to obtain a OpenAI API Key if you do not have one.](https://platform.openai.com/api-keys)', icon="🔑")
             openai_api_key = st.text_input(
-                "Enter your OpenAI API Key:",
+                "Enter your OpenAI API Key: [(click here to obtain a new key if you do not have one)](https://platform.openai.com/account/api-keys)",
                 type="password",
             )
 
