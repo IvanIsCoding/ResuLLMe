@@ -70,7 +70,7 @@ if __name__ == '__main__':
             ["education", "work", "skills", "projects", "awards"],
         )
 
-        improve_check = st.checkbox("I want to improve the resume with LLMs", value=True)
+        improve_check = st.checkbox("I want to improve the resume with LLMs", value=False)
 
         generate_button = st.button("Generate Resume")
 
