@@ -39,11 +39,24 @@ if __name__ == '__main__':
         # Get the CV data that we need to convert to json
         text = extract_text_from_upload(uploaded_file)
 
+        if len(text) < 50:
+            st.warning("The text extracted from the uploaded file is too short. Are you sure this is the correct file?", icon="⚠️")
+
+        openai_api_model = os.getenv("OPENAI_DEFAULT_MODEL", default="gpt-4o")
+        use_default_model = st.checkbox("Use the latest model to process the resume", value=True)
+        if not use_default_model:
+            openai_api_model = st.selectbox(
+            "Select a model to use for the LLMs (ordered from newest to oldest):",
+                ["gpt-4o", "gpt-4-turbo", "gpt-3.5-turbo"],
+                index=0,  # default to the first option
+            )
+
         # If the OpenAI API Key is not set as an environment variable, prompt the user for it
         openai_api_key = os.getenv("OPENAI_API_KEY")
         if not openai_api_key:
+            st.info('[Click here to obtain a OpenAI API Key if you do not have one.](https://platform.openai.com/api-keys)', icon="🔑")
             openai_api_key = st.text_input(
-                "Enter your OpenAI API Key: [(click here to obtain a new key if you do not have one)](https://platform.openai.com/account/api-keys)",
+                "Enter your OpenAI API Key:",
                 type="password",
             )
 
@@ -67,9 +80,9 @@ if __name__ == '__main__':
             try:
                 if improve_check:
                     with st.spinner("Tailoring the resume"):
-                        text = tailor_resume(text, openai_api_key)
+                        text = tailor_resume(text, openai_api_key, openai_api_model)
 
-                json_resume = generate_json_resume(text, openai_api_key)
+                json_resume = generate_json_resume(text, openai_api_key, openai_api_model)
                 latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
 
                 resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
@@ -105,6 +118,12 @@ if __name__ == '__main__':
             except openai.RateLimitError as e:
                 st.markdown(
                     "It looks like you do not have OpenAI API credits left. Check [OpenAI's usage webpage for more information](https://platform.openai.com/account/usage)"
+                )
+                st.write(e)
+            except openai.NotFoundError as e:
+                st.warning(
+                    "It looks like you do not have entered you Credit Card information on OpenAI's site. Buy pre-paid credits to use the API and try again.",
+                    icon="💳"
                 )
                 st.write(e)
             except Exception as e:
