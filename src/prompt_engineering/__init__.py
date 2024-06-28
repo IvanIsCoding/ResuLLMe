@@ -168,7 +168,7 @@ Write a work section for the candidate according to the Work schema. Include onl
 """
 
 
-def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
+def generate_json_resume(cv_text, api_key, model="gpt-4o"):
     """Generate a JSON resume from a CV text"""
     sections = []
     client = OpenAI(api_key=api_key)
@@ -211,13 +211,13 @@ def generate_json_resume(cv_text, api_key, model="gpt-3.5-turbo"):
     return final_json
 
 
-def tailor_resume(cv_text, api_key, model="gpt-3.5-turbo"):
+def tailor_resume(cv_text, api_key, model="gpt-4o"):
     filled_prompt = TAILORING_PROMPT.replace("<CV_TEXT>", cv_text)
     client = OpenAI(api_key=api_key)
 
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=model,
             messages=[
                 {"role": "system", "content": SYSTEM_TAILORING},
                 {"role": "user", "content": filled_prompt},
