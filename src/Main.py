@@ -42,12 +42,11 @@ if __name__ == '__main__':
         if len(text) < 50:
             st.warning("The text extracted from the uploaded file is too short. Are you sure this is the correct file?", icon="⚠️")
 
-        openai_api_model = os.getenv("OPENAI_DEFAULT_MODEL", default="gpt-4o")
-        use_default_model = st.checkbox("Use the latest model to process the resume", value=True)
-        if not use_default_model:
+        openai_api_model = os.getenv("OPENAI_DEFAULT_MODEL")
+        if not openai_api_model:
             openai_api_model = st.selectbox(
-            "Select a model to use for the LLMs (ordered from newest to oldest):",
-                ["gpt-4o", "gpt-4-turbo", "gpt-3.5-turbo"],
+            "Select a model to use for the LLMs (gpt-3.5-turbo is the most well-tested):",
+                ["gpt-3.5-turbo", "gpt-4-turbo", "gpt-4o"],
                 index=0,  # default to the first option
             )
 
