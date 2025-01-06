@@ -21,7 +21,7 @@ Your task is to rewrite the given CV. Follow these guidelines:
 - Be specific rather than general
 - Rewrite job highlight items using STAR methodology (but do not mention STAR explicitly)
 - Fix spelling and grammar errors
-- Writte to express not impress
+- Write to express not impress
 - Articulate and don't be flowery
 - Prefer active voice over passive voice
 - Do not include a summary about the candidate
