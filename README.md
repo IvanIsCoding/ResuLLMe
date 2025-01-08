@@ -13,6 +13,7 @@ ResuLLMe is a prototype that uses Large Language Models (LLMs) to tailor résum�
 You can use ResuLLMe live at [https://resullme.streamlit.app/](https://resullme.streamlit.app/).
 
 ## 🛠 How It Works
+ResuLLMe now supports both OpenAI and Gemini, empowering the application to enhance résumés with even more powerful and diverse language models, providing users with smarter, more accurate career guidance.  
 
 ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs to:
 * Improve the résumé following published résumé guidelines by well-reputed schools
@@ -51,7 +52,7 @@ streamlit run src/Main.py
 
 ## 🤲 Contributing
 
-ResuLLMe is an open source project.
+ResuLLMe is an open source project. Currently, we are supporting openai, gemini tokens for running the application
 
 If you want to contribute, open a [Pull requests](https://github.com/360macky/project-name/pulls). 
 All contributions are welcome, but some that would particularly be useful to the community are:
