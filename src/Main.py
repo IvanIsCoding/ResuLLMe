@@ -9,6 +9,40 @@ from prompt_engineering import generate_json_resume, tailor_resume
 from render import render_latex
 import json
 
+
+def select_llm_model():
+    model_type = st.selectbox(
+        "Select the model you want to use:",
+        ["OpenAPI", "Gemini"],
+        index=0
+    )
+    return model_type
+
+
+def get_llm_model_and_api(model_type):
+    if model_type == "OpenAPI":
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            api_key = st.text_input(
+                "Enter your OpenAI API Key: [(click here to obtain a new key if you do not have one)](https://platform.openai.com/account/api-keys)",
+                type="password",
+            )
+        api_model = os.getenv("OPENAI_DEFAULT_MODEL") or st.selectbox(
+            "Select a model to use for the LLMs (gpt-3.5-turbo is the most well-tested):",
+            ["gpt-3.5-turbo", "gpt-4-turbo", "gpt-4o"],
+            index=0,
+        )
+    else:
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            api_key = st.text_input(
+                "Enter your Gemini API Key: [(contact Gemini support for more details)]",
+                type="password",
+            )
+        api_model = "gemini-1.5-flash"
+    return api_key, api_model
+
+
 if __name__ == '__main__':
     IFRAME = '<iframe src="https://ghbtns.com/github-btn.html?user=IvanIsCoding&repo=ResuLLMe&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>'
 
@@ -30,7 +64,6 @@ if __name__ == '__main__':
         "Welcome to ResuLLMe! Drop your previous CV below, select one of the templates, and let the LLMs generate your resume for you"
     )
 
-
     uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt", "json"])
 
     template_options = list(template_commands.keys())
@@ -40,23 +73,11 @@ if __name__ == '__main__':
         text = extract_text_from_upload(uploaded_file)
 
         if len(text) < 50:
-            st.warning("The text extracted from the uploaded file is too short. Are you sure this is the correct file?", icon="⚠️")
+            st.warning("The text extracted from the uploaded file is too short. Are you sure this is the correct file?",
+                       icon="⚠️")
 
-        openai_api_model = os.getenv("OPENAI_DEFAULT_MODEL")
-        if not openai_api_model:
-            openai_api_model = st.selectbox(
-            "Select a model to use for the LLMs (gpt-3.5-turbo is the most well-tested):",
-                ["gpt-3.5-turbo", "gpt-4-turbo", "gpt-4o"],
-                index=0,  # default to the first option
-            )
-
-        # If the OpenAI API Key is not set as an environment variable, prompt the user for it
-        openai_api_key = os.getenv("OPENAI_API_KEY")
-        if not openai_api_key:
-            openai_api_key = st.text_input(
-                "Enter your OpenAI API Key: [(click here to obtain a new key if you do not have one)](https://platform.openai.com/account/api-keys)",
-                type="password",
-            )
+        model_type = select_llm_model()
+        api_key, api_model = get_llm_model_and_api(model_type)
 
         chosen_option = st.selectbox(
             "Select a template to use for your resume [(see templates)](/Template_Gallery)",
@@ -78,9 +99,9 @@ if __name__ == '__main__':
             try:
                 if improve_check:
                     with st.spinner("Tailoring the resume"):
-                        text = tailor_resume(text, openai_api_key, openai_api_model)
+                        text = tailor_resume(text, api_key, api_model, model_type)
 
-                json_resume = generate_json_resume(text, openai_api_key, openai_api_model)
+                json_resume = generate_json_resume(text, api_key, api_model, model_type)
                 latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
 
                 resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
