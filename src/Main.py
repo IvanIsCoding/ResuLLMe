@@ -13,14 +13,14 @@ import json
 def select_llm_model():
     model_type = st.selectbox(
         "Select the model you want to use:",
-        ["OpenAPI", "Gemini"],
+        ["OpenAI", "Gemini"],
         index=0
     )
     return model_type
 
 
 def get_llm_model_and_api(model_type):
-    if model_type == "OpenAPI":
+    if model_type == "OpenAI":
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             api_key = st.text_input(

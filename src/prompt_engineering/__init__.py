@@ -168,10 +168,10 @@ Write a work section for the candidate according to the Work schema. Include onl
 """
 
 
-def generate_json_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAPI"):
+def generate_json_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAI"):
     """Generate a JSON resume from a CV text"""
     sections = []
-    if model_type == "OpenAPI":
+    if model_type == "OpenAI":
         client = OpenAI(api_key=api_key)
     elif model_type == "Gemini":
         genai.configure(api_key=api_key)
@@ -189,7 +189,7 @@ def generate_json_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAPI")
             desc="This may take a while...",
     ):
         filled_prompt = prompt.replace(CV_TEXT_PLACEHOLDER, cv_text)
-        if model_type == "OpenAPI":
+        if model_type == "OpenAI":
             response = client.chat.completions.create(
                 model=model,
                 messages=[
@@ -220,9 +220,9 @@ def generate_json_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAPI")
     return final_json
 
 
-def tailor_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAPI"):
+def tailor_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAI"):
     filled_prompt = TAILORING_PROMPT.replace("<CV_TEXT>", cv_text)
-    if model_type == "OpenAPI":
+    if model_type == "OpenAI":
         client = OpenAI(api_key=api_key)
         try:
             response = client.chat.completions.create(
