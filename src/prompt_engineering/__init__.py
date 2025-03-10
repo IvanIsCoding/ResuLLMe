@@ -2,6 +2,10 @@ from openai import OpenAI
 import google.generativeai as genai
 import json
 from stqdm import stqdm
+from logger import get_logger
+
+# Setup module logger
+logger = get_logger('prompt_engineering')
 
 SYSTEM_PROMPT = "You are a smart assistant to career advisors at the Harvard Extension School. You will reply with JSON only."
 
@@ -168,87 +172,163 @@ Write a work section for the candidate according to the Work schema. Include onl
 """
 
 
-def generate_json_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAI"):
-    """Generate a JSON resume from a CV text"""
-    sections = []
-    if model_type == "OpenAI":
-        client = OpenAI(api_key=api_key)
-    elif model_type == "Gemini":
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel(model)
-
-    for prompt in stqdm(
-            [
-                BASICS_PROMPT,
-                EDUCATION_PROMPT,
-                AWARDS_PROMPT,
-                PROJECTS_PROMPT,
-                SKILLS_PROMPT,
-                WORK_PROMPT,
-            ],
-            desc="This may take a while...",
-    ):
-        filled_prompt = prompt.replace(CV_TEXT_PLACEHOLDER, cv_text)
+def generate_json_resume(cv_text, model_type, api_model, api_key):
+    """
+    Generate a structured JSON resume from the input CV text.
+    
+    Args:
+        cv_text: The text of the CV
+        model_type: The type of LLM to use (OpenAI/Gemini)
+        api_model: The specific model to use
+        api_key: The API key for the LLM service
+        
+    Returns:
+        A dictionary containing the structured resume
+    """
+    logger.info(f"Generating JSON resume using {model_type} model: {api_model}")
+    logger.debug(f"CV text length: {len(cv_text)} characters")
+    
+    try:
         if model_type == "OpenAI":
+            client = OpenAI(api_key=api_key)
+            logger.debug(f"OpenAI client initialized")
+            
             response = client.chat.completions.create(
-                model=model,
+                model=api_model,
                 messages=[
                     {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": filled_prompt},
+                    {"role": "user", "content": f"Generate a JSON resume for the following CV:\n{cv_text}"},
                 ],
+                temperature=0.5,
+                max_tokens=4000
             )
-            answer = response.choices[0].message.content
+            logger.debug(f"OpenAI API call completed with {len(response.choices[0].message.content)} characters")
+            
+            response_content = response.choices[0].message.content
+            
+            # Extract JSON from the response
+            try:
+                resume_json = json.loads(response_content)
+                logger.info("Successfully parsed JSON resume")
+                return resume_json
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse JSON response: {str(e)}")
+                logger.debug(f"Response content: {response_content}")
+                raise ValueError("Failed to generate valid JSON from the LLM response")
+                
         elif model_type == "Gemini":
-            full_prompt = f"{SYSTEM_TAILORING}\n\nUser: {filled_prompt}\nAssistant:"
-            response = model.generate_content(full_prompt)
-            answer = response.parts[0].text
-            answer = answer.strip("'").replace("```json\n", "").replace("\n```", "")
-        try:
-            answer = json.loads(answer)
+            logger.debug(f"Initializing Gemini with API key")
+            genai.configure(api_key=api_key)
+            
+            model = genai.GenerativeModel(api_model)
+            logger.debug(f"Gemini model initialized: {api_model}")
+            
+            response = model.generate_content(
+                f"Generate a JSON resume for the following CV:\n{cv_text}"
+            )
+            logger.debug(f"Gemini API call completed")
+            
+            # Extract JSON from the response
+            try:
+                response_text = response.text
+                logger.debug(f"Gemini response length: {len(response_text)} characters")
+                
+                # Find JSON content in response text
+                start_idx = response_text.find('{')
+                end_idx = response_text.rfind('}') + 1
+                
+                if start_idx >= 0 and end_idx > start_idx:
+                    json_text = response_text[start_idx:end_idx]
+                    resume_json = json.loads(json_text)
+                    logger.info("Successfully parsed JSON resume from Gemini response")
+                    return resume_json
+                else:
+                    logger.error("Failed to extract JSON from Gemini response")
+                    raise ValueError("Could not find JSON content in Gemini response")
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse JSON response from Gemini: {str(e)}")
+                raise ValueError("Failed to generate valid JSON from the Gemini response")
+        else:
+            logger.error(f"Unsupported model type: {model_type}")
+            raise ValueError(f"Unsupported model type: {model_type}")
+            
+    except Exception as e:
+        logger.error(f"Error during JSON resume generation: {str(e)}", exc_info=True)
+        raise
 
-            if prompt == BASICS_PROMPT and "basics" not in answer:
-                answer = {"basics": answer}  # common mistake GPT makes
-
-            sections.append(answer)
-        except Exception as e:
-            print(f"Exception occurred.{e}")
-
-    final_json = {}
-    for section in sections:
-        final_json.update(section)
-
-    return final_json
-
-
-def tailor_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAI"):
-    filled_prompt = TAILORING_PROMPT.replace("<CV_TEXT>", cv_text)
-    if model_type == "OpenAI":
-        client = OpenAI(api_key=api_key)
-        try:
+def tailor_resume(resume_json, job_description, model_type, api_model, api_key):
+    """
+    Tailor the resume to the given job description
+    
+    Args:
+        resume_json: The structured resume data
+        job_description: The job description text
+        model_type: The type of LLM to use (OpenAI/Gemini)
+        api_model: The specific model to use
+        api_key: The API key for the LLM service
+        
+    Returns:
+        The tailored resume JSON
+    """
+    logger.info(f"Tailoring resume to job description using {model_type} model: {api_model}")
+    logger.debug(f"Job description length: {len(job_description)} characters")
+    
+    try:
+        # Convert resume JSON to text for the tailoring process
+        resume_text = json.dumps(resume_json, indent=2)
+        
+        if model_type == "OpenAI":
+            client = OpenAI(api_key=api_key)
+            logger.debug(f"OpenAI client initialized for tailoring")
+            
+            prompt = TAILORING_PROMPT.replace(CV_TEXT_PLACEHOLDER, resume_text)
+            prompt += f"\n\nJob Description:\n{job_description}"
+            
             response = client.chat.completions.create(
-                model=model,
+                model=api_model,
                 messages=[
                     {"role": "system", "content": SYSTEM_TAILORING},
-                    {"role": "user", "content": filled_prompt},
+                    {"role": "user", "content": prompt},
                 ],
+                temperature=0.5,
+                max_tokens=4000
             )
-
-            answer = response.choices[0].message.content
-            return answer
-        except Exception as e:
-            print(e)
-            print("Failed to tailor resume.")
-            return cv_text
-    elif model_type == "Gemini":
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel(model)
-        try:
-            full_prompt = f"{SYSTEM_TAILORING}\n\nUser: {filled_prompt}\nAssistant:"
-            response = model.generate_content(full_prompt)
-            print(type(response.parts[0].text), response.parts[0].text)
-            answer = response.parts[0].text
-            return answer
-        except Exception as e:
-            print(e)
-            print("Failed to tailor resume.")
-            return cv_text
+            logger.debug(f"OpenAI tailoring API call completed")
+            
+            # Generate new JSON from the tailored content
+            tailored_text = response.choices[0].message.content
+            logger.debug(f"Tailored content received ({len(tailored_text)} characters)")
+            
+            # Now process the tailored text back into a JSON resume
+            tailored_json = generate_json_resume(tailored_text, model_type, api_model, api_key)
+            logger.info("Successfully converted tailored resume to JSON format")
+            return tailored_json
+            
+        elif model_type == "Gemini":
+            logger.debug(f"Initializing Gemini with API key for tailoring")
+            genai.configure(api_key=api_key)
+            
+            model = genai.GenerativeModel(api_model)
+            logger.debug(f"Gemini model initialized for tailoring: {api_model}")
+            
+            prompt = TAILORING_PROMPT.replace(CV_TEXT_PLACEHOLDER, resume_text)
+            prompt += f"\n\nJob Description:\n{job_description}"
+            
+            response = model.generate_content(prompt)
+            logger.debug(f"Gemini tailoring API call completed")
+            
+            # Generate new JSON from the tailored content
+            tailored_text = response.text
+            logger.debug(f"Tailored content received from Gemini ({len(tailored_text)} characters)")
+            
+            # Now process the tailored text back into a JSON resume
+            tailored_json = generate_json_resume(tailored_text, model_type, api_model, api_key)
+            logger.info("Successfully converted tailored Gemini resume to JSON format")
+            return tailored_json
+        else:
+            logger.error(f"Unsupported model type for tailoring: {model_type}")
+            raise ValueError(f"Unsupported model type: {model_type}")
+            
+    except Exception as e:
+        logger.error(f"Error during resume tailoring: {str(e)}", exc_info=True)
+        raise
