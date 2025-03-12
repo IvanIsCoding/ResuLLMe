@@ -8,6 +8,7 @@ from doc_utils import extract_text_from_upload
 from templates import generate_latex, template_commands
 from prompt_engineering import generate_json_resume, tailor_resume
 from render import render_latex
+from linkedin_scraper import LinkedInScraper
 import json
 
 # Setup module logger
@@ -63,29 +64,75 @@ def main():
     model_type = select_llm_model()
     api_key, api_model = get_llm_model_and_api(model_type)
 
-    uploaded_resume = st.file_uploader(
-        "Upload your resume (PDF, Word, plain text) or a JSON file from a past session",
-        type=["pdf", "docx", "txt", "json"],
-    )
+    # Create tabs for different input methods
+    resume_tab, linkedin_tab, combined_tab = st.tabs(["Resume Upload", "LinkedIn Profile", "Combined Input"])
     
-    if uploaded_resume:
-        logger.info(f"Resume uploaded: {uploaded_resume.name} ({uploaded_resume.type})")
+    resume_text = None
+    linkedin_text = None
+    
+    with resume_tab:
+        uploaded_resume = st.file_uploader(
+            "Upload your resume (PDF, Word, plain text) or a JSON file from a past session",
+            type=["pdf", "docx", "txt", "json"],
+        )
         
-        resume_text = extract_text_from_upload(uploaded_resume)
-        if uploaded_resume.type == "application/json":
+        if uploaded_resume:
+            logger.info(f"Resume uploaded: {uploaded_resume.name} ({uploaded_resume.type})")
+            resume_text = extract_text_from_upload(uploaded_resume)
+            if uploaded_resume.type == "application/json":
+                try:
+                    resume_json = json.loads(resume_text)
+                    logger.info("Successfully loaded resume from JSON")
+                    st.success("Resume JSON loaded successfully!")
+                except json.JSONDecodeError:
+                    logger.error("Failed to parse uploaded JSON file")
+                    st.error("The uploaded JSON file is not valid.")
+                    resume_text = None
+            else:
+                st.success("Resume extracted successfully!")
+    
+    with linkedin_tab:
+        linkedin_url = st.text_input(
+            "Enter your LinkedIn profile URL (e.g., https://www.linkedin.com/in/username)",
+            placeholder="https://www.linkedin.com/in/username"
+        )
+        
+        scrape_button = st.button("Scrape LinkedIn Profile")
+        
+        if scrape_button and linkedin_url:
             try:
-                resume_json = json.loads(resume_text)
-                logger.info("Successfully loaded resume from JSON")
-            except json.JSONDecodeError:
-                logger.error("Failed to parse uploaded JSON file")
-                st.error("The uploaded JSON file is not valid.")
-                return
-        else:
-            logger.debug("Generating JSON resume from uploaded document")
-            with st.spinner("Generating structured resume from your document..."):
-                resume_json = generate_json_resume(resume_text, model_type, api_model, api_key)
-                logger.info("Generated structured resume from document")
-        
+                with st.spinner("Scraping LinkedIn profile..."):
+                    linkedin_scraper = LinkedInScraper()
+                    linkedin_text, _ = linkedin_scraper.scrape_public_profile(linkedin_url)
+                    st.success("LinkedIn profile scraped successfully!")
+            except Exception as e:
+                logger.error(f"LinkedIn scraping error: {str(e)}")
+                st.error(f"Error scraping LinkedIn profile: {str(e)}")
+
+    with combined_tab:
+        st.info("Use both your resume and LinkedIn profile to generate a more comprehensive result.")
+        use_combined = st.checkbox("Combine Resume and LinkedIn data", value=False)
+    
+    # Determine which input sources to use
+    input_ready = False
+    combined_text = None
+    
+    if use_combined and resume_text and linkedin_text:
+        # Combined mode with both inputs
+        combined_text = f"RESUME:\n{resume_text}\n\nLINKEDIN PROFILE:\n{linkedin_text}"
+        input_ready = True
+        st.success("Using combined data from resume and LinkedIn profile!")
+    elif resume_text:
+        # Resume only mode
+        combined_text = resume_text
+        input_ready = True
+    elif linkedin_text:
+        # LinkedIn only mode
+        combined_text = linkedin_text
+        input_ready = True
+    
+    if input_ready:
+        # Only show these options if we have valid input data
         template = st.selectbox(
             "Select a LaTeX template", list(template_commands.keys())
         )
@@ -105,6 +152,9 @@ def main():
             logger.info(f"User initiated resume generation with template: {template}")
             with st.spinner("Generating your resume..."):
                 try:
+                    # Generate JSON resume from the combined text
+                    resume_json = generate_json_resume(combined_text, model_type, api_model, api_key)
+                    
                     if improve_check:
                         with st.spinner("Tailoring the resume"):
                             resume_json = tailor_resume(resume_json, api_key, api_model, model_type)
@@ -160,7 +210,7 @@ def main():
                     logger.error(f"Error during resume generation: {str(e)}")
                     st.error(f"An error occurred during generation: {str(e)}")
     else:
-        st.info("Please upload a file to get started.")
+        st.info("Please upload a resume, provide a LinkedIn profile URL, or both to get started.")
 
 
 if __name__ == "__main__":

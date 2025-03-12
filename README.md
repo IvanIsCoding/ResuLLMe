@@ -15,10 +15,28 @@ You can use ResuLLMe live at [https://resullme.streamlit.app/](https://resullme.
 ## 🛠 How It Works
 ResuLLMe now supports both OpenAI and Gemini, empowering the application to enhance résumés with even more powerful and diverse language models, providing users with smarter, more accurate career guidance.  
 
-ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs to:
+ResuLLMe accepts multiple input sources:
+* Upload your existing CV as a PDF or Word Document
+* Provide your LinkedIn profile URL for scraping
+* Use both your résumé and LinkedIn profile for a more comprehensive result
+
+Then, it uses LLMs to:
 * Improve the résumé following published résumé guidelines by well-reputed schools
 * Convert the résumés to a JSON Resume format
 * Render the JSON resume using LaTeX to generate a new PDF of the enhanced resume
+
+### 🔎 LinkedIn Profile Scraping
+
+The LinkedIn profile scraping feature allows you to use your public LinkedIn profile as input instead of or alongside your traditional résumé. This is particularly useful when:
+* You don't have an up-to-date résumé but maintain your LinkedIn profile
+* You want to enhance your résumé with additional information from your LinkedIn profile
+* You're experimenting with different formats and want to compare outputs
+
+The scraper works with public LinkedIn profiles and extracts information such as:
+* Professional experience
+* Education history
+* Skills and endorsements
+* About section and other relevant profile content
 
 ## 🏃 Running
 
@@ -38,10 +56,24 @@ To run the app without Docker, you will need to install two things for the app t
 pip install -r requirements.txt
 ```
 
-The second item is to install the LaTeX packages:
+The second item is to install the LaTeX packages and other system dependencies:
 
 ```
 xargs sudo apt install -y < packages.txt
+```
+
+For the LinkedIn scraping feature, you'll need to install:
+* Chrome or Chromium browser
+* wkhtmltopdf
+
+On Ubuntu/Debian:
+```
+sudo apt install -y wkhtmltopdf chromium-browser
+```
+
+On macOS:
+```
+brew install wkhtmltopdf chromium
 ```
 
 Lastly, to run ResuLLMe locally, execute:
@@ -60,3 +92,4 @@ All contributions are welcome, but some that would particularly be useful to the
 * Adding new LaTeX templates
 * Improved prompts
 * Support for other LLMs (e.g. Bard, Claude, LLaMA)
+* Enhanced web scraping for additional data sources

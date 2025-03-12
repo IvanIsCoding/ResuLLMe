@@ -131,3 +131,7 @@ dmypy.json
 # Logs
 logs/
 *.log
+
+# Test outputs
+tests/*.pdf
+tests/output/

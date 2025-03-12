@@ -9,3 +9,5 @@ cm-super
 texlive-fonts-extra
 texlive-fonts-recommended
 texlive-fonts-extra-links
+wkhtmltopdf
+chromium-browser

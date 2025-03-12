@@ -8,3 +8,9 @@ streamlit-ext==0.1.9
 stqdm==0.0.5
 setuptools==68.2.2
 google.generativeai==0.8.3
+beautifulsoup4>=4.11.0
+selenium>=4.0.0
+webdriver-manager>=3.8.6
+requests>=2.27.0
+urllib3>=1.26.0
+pdfkit>=1.0.0
