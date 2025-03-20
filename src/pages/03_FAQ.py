@@ -12,14 +12,14 @@ st.markdown(
 with st.expander("**Do I need an OpenAI/Gemini API Key to run ResuLLMe?**"):
     st.markdown(
     """
-    **Yes**, as we currently only support ChatGPT and Google  Gemini. You can obtain your key [openai](https://platform.openai.com/account/api-keys)/[Gemini](https://aistudio.google.com/ ).
+    **No**, Resullme is able to use any OpenAPI-compatible endpoint, such as [Ollama](https://github.com/ollama/ollama). If you intend on using ChatGPT or Google Gemini, an API key is required.  You can obtain your key [openai](https://platform.openai.com/account/api-keys)/[Gemini](https://aistudio.google.com/ ).
     """
     )
 
 with st.expander("**Can I store my OpenAI/Gemini API Key instead of manually re-entering it?**"):
     st.markdown(
     """
-    **Yes**, you can store your key in an environment variable `OPENAI_API_KEY` for openAI or `GEMINI_API_KEY` for Google Gemini, but if the environment variable `OPENAI_API_KEY`/`GEMINI_API_KEY` is not defined, ResuLLMe will prompt the user for a key.
+    **Yes**, you can store your key in an environment variable. Use `OPENAI_API_KEY` for openAI, and `GEMINI_API_KEY` for Google Gemini, and either for self-hosted. If the environment variable `OPENAI_API_KEY`/`GEMINI_API_KEY` is not defined, ResuLLMe will prompt the user for a key.
     """
     )
 
@@ -33,7 +33,7 @@ with st.expander("**I want to use my own custom format to render my résumé. Is
 with st.expander("**What is the LaTeX format?**"):
     st.markdown(
     """
-    LaTeX is a document preparation system that is used to render PDFs. ResuLLMe uses LaTeX to render a new AI-curated résumé in a format chosen by you!
+    LaTeX (LAH-tek) is a document preparation system that is used to render PDFs. ResuLLMe uses LaTeX to render a new AI-curated résumé in a format chosen by you!
     """
     )
 
