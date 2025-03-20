@@ -19,7 +19,7 @@ with st.expander("**Do I need an OpenAI/Gemini API Key to run ResuLLMe?**"):
 with st.expander("**Can I store my OpenAI/Gemini API Key instead of manually re-entering it?**"):
     st.markdown(
     """
-    **Yes**, you can store your key in an environment variable. Use `OPENAI_API_KEY` for openAI, and `GEMINI_API_KEY` for Google Gemini, and either for self-hosted. If the environment variable `OPENAI_API_KEY`/`GEMINI_API_KEY` is not defined, ResuLLMe will prompt the user for a key.
+    **Yes**, you can store your key in an environment variable. Use `OPENAI_API_KEY` for openAI, `GEMINI_API_KEY` for Google Gemini, and either for self-hosted. If the environment variable `OPENAI_API_KEY`/`GEMINI_API_KEY` is not defined, ResuLLMe will prompt the user for a key.
     """
     )
 
