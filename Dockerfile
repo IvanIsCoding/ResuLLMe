@@ -18,5 +18,9 @@ RUN pip install -r requirements.txt && \
 # Copy the current code to the 
 COPY . .
 
+ENV GEMINI_API_KEY=''
+ENV OPENAI_API_KEY=''
+EXPOSE 8501
+
 # Run ResuLLMe with Streamlit
 CMD [ "streamlit", "run", "src/Main.py" ]

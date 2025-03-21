@@ -13,7 +13,7 @@ import json
 def select_llm_model():
     model_type = st.selectbox(
         "Select the model you want to use:",
-        ["OpenAI", "Gemini"],
+        ["OpenAI", "Gemini", "Self-Hosted"],
         index=0
     )
     return model_type
@@ -32,7 +32,7 @@ def get_llm_model_and_api(model_type):
             ["gpt-3.5-turbo", "gpt-4-turbo", "gpt-4o"],
             index=0,
         )
-    else:
+    elif model_type == "Gemini":
         api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
             api_key = st.text_input(
@@ -40,6 +40,35 @@ def get_llm_model_and_api(model_type):
                 type="password",
             )
         api_model = "gemini-1.5-flash"
+    else:
+        if os.getenv("GEMINI_API_KEY"):
+            api_key = os.getenv("GEMINI_API_KEY")
+        elif os.getenv("OPENAI_API_KEY"):
+            api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            api_key = st.text_input(
+                "Enter the self-hosted API key: [(Most times you can just write random text)]",
+                    type="password",
+            )
+        # Use Ollama API as default
+        location = "http://127.0.0.1:11434/v1"
+        location = st.text_input(
+            "Enter the self-hosted API location (e.g. " + location + "):",
+            type="default"
+        )
+        model_list = []
+        try:
+            client = openai.OpenAI(base_url=location, api_key=api_key)
+            model_list = [model.id for model in client.models.list()]
+        except:
+            st.markdown(
+                "The current API key or location is incorrect. Please try again."
+            )
+        api_model = st.selectbox(
+            "Select a model to use for the LLMs:",
+            model_list,
+            index=0
+        )
     return api_key, api_model
 
 
