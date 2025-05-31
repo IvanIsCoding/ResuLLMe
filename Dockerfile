@@ -1,26 +1,28 @@
-# Base image
-FROM ubuntu:22.04
+FROM ghcr.io/prefix-dev/pixi:0.47.0 AS build
 
-# Working directory, Streamlit does not work at root
+# copy source code, pixi.toml and pixi.lock to the container
+COPY . /app
 WORKDIR /app
+RUN pixi install -e default
+# Create the shell-hook bash script to activate the environment
+RUN pixi shell-hook -e default > /shell-hook.sh
 
-# Copy the dependencies file to the working directory
-COPY requirements.txt packages.txt /app/
+# extend the shell-hook script to run the command passed to the container
+RUN echo 'exec "$@"' >> /shell-hook.sh
 
-# Install Python
-RUN apt update -y
-RUN apt install -y python3-pip python-dev-is-python3 build-essential
+FROM ubuntu:24.04 AS production
 
-# Install dependencies
-RUN pip install -r requirements.txt && \
-    DEBIAN_FRONTEND=noninteractive xargs apt install -y < packages.txt
-
-# Copy the current code to the 
-COPY . .
-
+# only copy the production environment into prod container
+# please note that the "prefix" (path) needs to stay the same as in the build container
+COPY --from=build /app/.pixi/envs/default /app/.pixi/envs/default
+COPY --from=build /shell-hook.sh /shell-hook.sh
+WORKDIR /app
 ENV GEMINI_API_KEY=''
 ENV OPENAI_API_KEY=''
 EXPOSE 8501
 
-# Run ResuLLMe with Streamlit
-CMD [ "streamlit", "run", "src/Main.py" ]
+# set the entrypoint to the shell-hook script (activate the environment and run the command)
+# no more pixi needed in the prod container
+ENTRYPOINT ["/bin/bash", "/shell-hook.sh"]
+
+CMD ["pixi", "run", "run-app"]
