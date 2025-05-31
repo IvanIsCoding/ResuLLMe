@@ -8,13 +8,12 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from doc_utils import escape_for_latex
 
 template_commands = {
-    "Simple": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
-    "Awesome": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
-    "BGJC": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
-    "Deedy": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
-    "Modern": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
-    "Plush": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
-    "Alta": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
+    "Simple": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "resume.tex"],
+    "Awesome": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "resume.tex"],
+    "BGJC": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "resume.tex"],
+    "Deedy": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "resume.tex"],
+    "Modern": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "resume.tex"],
+    "Plush": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "resume.tex"],
 }
 
 
