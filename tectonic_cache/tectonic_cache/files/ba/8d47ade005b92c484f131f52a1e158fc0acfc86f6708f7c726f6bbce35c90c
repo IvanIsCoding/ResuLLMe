@@ -1,0 +1,2896 @@
+%%
+%% This is file `microtype.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% microtype.dtx  (with options: `package')
+%% 
+%% ------------------------------------------------------------------------
+%% 
+%%                       The `microtype' package
+%%         Subliminal refinements towards typographical perfection
+%%           Copyright (c) 2004--2022 R Schlicht <w.m.l@gmx.net>
+%% 
+%% This work may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License, either version 1.3c of this license or (at
+%% your option) any later version. The latest version of this license is in:
+%% https://www.latex-project.org/lppl.txt, and version 1.3c or later is part
+%% of all distributions of LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% This work consists of the files microtype.dtx, microtype-utf.dtx and
+%% microtype.ins and the derived files microtype.sty, microtype-pdftex.def,
+%% microtype-luatex.def, microtype-xetex.def, microtype.lua, letterspace.sty
+%% and microtype-show.sty.
+%% 
+%% ------------------------------------------------------------------------
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage
+  {microtype}
+  [2022/03/14 v3.0d
+   Micro-typographical refinements
+   (RS)]
+\def\MT@MT
+  {microtype}
+\let\MT@restore@catcodes\@empty
+\def\MT@fix@catcode#1#2{%
+  \edef\MT@restore@catcodes{%
+    \MT@restore@catcodes
+    \catcode#1=\the\catcode#1\relax
+  }%
+  \catcode#1=#2\relax
+}
+\MT@fix@catcode{17}{14}% ^^Q (comment)
+\MT@fix@catcode{24} {9}% ^^X (ignore)
+\MT@fix@catcode{33}{12}% !
+\MT@fix@catcode{34}{12}% "
+\MT@fix@catcode{36} {3}% $ (math shift)
+\MT@fix@catcode{39}{12}% '
+\MT@fix@catcode{42}{12}% *
+\MT@fix@catcode{43}{12}% +
+\MT@fix@catcode{44}{12}% ,
+\MT@fix@catcode{45}{12}% -
+\MT@fix@catcode{58}{12}% :
+\MT@fix@catcode{60}{12}% <
+\MT@fix@catcode{61}{12}% =
+\MT@fix@catcode{62}{12}% >
+\MT@fix@catcode{63}{12}% ?
+\MT@fix@catcode{94} {7}% ^ (superscript)
+\MT@fix@catcode{96}{12}% `
+\MT@fix@catcode{124}{12}% |
+\newcommand*\DeclareMicrotypeSet[3][]{}
+\newcommand*\UseMicrotypeSet[2][]{}
+\newcommand*\DeclareMicrotypeSetDefault[2][]{}
+\newcommand*\SetProtrusion[3][]{}
+\newcommand*\SetExpansion[3][]{}
+\newcommand*\SetTracking[3][]{}
+\newcommand*\SetExtraKerning[3][]{}
+\newcommand*\SetExtraSpacing[3][]{}
+\newcommand*\DisableLigatures[2][]{}
+\newcommand*\DeclareCharacterInheritance[3][]{}
+\newcommand*\DeclareMicrotypeVariants[1]{}
+\newcommand*\DeclareMicrotypeAlias[2]{}
+\newcommand*\LoadMicrotypeFile[1]{}
+\newcommand*\DeclareMicrotypeBabelHook[2]{}
+\newcommand*\microtypesetup[1]{}
+\newcommand*\microtypecontext[1]{}
+\newcommand*\textmicrotypecontext[2]{#2}
+\newcommand\leftprotrusion[1]{#1}
+\newcommand\rightprotrusion[1]{#1}
+\providecommand*\noprotrusion{}
+\newcommand*\noprotrusionifhmode{}
+\@ifpackageloaded{letterspace}{\let\MT@textls\relax}{%
+\newcommand*\lsstyle{}
+\newcommand\textls[2][]{}
+\def\textls#1#{}
+\newcommand*\lslig[1]{#1}
+}
+\def\DeclareMicrotypeSet#1#{\@gobbletwo}
+\def\DeclareMicrotypeVariants#1#{\@gobble}
+\@onlypreamble\DeclareMicrotypeSet
+\@onlypreamble\UseMicrotypeSet
+\@onlypreamble\DeclareMicrotypeSetDefault
+\@onlypreamble\DisableLigatures
+\@onlypreamble\DeclareMicrotypeVariants
+\@onlypreamble\DeclareMicrotypeBabelHook
+\expandafter\let\csname ver@letterspace.sty\endcsname\@empty
+\def\MT@old@cmd#1#2{%
+  \newcommand*#1{\MT@error{%
+    \string#1 is deprecated. Please use\MessageBreak
+    \string#2 instead}{As I said}%
+    \let #1#2#2}}
+\MT@old@cmd\DeclareMicroTypeAlias\DeclareMicrotypeAlias
+\MT@old@cmd\DeclareMicroTypeSet  \DeclareMicrotypeSet
+\MT@old@cmd\UseMicroTypeSet      \UseMicrotypeSet
+\MT@old@cmd\LoadMicroTypeFile    \LoadMicrotypeFile
+\def\MT@warning{\PackageWarning\MT@MT}
+\def\MT@warning@nl#1{\MT@warning{#1\@gobble}}
+\def\MT@info{\PackageInfo\MT@MT}
+\def\MT@info@nl#1{\MT@info{#1\@gobble}}
+\let\MT@vinfo\@gobble
+\def\MT@error{\PackageError\MT@MT}
+\def\MT@warn@err#1{\MT@error{#1}{%
+  This error message appears because you loaded the `\MT@MT'\MessageBreak
+  package with the option `verbose=errors'. Consult the documentation\MessageBreak
+  in \MT@MT.pdf to find out what went wrong.}}
+\ifcase 0%
+  \ifx\eTeXversion\@undefined 1\else
+    \ifx\eTeXversion\relax    1\else
+      \ifcase\eTeXversion     1\fi
+    \fi
+  \fi
+\else
+  \catcode`\^^Q=9 \catcode`\^^X=14
+\fi
+\def\MT@clear@options{%
+  \AtEndOfPackage{\let\@unprocessedoptions\relax\MT@restore@catcodes}%
+  \let\CurrentOption\@empty
+}
+\ifx\normalpdftexversion\@undefined \else
+  \let\pdftexversion \normalpdftexversion
+  \let\pdftexrevision\normalpdftexrevision
+  \let\pdfoutput     \normalpdfoutput
+\fi
+\let\MT@engine\relax
+\newif\ifMT@engine@unfit
+\MT@engine@unfittrue
+\ifx\pdftexversion\@undefined \else
+  \ifx\pdftexversion\relax \else
+    \def\MT@engine{pdf}
+    \def\MT@engine@minversion{0.14f}
+    \ifnum\pdftexversion
+        > 13
+      \MT@engine@unfitfalse
+      \ifnum \pdftexversion=14
+        \ifnum \expandafter`\pdftexrevision < `f
+          \MT@engine@unfittrue
+        \fi
+      \fi
+    \fi
+  \fi
+\fi
+\ifx\directlua\@undefined \else
+  \ifx\directlua\relax \else
+    \def\MT@engine{lua}
+    \MT@engine@unfitfalse
+  \fi
+\fi
+\ifx\MT@engine\relax
+  \ifx\XeTeXversion\@undefined \else
+    \ifx\XeTeXversion\relax \else
+      \def\MT@engine{xe}
+      \def\MT@engine@minversion{0.9997}
+      \ifdim 0\XeTeXrevision pt > 0.9996pt
+        \MT@engine@unfitfalse
+      \fi
+    \fi
+  \fi
+\fi
+\ifMT@engine@unfit
+  \MT@warning@nl{You
+    \ifx\MT@engine\relax
+      don't seem to be using pdftex%
+      , luatex or xetex%
+     .\MessageBreak `\MT@MT' only works with these engines.%
+    \else
+      are using a \MT@engine tex version older than
+       \MT@engine@minversion
+     .\MessageBreak `\MT@MT' does not work with this version.%
+      \MessageBreak Please install a newer version of \MT@engine tex.%
+    \fi
+    \MessageBreak I will quit now}
+  \MT@clear@options
+\endinput\fi
+\RequirePackage{keyval}[1997/11/10]
+^^X\RequirePackage{etoolbox}
+\newtoks\MT@toks
+\newbox\MT@tempbox
+\newif\ifMT@if@
+\newif\ifMT@protrusion
+\newif\ifMT@expansion
+\newif\ifMT@auto
+\newif\ifMT@selected
+\newif\ifMT@noligatures
+\newif\ifMT@draft
+\newif\ifMT@disable
+\newif\ifMT@spacing
+\newif\ifMT@kerning
+\newif\ifMT@tracking
+\newif\ifMT@babel
+\let\MT@pr@level\tw@
+\let\MT@ex@level\tw@
+\let\MT@pr@factor\@m
+\let\MT@ex@factor\@m
+\let\MT@sp@factor\@m
+\let\MT@kn@factor\@m
+\let\MT@pr@unit\@empty
+\let\MT@sp@unit\m@ne
+\def\MT@kn@unit{1em}
+\let\MT@stretch\m@ne
+\let\MT@shrink \m@ne
+\let\MT@step   \m@ne
+\def\MT@pr@min{-\@m}
+\let\MT@pr@max\@m
+\let\MT@ex@min\z@
+\let\MT@ex@max\@m
+\def\MT@sp@min{-\@m}
+\let\MT@sp@max\@m
+\def\MT@kn@min{-\@m}
+\let\MT@kn@max\@m
+\def\MT@tr@min{-\@m}
+\let\MT@tr@max\@m
+\def\MT@factor@default{1000 }
+\def\MT@stretch@default{20 }
+\def\MT@shrink@default{20 }
+\let\MT@letterspace\m@ne
+\def\MT@letterspace@default{100}
+\newif\ifMT@document
+\def\MT@glet{\global\let}
+\def\MT@exp@cs#1#2{\expandafter#1\csname#2\endcsname}
+\def\MT@exp@gcs#1#2{\begingroup\expandafter\endgroup\expandafter#1\csname#2\endcsname}
+\def\MT@def@n{\MT@exp@cs\def}
+\def\MT@gdef@n{\MT@exp@gcs\gdef}
+\def\MT@edef@n{\MT@exp@cs\edef}
+\def\MT@xdef@n{\MT@exp@gcs\xdef}
+\def\MT@let@nc{\MT@exp@cs\let}
+\def\MT@glet@nc{\MT@exp@gcs\MT@glet}
+\def\MT@let@cn#1#2{\expandafter\let\expandafter#1\csname #2\endcsname}
+\def\MT@let@nn{\MT@exp@cs\MT@let@cn}
+\def\MT@glet@nn{\MT@exp@gcs{\global\expandafter\MT@let@cn}}
+\def\MT@@font{\expandafter\string\MT@font}
+\def\MT@exp@one@n#1#2{\expandafter#1\expandafter{#2}}
+\def\MT@exp@two@c#1{\expandafter\expandafter\expandafter#1\expandafter}
+\def\MT@exp@two@n#1#2#3{%
+  \expandafter\expandafter\expandafter
+    #1\expandafter\expandafter\expandafter
+      {\expandafter#2\expandafter}\expandafter{#3}}
+\def\MT@ifdefined@c@T#1{%
+^^X  \ifdefined#1\expandafter\@firstofone\else\expandafter\@gobble\fi
+^^Q  \ifx#1\@undefined\expandafter\@gobble\else\expandafter\@firstofone\fi
+}
+\def\MT@ifdefined@c@TF#1{%
+^^X  \ifdefined#1\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+^^Q  \ifx#1\@undefined
+^^Q    \expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi
+}
+\def\MT@ifdefined@n@T#1{%
+^^X  \ifcsname#1\endcsname\expandafter\@firstofone\else\expandafter\@gobble\fi
+^^Q  \begingroup\MT@exp@two@c\endgroup\ifx\csname #1\endcsname\relax
+^^Q    \expandafter\@gobble\else\expandafter\@firstofone\fi
+}
+\def\MT@ifdefined@n@TF#1{%
+^^X  \ifcsname#1\endcsname\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+^^Q  \begingroup\MT@exp@two@c\endgroup\ifx\csname #1\endcsname\relax
+^^Q    \expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi
+}
+\def\MT@detokenize@n#1{%
+^^X  \expandafter\MT@rem@last@space\detokenize{#1} \@nil
+^^Q  \string#1%
+}
+\def\MT@detokenize@c#1{%
+^^X  \MT@exp@one@n\MT@detokenize@n#1%
+^^Q  \MT@exp@two@c\MT@rem@last@space\strip@prefix\meaning#1 \@nil
+}
+\def\MT@rem@last@space#1 #2{#1%
+  \ifx\@nil#2\else \space
+  \expandafter\MT@rem@last@space\expandafter#2\fi
+}
+\begingroup
+\catcode`\%=12
+\catcode`\&=14
+\gdef\MT@ifempty#1{&
+  \if %#1%&
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+\endgroup
+\def\MT@ifdim#1#2#3{%
+  \ifdim #1\p@ #2 #3\p@
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+\def\MT@xadd#1#2{%
+  \ifx#1\relax
+    \xdef#1{#2}%
+  \else
+    \xdef#1{#1#2}%
+  \fi
+}
+\def\MT@xaddb#1#2{%
+  \ifx#1\relax
+    \xdef#1{#2}%
+  \else
+    \xdef#1{#2#1}%
+  \fi
+}
+\def\MT@map@clist@n#1#2{%
+  \ifx\@empty#1\else
+    \def\MT@clist@function##1{#2}%
+    \MT@map@clist@#1,\@nil,\@nnil
+  \fi
+}
+\def\MT@map@clist@c#1{\MT@exp@one@n\MT@map@clist@n#1}
+\def\MT@map@clist@#1,{%
+  \ifx\@nil#1%
+    \expandafter\MT@clist@break
+  \fi
+  \MT@clist@function{#1}%
+  \MT@map@clist@
+}
+\let\MT@clist@function\@gobble
+\def\MT@clist@break#1\@nnil{}
+\def\MT@map@tlist@n#1#2{\MT@map@tlist@#2#1\@nnil}
+\def\MT@map@tlist@c#1#2{\expandafter\MT@map@tlist@\expandafter#2#1\@nnil}
+\def\MT@map@tlist@#1#2{%
+  \ifx\@nnil#2\else
+    #1{#2}%
+    \expandafter\MT@map@tlist@
+    \expandafter#1%
+  \fi
+}
+\def\MT@tlist@break#1\@nnil{\fi}
+\newif\ifMT@inlist@
+\def\MT@in@clist#1#2{%
+  \def\MT@res@a##1,#1,##2##3\@nnil{%
+    \ifx##2\@empty
+      \MT@inlist@false
+    \else
+      \MT@inlist@true
+    \fi
+  }%
+  \expandafter\MT@res@a\expandafter,#2,#1,\@empty\@nnil
+}
+\def\MT@rem@from@clist#1#2{%
+  \def\MT@res@a##1,#1,##2\MT@res@a{##1,##2\MT@res@b}%
+  \def\MT@res@b##1,\MT@res@b##2\MT@res@b{\ifx,##1\@empty\else##1\fi}%
+  \xdef#2{\MT@exp@two@c\MT@res@b\MT@res@a\expandafter,#2,\MT@res@b,#1,\MT@res@a}%
+}
+\def\MT@in@tlist#1#2{%
+  \MT@inlist@false
+  \def\MT@res@a{#1}%
+  \MT@map@tlist@c#2\MT@in@tlist@
+}
+\def\MT@in@tlist@#1{%
+  \edef\MT@res@b{#1}%
+  \ifx\MT@res@a\MT@res@b
+    \MT@inlist@true
+    \expandafter\MT@tlist@break
+  \fi
+}
+\def\MT@in@rlist#1{%
+  \MT@inlist@false
+  \MT@map@tlist@c#1\MT@in@rlist@
+}
+\def\MT@in@rlist@#1{\expandafter\MT@in@rlist@@#1}
+\def\MT@in@rlist@@#1#2#3{%
+  \MT@ifdim{#2}=\m@ne{%
+    \MT@ifdim{#1}=\MT@size
+      \MT@inlist@true
+      \relax
+  }{%
+    \MT@ifdim\MT@size<{#1}\relax{%
+      \MT@ifdim\MT@size<{#2}%
+        \MT@inlist@true
+        \relax
+    }%
+  }%
+  \ifMT@inlist@
+    \def\MT@size@name{#3}%
+    \expandafter\MT@tlist@break
+  \fi
+}
+\def\MT@loop#1\MT@repeat{%
+  \def\MT@iterate{#1\relax\expandafter\MT@iterate\fi}%
+  \MT@iterate \let\MT@iterate\relax
+}
+\let\MT@repeat\fi
+\def\MT@while@num#1#2#3{%
+  \@tempcnta#1\relax
+  \MT@loop #3%
+    \advance\@tempcnta \@ne
+    \ifnum\@tempcnta < #2\MT@repeat
+}
+\newcount\MT@count
+\def\MT@increment#1{%
+^^X  \edef#1{\number\numexpr #1 + 1\relax}%
+^^Q  \MT@count=#1\relax
+^^Q  \advance\MT@count \@ne
+^^Q  \edef#1{\number\MT@count}%
+}
+\def\MT@scale#1#2#3{%
+^^Q  \multiply #1 #2\relax
+  \ifnum #3 = \z@
+^^X    #1=\numexpr #1 * #2\relax
+  \else
+^^X    #1=\numexpr #1 * #2 / #3\relax
+^^Q    \divide #1 #3\relax
+  \fi
+}
+\def\MT@abbr@pr{protrusion}
+\def\MT@abbr@ex{expansion}
+\def\MT@abbr@pr@c{protrusion codes}
+\def\MT@abbr@ex@c{expansion codes}
+\def\MT@abbr@pr@inh{protrusion inheritance}
+\def\MT@abbr@ex@inh{expansion inheritance}
+\def\MT@abbr@nl{noligatures}
+\def\MT@abbr@sp{spacing}
+\def\MT@abbr@sp@c{interword spacing codes}
+\def\MT@abbr@sp@inh{interword spacing inheritance}
+\def\MT@abbr@kn{kerning}
+\def\MT@abbr@kn@c{kerning codes}
+\def\MT@abbr@kn@inh{kerning inheritance}
+\def\MT@abbr@tr{tracking}
+\def\MT@abbr@tr@c{tracking amount}
+\def\MT@rbba@protrusion{pr}
+\def\MT@rbba@expansion{ex}
+\def\MT@rbba@spacing{sp}
+\def\MT@rbba@kerning{kn}
+\def\MT@rbba@tracking{tr}
+\def\MT@features{pr,ex,sp,kn,tr}
+\def\MT@features@long{protrusion,expansion,spacing,kerning,tracking}
+\def\MT@is@feature#1#2{%
+  \MT@in@clist{#1}\MT@features@long
+  \ifMT@inlist@
+    \expandafter\@firstofone
+  \else
+    \MT@error{`#1' is not an available micro-typographic\MessageBreak
+      feature. Ignoring #2}{Available features are: `\MT@features@long'.}%
+    \expandafter\@gobble
+  \fi
+}
+\@ifl@aded{tex}{wordcount}{%
+  \MT@warning@nl{Detected the `wordcount' utility.\MessageBreak
+    Disabling `\MT@MT', since it wouldn't work}%
+  \MT@clear@options\endinput}\relax
+\@ifclassloaded{minimal}{%
+  \MT@warning@nl{Detected the `minimal' class.\MessageBreak
+    Expect lots of warnings and some malfunctions.\MessageBreak
+    You might want to use a proper class instead}%
+}\relax
+\let\MT@setup@\@empty
+\def\MT@addto@setup{\g@addto@macro\MT@setup@}
+\def\MT@with@package@T#1{\@ifpackageloaded{#1}\@firstofone\@gobble}
+\def\MT@with@babel@and@T#1{%
+  \MT@ifdefined@n@T{opt@babel.\@pkgextension}{%
+    \@expandtwoargs\MT@in@clist{#1}
+      {\csname opt@babel.\@pkgextension\endcsname,\@classoptionslist}%
+    \ifMT@inlist@\expandafter\@secondoftwo\else\expandafter\@firstofone\fi
+  }\@gobble
+}
+\def\MT@restore@p@h{\chardef\%`\% \chardef\#`\# }
+\newif\ifMT@fontspec
+\MT@with@package@T{fontspec}\MT@fontspectrue
+\newif\ifMT@xunicode
+\MT@with@package@T{xunicode}\MT@xunicodetrue
+\@ifl@t@r\fmtversion{2020/10/01}
+  {\IfFormatAtLeastTF{2021/11/15}
+    {\AddToHook{package/fontspec/after}{\MT@fontspectrue}}
+    {\AddToHook{package/after/fontspec}{\MT@fontspectrue}}}\relax
+\let\MT@maybe@gobble@with@tikz\@firstofone
+\def\MT@tikz@setup{%
+  \def\MT@maybe@gobble@with@tikz{%
+    \ifnum\tikz@expandcount>\z@
+      \expandafter\@gobble
+    \else
+      \expandafter\@firstofone
+    \fi}}
+\def\MT@setupfont@hook{%
+  \MT@if@false
+  \MT@with@babel@and@T{spanish} \MT@if@true
+  \MT@with@babel@and@T{galician}\MT@if@true
+  \MT@with@babel@and@T{mexican} \MT@if@true
+  \ifMT@if@\MT@ifdefined@c@T\percentsign{\let\%\percentsign}\fi
+  \MT@with@package@T{csquotes}{%
+    \@ifpackagelater{csquotes}{2005/05/11}\@disablequotes\relax}%
+  \MT@if@false
+  \MT@with@package@T{hyperref}  \MT@if@true
+  \MT@with@package@T{tex4ht}    \MT@if@true
+  \MT@with@package@T{mathastext}\MT@if@true
+  \ifMT@if@\MT@restore@p@h\fi
+  \MT@with@package@T{tikz}\MT@tikz@setup
+}
+\MT@addto@setup{%
+  \MT@with@package@T{pdfcprot}{%
+    \MT@error{Detected the `pdfcprot' package!\MessageBreak
+              `\MT@MT' and `pdfcprot' may not be used together}{%
+The `pdfcprot' package provides an interface to character protrusion.\MessageBreak
+So does the `\MT@MT' package. Using both packages at the same\MessageBreak
+time will almost certainly lead to undesired results. Have your choice!}%
+  }%
+  \MT@with@package@T  {ledmac}\MT@ledmac@setup
+  \MT@with@package@T {eledmac}\MT@ledmac@setup
+  \MT@with@package@T{reledmac}\MT@ledmac@setup
+  \MT@with@package@T{xunicode}\MT@xunicodetrue
+  \MT@with@package@T{fontspec}\MT@fontspectrue
+  \MT@glet\MT@setupfont@hook\@empty
+  %\gdef\MT@setupfont@hook{\tracingnone
+  %  \MT@info{Silently doing my `magic' (Mittelbach) for font\MessageBreak\MT@@font}}%
+  \MT@if@false
+  \MT@with@babel@and@T{spanish} \MT@if@true
+  \MT@with@babel@and@T{galician}\MT@if@true
+  \MT@with@babel@and@T{mexican} \MT@if@true
+  \ifMT@if@
+    \g@addto@macro\MT@setupfont@hook{%
+      \MT@ifdefined@c@T\percentsign{\let\%\percentsign}}%
+  \fi
+  \MT@with@package@T{csquotes}{%
+    \@ifpackagelater{csquotes}{2005/05/11}{%
+      \g@addto@macro\MT@setupfont@hook\@disablequotes
+      ^^X\apptocmd\csq@bqgroup{\let\MT@csq@eqgroup\csq@eqgroup}\relax\relax
+    }{%
+      \MT@warning@nl{%
+        Should you receive warnings about unknown slot\MessageBreak
+        numbers, try upgrading the `csquotes' package}%
+    }%
+  }%
+  \MT@if@false
+  \MT@with@package@T{hyperref}{%
+    \pdfstringdefDisableCommands{%
+      \MT@ltx@pickupfont
+      \let\textmicrotypecontext\@secondoftwo
+      \let\microtypecontext\@gobble
+      \def\lsstyle{\pdfstringdefWarn\lsstyle}%
+      \def\textls#1#{\pdfstringdefWarn\textls}%
+    }%
+    \MT@if@true
+  }%
+  \MT@with@package@T{tex4ht}{%
+    \def\MT@apply@patch#1{\MT@info{Not applying patch `#1' (for tex4ht)}}%
+    \def\MT@undo@patch#1{\MT@info{Not undoing patch `#1' (for tex4ht)}}%
+    \MT@if@true
+  }%
+  \MT@with@package@T{mathastext}\MT@if@true
+  \ifMT@if@\g@addto@macro\MT@setupfont@hook\MT@restore@p@h\fi
+  \MT@with@package@T{listings}{%
+    \g@addto@macro\MT@cfg@catcodes{%
+      \MT@while@num{"30}{"3A}{\catcode\@tempcnta=12\relax}%
+      \MT@while@num{"41}{"5B}{\catcode\@tempcnta=11\relax}%
+      \MT@while@num{"61}{"7B}{\catcode\@tempcnta=11\relax}%
+    }%
+    \g@addto@macro\MT@setupfont@hook{%
+      \catcode`\\=\z@
+      \def\space{ }%
+      \let\lst@ProcessLetter\@empty
+    }%
+  }%
+  \ifx\SOUL@\@undefined\else
+    \soulregister\lsstyle 0%
+    \soulregister\textls  1%
+    \ifx\XeTeXrevision\@undefined
+      \let\MT@SOUL@doword\SOUL@doword
+      \def\SOUL@doword{\pdfadjustspacing=\z@ \MT@SOUL@doword}%
+    \fi
+  \fi
+  \MT@with@package@T{tikz}\MT@tikz@setup
+  \MT@with@package@T{pinyin}{%
+    \let\MT@orig@py@macron\py@macron
+    \@ifpackagelater{pinyin}{2005/08/11}{% 4.6.0
+      \def\py@macron#1#2{%
+        \MT@ltx@pickupfont
+        \MT@orig@py@macron{#1}{#2}%
+        \MT@MT@pickupfont}%
+    }{%
+      \def\py@macron#1{%
+        \MT@ltx@pickupfont
+        \MT@orig@py@macron{#1}%
+        \MT@MT@pickupfont}%
+    }%
+  }%
+  \MT@with@package@T{unicode-math}{%
+    \MT@let@nc{__um_sub_or_super:n}\relax
+  }%
+}
+\newif\ifMT@patch@ok
+\def\MT@patch@info#1{\MT@info{Applying patch `#1'}}
+\def\MT@patch@warn#1{\MT@warning{Unable to apply patch `#1'}}
+\def\MT@patch@undef#1{\MT@warning{Patch `#1' undefined. Cannot apply it}}
+\def\MT@patch@info@undo#1{\MT@info{Reverting patch `#1'}}
+\let\MT@patches@def\@gobble
+\def\MT@define@patch#1#2#3{%
+  \g@addto@macro\MT@patches@def{,#1}%
+  \MT@def@n{MT@patch@@#1}{#2}%
+  \MT@def@n{MT@patch@undo@@#1}{#3}%
+}
+\let\MT@redefined@patches\@empty
+\def\MT@redefine@patch#1#2#3{%
+  \g@addto@macro\MT@redefined@patches{%
+    \MT@def@n{MT@patch@@#1}{#2}%
+    \MT@def@n{MT@patch@undo@@#1}{#3}%
+  }%
+}
+\@onlypreamble\MT@define@patch
+\@onlypreamble\MT@redefine@patch
+\def\MT@append@patch#1#2{%
+  \MT@remember@patch{#1}%
+  \apptocmd#1{#2}\relax\MT@patch@okfalse
+}
+\def\MT@patch@patch#1#2#3{%
+  \MT@remember@patch{#1}%
+  \patchcmd#1{#2}{#3}\relax\MT@patch@okfalse
+}
+\def\MT@remember@patch#1{%
+  \MT@ifdefined@n@TF{MT@patch@saved@\string#1}\relax
+    {\MT@let@nc{MT@patch@saved@\string#1}#1%
+     \MT@exp@cs\g@addto@macro{MT@patch@undo@@\MT@patch@name}%
+       {\MT@let@cn#1{MT@patch@saved@\string#1}}}%
+}
+\let\MT@patches@applied\@gobble
+\def\MT@apply@patch#1{%
+  \MT@patch@oktrue
+  \MT@ifdefined@n@TF{MT@patch@@#1}
+    {\MT@in@clist{#1}\MT@patches@applied
+     \ifMT@inlist@
+       \MT@warning{Patch `#1' has already been applied,\MessageBreak
+                   cannot reapply it}%
+     \else
+       \let\MT@restore@catcodes\@empty
+       \MT@with@babel@and@T{spanish} {\MT@fix@catcode{62}{12}}% >
+       \MT@with@babel@and@T{galician}{\MT@fix@catcode{62}{12}}% >
+       \def\MT@patch@name{#1}%
+       \g@addto@macro\MT@patches@applied{,#1}%
+       \@nameuse{MT@patch@@#1}%
+       \@nameuse{MT@patch@\ifMT@patch@ok info\else warn\fi}{#1}%
+       \MT@restore@catcodes
+     \fi}
+    {\MT@patch@undef{#1}}%
+}
+\def\MT@undo@patch#1{%
+  \MT@in@clist{#1}\MT@patches@applied
+  \ifMT@inlist@
+    \MT@rem@from@clist{#1}\MT@patches@applied
+    \@nameuse{MT@patch@undo@@#1}%
+    \MT@patch@info@undo{#1}%
+  \else
+    \MT@warning{Patch `#1' hasn't been applied,\MessageBreak cannot revert it}%
+  \fi
+}
+{\catcode`\#=12
+\MT@addto@setup{%
+  \MT@define@patch{item}{%
+    \MT@append@patch\@item\leftprotrusion
+    \MT@patch@patch\@item{\everypar{}}{\everypar{\leftprotrusion}}%
+    \@ifclassloaded{beamer}
+      {\MT@append@patch\beamer@@callorigitem\leftprotrusion
+       \MT@patch@patch\beamer@callorigitem{\ignorespaces}{\ignorespaces\leftprotrusion}}
+      {\@ifclassloaded{simplecv}
+        {\MT@append@patch\@topic@item\leftprotrusion}
+        {}}%
+  }{}%
+  \MT@define@patch{toc}{%
+    \MT@append@patch\numberline\leftprotrusion
+    \@ifclassloaded{memoir}
+      {\MT@append@patch\booknumberline\leftprotrusion
+       \MT@append@patch\partnumberline\leftprotrusion
+       \MT@append@patch\chapternumberline\leftprotrusion
+       \MT@append@patch\cftbookafterpnum\noprotrusion
+       \MT@append@patch\cftpartafterpnum\noprotrusion
+       \MT@append@patch\cftchapterafterpnum\noprotrusion
+       \MT@append@patch\cftsectionafterpnum\noprotrusion
+       \MT@append@patch\cftsubsectionafterpnum\noprotrusion
+       \MT@append@patch\cftsubsubsectionafterpnum\noprotrusion
+       \MT@append@patch\cftparagraphafterpnum\noprotrusion
+       \MT@append@patch\cftsubparagraphafterpnum\noprotrusion
+       \MT@append@patch\cftfigureafterpnum\noprotrusion
+       \MT@append@patch\cfttableafterpnum\noprotrusion}
+      {}%
+  }{}%
+  \MT@define@patch{eqnum}{%
+    \@ifclassloaded{IEEEtran}
+      {\MT@patch@patch\theequationdis{(}{\leftprotrusion{(}}%
+       \MT@patch@patch\theequationdis{)}{\rightprotrusion{)}}%
+       \MT@patch@patch\theIEEEsubequationdis{(}{\leftprotrusion{(}}%
+       \MT@patch@patch\theIEEEsubequationdis{)}{\rightprotrusion{)}}}%
+      {}%
+    \@ifpackageloaded{amsmath}
+      {\MT@patch@patch\tagform@{(}{\leftprotrusion{(}}%
+       \MT@patch@patch\tagform@{)}{\rightprotrusion{)}}%
+       \MT@patch@patch\eqref{\tagform@}{\@nameuse{MT@patch@saved@\string\tagform@}}%
+       \MT@with@package@T{mathtools}{%
+         \ifMT@patch@ok\else \MT@patch@oktrue
+           \MT@info@nl{The `eqnum' patch may not be effective because you are\MessageBreak
+               using the mathtools package. Make sure to insert\MessageBreak
+               `\@backslashchar leftprotrusion' and
+               `\@backslashchar rightprotrusion' as\MessageBreak
+               appropriate in mathtools's `\@backslashchar newtagform' command}%
+         \fi}}
+      {\MT@patch@patch\@eqnnum{(}{\leftprotrusion{(}}%
+       \MT@patch@patch\@eqnnum{)}{\rightprotrusion{)}}}%
+  }{}%
+  \MT@define@patch{footnote}{%
+    \@ifpackageloaded{hyperref}
+        {\ifHy@hyperfootnotes\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+        \@secondoftwo
+      {\MT@patch@patch\@footnotetext{\ignorespaces}{\ignorespaces\leftprotrusion}%
+       \MT@patch@patch\@footnotetext{\@empty\ignorespaces}{\@empty\ignorespaces\leftprotrusion}%
+       \MT@patch@patch\@mpfootnotetext{\ignorespaces}{\ignorespaces\leftprotrusion}%
+       \MT@patch@patch\@mpfootnotetext
+           {{\expandafter\hyper@@anchor\expandafter
+               {\Hy@footnote@currentHref}{\relax}}\ignorespaces}
+           {{\expandafter\hyper@@anchor\expandafter
+               {\Hy@footnote@currentHref}{\relax}}\ignorespaces\leftprotrusion}}
+      {\@ifclassloaded{memoir}
+         {\MT@patch@patch\@footnotetext{\foottextfont #1}{\foottextfont\leftprotrusion #1}%
+          \MT@patch@patch\@mpfootnotetext{\foottextfont #1}{\foottextfont\leftprotrusion #1}}
+         {\MT@patch@patch\@mpfootnotetext{\ignorespaces}{\ignorespaces\leftprotrusion}%
+          \@ifpackageloaded{scrkbase}
+             {\MT@patch@patch\scr@saved@footnotetext{\ignorespaces}{\ignorespaces\leftprotrusion}}%
+             {\MT@patch@patch\@footnotetext{\ignorespaces}{\ignorespaces\leftprotrusion}}}}%
+  }{}%
+  \MT@redefined@patches
+}}
+\expandafter\ifx\the\font\nullfont\normalfont\fi
+\def\MT@split@name#1/#2/#3/#4/#5/#6\@nil{%
+  \def\MT@encoding{#1}%
+  \ifMT@fontspec
+    \edef\MT@family{\MT@scrubfeature#2()\relax}%
+  \else
+    \def\MT@family{#2}%
+  \fi
+  \def\MT@series  {#3}%
+  \def\MT@shape   {#4}%
+  \def\MT@size    {#5}%
+  \MT@fix@fontdimen@six
+  \MT@ifdefined@n@TF{MT@\MT@family @alias}%
+    {\MT@let@cn\MT@familyalias{MT@\MT@family @alias}}%
+    {\let\MT@familyalias\@empty}%
+}
+\def\MT@scrubfeature#1(#2)#3\relax{#1}
+\def\MT@scrubfeatures#1(#2)#3\relax{%
+  #1%
+  \ifx\relax#3\relax\else
+    \MT@scrubfeatures#3\relax
+  \fi
+}
+\newif\ifMT@do
+\def\MT@maybe@do#1{%
+  \csname ifMT@\csname MT@abbr@#1\endcsname\endcsname
+    \MT@dotrue
+    \edef\@tempa{\csname MT@#1@setname\endcsname}%
+    \MT@map@clist@n{font,encoding,family,series,shape,size}{%
+      \MT@ifdefined@n@TF{MT@checklist@##1}%
+        {\csname MT@checklist@##1\endcsname}%
+        {\MT@checklist@{##1}}%
+      {#1}%
+    }%
+  \else
+    \MT@dofalse
+  \fi
+  \ifMT@do
+    \def\MT@feat{#1}%
+    \csname MT@set@#1@codes\endcsname
+  \else
+    \MT@ifstreq{#1}{tr}%
+      {\let\MT@info@notracking\MT@info@notracking@}%
+      {\MT@vinfo{... No \@nameuse{MT@abbr@#1}}}%
+  \fi
+}
+\let\MT@info@notracking\relax
+\def\MT@info@notracking@{\MT@vinfo{... No tracking}}
+\def\MT@checklist@#1#2{%
+  \MT@ifdefined@n@T
+      {MT@#2list@#1@\@tempa}{%
+    \expandafter\MT@exp@one@n\expandafter\MT@in@clist
+      \csname MT@#1\expandafter\endcsname
+      \csname MT@#2list@#1@\@tempa\endcsname
+    \ifMT@inlist@
+      \MT@dotrue
+    \else
+      \MT@dofalse
+      \expandafter\MT@clist@break
+    \fi
+  }%
+}
+\def\MT@checklist@family#1{%
+  \MT@ifdefined@n@T
+      {MT@#1list@family@\@tempa}{%
+    \MT@exp@two@n\MT@in@clist
+        \MT@family{\csname MT@#1list@family@\@tempa\endcsname}%
+    \ifMT@inlist@
+      \MT@dotrue
+    \else
+      \MT@dofalse
+      \ifx\MT@familyalias\@empty \else
+        \MT@exp@two@n\MT@in@clist
+            \MT@familyalias{\csname MT@#1list@family@\@tempa\endcsname}%
+        \ifMT@inlist@
+          \MT@dotrue
+        \fi
+      \fi
+    \fi
+    \ifMT@do \else
+      \expandafter\MT@clist@break
+    \fi
+  }%
+}
+\def\MT@checklist@size#1{%
+  \MT@ifdefined@n@T
+      {MT@#1list@size@\@tempa}{%
+    \MT@exp@cs\MT@in@rlist{MT@#1list@size@\@tempa}%
+    \ifMT@inlist@
+      \MT@dotrue
+    \else
+      \MT@dofalse
+      \expandafter\MT@clist@break
+    \fi
+  }%
+}
+\def\MT@checklist@font#1{%
+  \MT@ifdefined@n@T
+      {MT@#1list@font@\@tempa}{%
+    \edef\@tempb{\MT@encoding/\MT@family/\MT@series/\MT@shape/\MT@size}%
+    \expandafter\MT@exp@one@n\expandafter\MT@in@clist\expandafter
+      \@tempb \csname MT@#1list@font@\@tempa\endcsname
+    \ifMT@inlist@
+      \expandafter\MT@clist@break
+    \else
+      \MT@dofalse
+    \fi
+  }%
+}
+\newif\ifMT@nofamily
+\def\MT@protrusion{\MT@maybe@do{pr}}
+\def\MT@get@font@dimen#1{%
+  \ifnum\fontdimen#1\MT@font=\z@
+    \MT@warning@nl{Font `\MT@@font' does not specify its\MessageBreak
+      \@backslashchar fontdimen #1 (it's zero)!\MessageBreak
+      You should use a different `unit' for \MT@curr@list@name}%
+  \else
+    \MT@count=\fontdimen#1\MT@font
+  \fi
+}
+\def\MT@info@missing@char{%
+  \MT@info@nl{Character `\the\MT@toks'
+^^X   \ifnum\MT@char@<\z@ is missing\else
+^^X     \iffontchar\MT@font\MT@char@
+               has a width of 0pt
+^^X      \else is missing\fi\fi
+^^Q    \MessageBreak (it's probably missing)
+    \MessageBreak in font `\MT@@font'.\MessageBreak
+    Ignoring protrusion settings for this character}%
+}
+\def\MT@scale@factor{%
+  \ifnum\csname MT@\MT@feat @factor@\endcsname=\@m \else
+    \expandafter\MT@scale\expandafter \@tempcntb
+      \csname MT@\MT@feat @factor@\endcsname \@m
+  \fi
+  \ifnum\@tempcntb>\csname MT@\MT@feat @max\endcsname\relax
+    \MT@exp@cs\MT@warn@code@too@large{MT@\MT@feat @max}%
+  \else
+    \ifnum\@tempcntb<\csname MT@\MT@feat @min\endcsname\relax
+      \MT@exp@cs\MT@warn@code@too@large{MT@\MT@feat @min}%
+    \fi
+  \fi
+}
+\def\MT@warn@code@too@large#1{%
+  \@tempcnta=#1\relax
+  \ifnum\csname MT@\MT@feat @factor@\endcsname=\@m \else
+    \expandafter\MT@scale\expandafter\@tempcnta\expandafter
+      \@m \csname MT@\MT@feat @factor@\endcsname
+  \fi
+  \MT@scale\@tempcnta \MT@dimen@six \MT@count
+  \MT@warning@nl{The \@nameuse{MT@abbr@\MT@feat} code \@tempb\space
+    is too large for character\MessageBreak
+    `\the\MT@toks' in \MT@curr@list@name.\MessageBreak
+    Setting it to the maximum of \number\@tempcnta}%
+  \@tempcntb=#1\relax
+}
+\def\MT@get@opt{%
+  \MT@set@listname
+  \MT@ifdefined@n@TF{MT@\MT@feat @c@\csname MT@\MT@feat @c@name\endcsname @factor}{%
+    \MT@let@nn{MT@\MT@feat @factor@}
+        {MT@\MT@feat @c@\csname MT@\MT@feat @c@name\endcsname @factor}%
+    \MT@vinfo{... : Multiplying \@nameuse{MT@abbr@\MT@feat} codes by
+                    \number\csname MT@\MT@feat @factor@\endcsname/1000}%
+  }{%
+    \MT@let@nn{MT@\MT@feat @factor@}{MT@\MT@feat @factor}%
+  }%
+  \MT@ifdefined@n@TF{MT@\MT@feat @c@\csname MT@\MT@feat @c@name\endcsname @unit}{%
+    \MT@let@nn{MT@\MT@feat @unit@}%
+        {MT@\MT@feat @c@\csname MT@\MT@feat @c@name\endcsname @unit}%
+    \MT@exp@cs\ifx{MT@\MT@feat @unit@}\@empty
+      \MT@vinfo{... : Setting \@nameuse{MT@abbr@\MT@feat} codes
+                      relative to character widths}%
+    \else
+      \MT@exp@cs\ifx{MT@\MT@feat @unit@}\m@ne
+        \MT@vinfo{... : Setting \@nameuse{MT@abbr@\MT@feat} codes
+                        relative to width of space}%
+      \fi
+    \fi
+  }{%
+    \MT@let@nn{MT@\MT@feat @unit@}{MT@\MT@feat @unit}%
+  }%
+  \let\MT@get@char@unit\relax
+  \let\MT@get@space@unit\@gobble
+  \MT@exp@cs\ifx{MT@\MT@feat @unit@}\@empty
+    \let\MT@get@char@unit\MT@get@charwd
+  \else
+    \MT@exp@cs\ifx{MT@\MT@feat @unit@}\m@ne
+      \let\MT@get@space@unit\MT@get@font@dimen
+    \else
+      \MT@exp@cs\MT@get@unit{MT@\MT@feat @unit@}%
+    \fi
+  \fi
+  \MT@ifdefined@n@T{MT@\MT@feat @c@\csname MT@\MT@feat @c@name\endcsname @preset}{%
+    \csname MT@preset@\MT@feat\endcsname
+    \MT@let@nc{MT@reset@\MT@feat @codes}\relax
+  }%
+}
+\def\MT@get@unit#1{%
+  \expandafter\MT@get@unit@#1 e!\@nil
+  \ifx\x\@empty\else\let#1\x\fi
+  \@defaultunits\@tempdima#1 pt\relax\@nnil
+  \ifdim\@tempdima=\z@
+    \MT@warning@nl{%
+      Cannot set \@nameuse{MT@abbr@\MT@feat} factors relative to zero\MessageBreak
+      width. Setting factors of list `\@nameuse{MT@\MT@feat @c@name}'\MessageBreak
+      relative to character widths instead}%
+    \let#1\@empty
+    \let\MT@get@char@unit\MT@get@charwd
+  \else
+    \MT@vinfo{... : Setting \@nameuse{MT@abbr@\MT@feat} factors relative
+                    to \the\@tempdima}%
+    \MT@count=\@tempdima\relax
+  \fi
+}
+\def\MT@get@unit@#1e#2#3\@nil{%
+  \ifx\\#3\\\let\x\@empty \else
+    \if m#2%
+      \edef\x{#1\fontdimen6\MT@font}%
+    \else
+      \if x#2%
+        \edef\x{#1\fontdimen5\MT@font}%
+      \fi
+    \fi
+  \fi
+}
+\def\MT@set@inputenc#1{%
+  \def\MT@cat{#1}%
+  \edef\@tempa{MT@\MT@feat @#1@\csname MT@\MT@feat @#1@name\endcsname @inputenc}%
+  \MT@ifdefined@n@T\@tempa\MT@set@inputenc@
+}
+\MT@addto@setup{%
+  \@ifpackageloaded{inputenc}{%
+    \@ifpackagelater{inputenc}{2006/02/22}{%
+      \def\MT@set@inputenc@{%
+        \MT@ifstreq\inputencodingname{\csname\@tempa\endcsname}\relax
+          \MT@load@inputenc
+      }%
+    }{%
+      \let\MT@set@inputenc@\MT@load@inputenc
+    }%
+  }{%
+    \def\MT@set@inputenc@{%
+      \MT@warning@nl{Key `inputenc' used in \MT@curr@list@name, but the `inputenc'
+          \MessageBreak package isn't loaded. Ignoring input encoding}%
+    }%
+  }%
+}
+\def\MT@load@inputenc{%
+  \MT@cfg@catcodes
+  \inputencoding{\@nameuse{\@tempa}}%
+}
+\def\MT@set@pr@heirs#1{%
+  \lpcode\MT@font #1=\lpcode\MT@font\MT@char\relax
+  \rpcode\MT@font #1=\rpcode\MT@font\MT@char\relax
+}
+\def\MT@set@pr@prefixheirs{%
+  \MT@ifdefined@c@T\MT@pr@inh@name{%
+    \MT@ifdefined@n@T{MT@inh@\MT@pr@inh@name @prefixes}{%
+      \MT@exp@cs\MT@map@tlist@c
+        {MT@inh@\MT@pr@inh@name @prefixes}%
+        \MT@set@pr@prefixes
+    }%
+  }%
+}
+\def\MT@preset@pr{%
+  \expandafter\expandafter\expandafter\MT@preset@pr@
+    \csname MT@pr@c@\MT@pr@c@name @preset\endcsname\@nil
+}
+\def\MT@preset@pr@#1,#2\@nil{%
+  \ifx\MT@pr@unit@\@empty
+    \MT@warn@preset@towidth{pr}%
+    \let\MT@preset@aux\MT@preset@aux@factor
+  \else
+    \def\MT@preset@aux{\MT@preset@aux@space2}%
+  \fi
+  \MT@ifempty{#1}{\let\@tempa\@empty}{\MT@preset@aux{#1}\@tempa}%
+  \MT@ifempty{#2}{\let\@tempb\@empty}{\MT@preset@aux{#2}\@tempb}%
+  \MT@set@all@pr\@tempa\@tempb
+}
+\def\MT@preset@aux@factor#1#2{%
+  \@tempcntb=#1\relax
+  \MT@scale@factor
+  \edef#2{\number\@tempcntb}%
+}
+\def\MT@preset@aux@space#1#2#3{%
+  \def\@tempb{#2}%
+  \MT@get@space@unit#1%
+  \MT@scale@to@em
+  \edef#3{\number\@tempcntb}%
+}
+\def\MT@warn@preset@towidth#1{%
+  \MT@warning@nl{%
+    Cannot preset characters relative to their widths\MessageBreak
+    for \@nameuse{MT@abbr@#1} list `\@nameuse{MT@#1@c@name}'.
+    Presetting them\MessageBreak relative to 1em instead}%
+}
+\MT@ifdefined@c@TF\noprotrusion\relax{
+  \DeclareRobustCommand\noprotrusion{\leavevmode\kern-\p@\kern\p@}
+}
+\DeclareRobustCommand\noprotrusionifhmode{\relax\ifhmode\kern-\p@\kern\p@\fi}
+\DeclareRobustCommand\leftprotrusion{%
+  \MT@toks{}%
+  \MT@prot@get@firstchar
+}
+\def\MT@prot@l#1{%
+  \MT@get@prot{#1}{left}%
+  #1%
+}
+\DeclareRobustCommand\rightprotrusion{\MT@prot@r}
+\def\MT@prot@r#1{%
+  {#1}%
+  \MT@get@prot{#1}{right}%
+}
+\let\MT@prot@hook\@empty
+\let\MT@csq@eqgroup\relax
+\ifx\RawNoindent\@undefined
+  \let\MT@noindent\noindent
+\else
+  \let\MT@noindent\RawNoindent
+\fi
+\def\MT@get@prot#1#2{%
+  \begingroup
+    \setbox\MT@tempbox\vbox{%
+      \everypar{}%
+      \parfillskip=\z@skip
+      \hbadness\@M
+      \clubpenalty\z@
+      \widowpenalty\z@
+      \interlinepenalty\z@
+      \@newlistfalse
+      \MT@prot@hook
+      \MT@noindent #1\MT@csq@eqgroup}%
+    \vbadness=\@M
+    \splittopskip=\z@
+    \vfuzz=\maxdimen
+    \setbox\MT@tempbox\vbox{%
+      \ifvbox\MT@tempbox
+        \global\setbox\MT@tempbox=\vsplit\MT@tempbox to \normalbaselineskip
+        \unvbox\MT@tempbox
+        \global\setbox\MT@tempbox=\lastbox
+      \fi
+    }%
+  \endgroup
+  \leavevmode
+  \ifhbox\MT@tempbox
+    \@tempdima=\@nameuse{#2marginkern}\MT@tempbox\relax
+    \expandafter\ifdim\@tempdima=\z@ \else
+      \MT@vinfo{|<< adding #2 margin kern for `#1':\MessageBreak
+        \the\@tempdima \on@line}%
+      \kern\@tempdima
+    \fi
+  \fi
+}
+\def\MT@prot@ifx#1{%
+  \ifx\MT@prot@next#1\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+}
+\def\MT@prot@ifcat#1{%
+  \ifcat#1\noexpand\MT@prot@next\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+}
+^^X\def\MT@prot@ifmacro{%
+^^X  \expandafter\MT@prot@ifmacro@\meaning\MT@prot@next\@nil
+^^X}
+^^X\edef\MT@prot@ifmacro@#1\@nil{%
+^^X  \noexpand\MT@prot@ifmacro@@#1{}{}\detokenize{macro:->}\noexpand\@nil
+^^X}
+^^X\edef\MT@temp{%
+^^X  \def\noexpand\MT@prot@ifmacro@@##1\detokenize{macro:->}##2\noexpand\@nil{%
+^^X    \noexpand\ifx\relax##1\relax
+^^X    \unexpanded{\expandafter\@firstofone\else\expandafter\@gobble\fi}%
+^^X  }%
+^^X}
+^^X\MT@temp
+^^Q\let\MT@prot@ifmacro\@gobble
+\def\MT@prot@iffirstcmd#1{%
+  \ifx\relax#1\expandafter\@secondoftwo\else
+    \MT@exp@two@c\ifx\MT@car\MT@prot@next\relax\@nil#1%
+      \expandafter\expandafter\expandafter\@firstoftwo
+    \else
+      \expandafter\expandafter\expandafter\@secondoftwo
+    \fi
+  \fi
+}
+\long\def\MT@car#1#2\@nil{#1}
+\def\MT@getthird#1#2#3#4\@nil{#3}
+\def\MT@prot@iflicrcmd#1{%
+  \MT@exp@cs\MT@prot@iffirstcmd{#1-cmd}{%
+    \expandafter\expandafter\expandafter\let
+      \expandafter\expandafter\expandafter\@tempa
+      \expandafter\MT@getthird\MT@prot@next\relax\@nil
+    \MT@exp@two@c\ifx\@car\@tempa\relax\@nil\@text@composite
+      \def\MT@temp*##1##2{\MT@prot@l{##1##2}}%
+    \else
+      \def\MT@temp*##1{\MT@prot@l{##1}}%
+    \fi
+    \@gobble
+  }\@firstofone
+}
+\def\MT@prot@group{\bgroup\afterassignment\MT@prot@get@firstchar\let\MT@temp= }
+\def\MT@prot@get@firstchar{\futurelet\MT@prot@next\MT@prot@get@first@char}
+\def\MT@prot@get@nextchar{\futurelet\MT@prot@next\MT@prot@get@next@char}
+\def\MT@prot@get@first@char{%
+  \MT@prot@ifcat\bgroup{%
+    \def\MT@temp*{\MT@prot@group}%
+  }{%
+    \MT@prot@ifx\ignorespaces{%
+      \def\MT@temp*##1{\MT@prot@get@firstchar}%
+    }{%
+      \MT@prot@ifx\relax{%
+        \def\MT@temp*##1{\MT@prot@get@firstchar}%
+      }{%
+        \MT@prot@ifx\@sptoken{%
+          \def\MT@temp* {\MT@prot@get@firstchar}%
+        }{%
+          \MT@prot@ifcat{a}{%
+            \def\MT@temp*{\MT@prot@addtoken@first}%
+          }{%
+            \MT@prot@ifcat{!}{%
+              \def\MT@temp*{\MT@prot@addtoken@first}%
+            }{%
+              \def\MT@temp*{}%
+              \MT@prot@ifmacro{%
+                \MT@prot@iffirstcmd\UTFviii@two@octets{%
+                  \def\MT@temp*##1##2{\MT@prot@l{##1##2}}%
+                }{%
+                  \MT@prot@iffirstcmd\UTFviii@three@octets{%
+                    \def\MT@temp*##1##2##3{\MT@prot@l{##1##2##3}}%
+                  }{%
+                    \MT@prot@iffirstcmd\UTFviii@four@octets{%
+                      \def\MT@temp*##1##2##3##4{\MT@prot@l{##1##2##3##4}}%
+                    }{%
+                      \MT@prot@iffirstcmd\csqQQ{\def\MT@temp*##1{\MT@prot@l{##1}}}{%
+                        \MT@prot@iflicrcmd{T1}{%
+                          \MT@prot@iflicrcmd{TU}{%
+                            \MT@prot@iflicrcmd{LY1}{%
+                              \MT@prot@iflicrcmd{OT1}{%
+                                \MT@prot@iflicrcmd{T2A}\relax % should we add more encodings?
+                              }%
+                            }%
+                          }%
+                        }%
+                      }%
+                    }%
+                  }%
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+  \MT@temp*%
+}
+\def\MT@prot@get@next@char{%
+  \def\MT@temp*{\MT@prot@addtoken@next}%
+  \MT@prot@ifcat{a}\relax{%
+    \MT@prot@ifcat{!}\relax{%
+      \def\MT@temp*{\MT@prot@l{\the\MT@toks}}%
+    }%
+  }%
+  \MT@temp*%
+}
+\def\MT@prot@addtoken@first#1{%
+  \edef\MT@temp{\MT@toks={\the\MT@toks\noexpand#1}}\MT@temp
+  \MT@prot@get@nextchar
+}
+\newif\ifMT@nonselected
+\DeclareRobustCommand\textls{%
+  \@ifstar{\let\MT@ls@adjust@\MT@ls@adjust@empty\MT@textls}%
+          {\let\MT@ls@adjust@\MT@ls@adjust@relax\MT@textls}%
+}
+\newcommand\MT@textls[2][]{%
+  \ifmmode
+    \nfss@text{\MT@ls@set@ls{#1}\lsstyle#2}%
+  \else
+    \hmode@bgroup
+      \MT@ls@set@ls{#1}%
+      \lsstyle #2%
+      \expandafter
+    \egroup
+  \fi
+}
+\def\MT@ls@adjust@empty{\let\MT@ls@adjust\@empty}
+\def\MT@ls@adjust@relax{\let\MT@ls@adjust\relax}
+\def\MT@ls@set@ls#1{%
+  \MT@ifempty{#1}%
+    {\let\MT@letterspace@\@undefined}%
+    {\KV@@sp@def\MT@letterspace@{#1}%
+     \edef\MT@letterspace@{\number\MT@letterspace@}%
+     \MT@ls@too@large\MT@letterspace@}%
+  \MT@ls@adjust@
+}
+\def\MT@ls@too@large#1{%
+  \ifnum#1>\MT@tr@max
+    \MT@warning{Maximum for option `letterspace' is \number\MT@tr@max}%
+    \edef#1{\number\MT@tr@max}%
+  \else
+    \ifnum#1<\MT@tr@min
+      \MT@warning{Minimum for option `letterspace' is \number\MT@tr@min}%
+      \edef#1{\number\MT@tr@min}%
+    \fi
+  \fi
+}
+\newdimen\MT@outer@kern
+\def\MT@load@list#1%
+  {\edef\@tempa{#1}%
+  \MT@let@cn\@tempb{MT@\MT@feat @c@\@tempa @load}%
+  \MT@ifstreq\@tempa\@tempb{%
+    \MT@error{\@nameuse{MT@abbr@\MT@feat} list `\@tempa' cannot load itself}{}%
+  }{%
+    \ifx\@tempb\relax
+    \else
+      \MT@ifdefined@n@TF{MT@\MT@feat @c@\@tempb}{%
+        \MT@vinfo{... : First loading \@nameuse{MT@abbr@\MT@feat} list `\@tempb'}%
+        \begingroup
+          \MT@load@list\@tempb
+        \endgroup
+        \edef\MT@curr@list@name{%
+                  \@nameuse{MT@abbr@\MT@feat} list \noexpand\MessageBreak
+                  `\@tempb'}%
+        \MT@let@cn\@tempc{MT@\MT@feat @c@\@tempb}%
+        \expandafter\MT@set@codes\@tempc,\relax,%
+      }{%
+        \MT@error{\@nameuse{MT@abbr@\MT@feat} list `\@tempb' undefined.\MessageBreak
+                    Cannot load it from list `\@tempa'}{}%
+      }%
+    \fi
+  }%
+}
+\let\MT@file@list\@empty
+\def\MT@find@file#1{%
+  \MT@in@clist{#1}\MT@file@list
+  \ifMT@inlist@ \else
+    \MT@begin@catcodes
+      \let\MT@begin@catcodes\relax
+      \let\MT@end@catcodes\relax
+      \InputIfFileExists{mt-#1.cfg}{%
+        \edef\MT@curr@file{mt-#1.cfg}%
+        \MT@vinfo{... Loading configuration file \MT@curr@file}%
+        \MT@xadd\MT@file@list{#1,}%
+      }{%
+        \MT@get@basefamily#1\@empty\@empty\@empty\@nil
+        \MT@exp@one@n\MT@in@clist\@tempa\MT@file@list
+        \ifMT@inlist@
+          \MT@xadd\MT@file@list{#1,}%
+        \else
+          \InputIfFileExists{mt-\@tempa.cfg}{%
+            \edef\MT@curr@file{mt-\@tempa.cfg}%
+            \MT@vinfo{... Loading configuration file \MT@curr@file}%
+            \MT@xadd\MT@file@list{\@tempa,#1,}%
+          }{%
+            \MT@vinfo{... No configuration file mt-#1.cfg}%
+            \MT@xadd\MT@file@list{#1,}%
+          }%
+        \fi
+      }%
+    \endgroup
+  \fi
+}
+\def\MT@cfg@catcodes{%
+  \makeatletter
+  \catcode`\^7%
+  \catcode`\ 9%
+  \catcode`\^^I9%
+  \catcode`\^^M9%
+  \catcode`\\\z@
+  \catcode`\{\@ne
+  \catcode`\}\tw@
+  \catcode`\#6%
+  \catcode`\%14%
+  \MT@map@tlist@n
+    {\!\"\$\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\[\]\_\`\|\~}%
+    \@makeother
+}
+\def\MT@begin@catcodes{%
+  \begingroup
+  \MT@cfg@catcodes
+}
+\let\MT@end@catcodes\endgroup
+\def\MT@get@basefamily#1#2#3#4\@nil{%
+  \ifx\@empty#4%
+    \def\@tempa{#1#2#3}%
+  \else
+    \let\@tempa\@empty
+    \edef\@tempb{#1#2#3#4}%
+    \expandafter\MT@get@basefamily@\@tempb\@nil
+  \fi
+}
+\def\MT@get@basefamily@#1#2\@nil{%
+  \edef\@tempa{\@tempa#1}%
+  \ifx\\#2\\\expandafter\@gobble\else\expandafter\@firstofone\fi
+  {\MT@in@tlist{#2}\MT@variants
+   \ifMT@inlist@\else\MT@get@basefamily@#2\@nil\fi}%
+}
+\def\MT@get@listname#1{%
+  \let\MT@listname\@undefined
+  \def\@tempb{#1}%
+  \MT@map@tlist@c\MT@try@order\MT@get@listname@
+}
+\def\MT@get@listname@#1{%
+  \expandafter\MT@next@listname#1%
+  \ifx\MT@listname\@undefined \else
+    \expandafter\MT@tlist@break
+  \fi
+}
+\def\MT@try@order{%
+  {1111}{1110}{1101}{1100}{1011}{1010}{1001}{1000}%
+  {0111}{0110}{0101}{0100}{0011}{0010}{0001}{0000}%
+}
+\def\MT@next@listname#1#2#3#4{%
+  \ifnum#1=\z@\MT@nofamilytrue\fi
+  \edef\@tempa{\MT@encoding
+/\ifnum#1=\@ne \MT@family  \fi
+/\ifnum#2=\@ne \MT@series  \fi
+/\ifnum#3=\@ne \MT@shape   \fi
+/\ifnum#4=\@ne *\fi
+               \MT@context}%
+  \MT@ifdefined@n@TF{MT@\@tempb @\@tempa}{%
+    \MT@next@listname@#4%
+  }{%
+    \ifnum#1=\@ne
+      \ifx\MT@familyalias\@empty \else
+        \edef\@tempa{\MT@encoding
+                    /\MT@familyalias
+      /\ifnum#2=\@ne \MT@series\fi
+      /\ifnum#3=\@ne \MT@shape\fi
+      /\ifnum#4=\@ne *\fi
+                     \MT@context}%
+        \MT@ifdefined@n@T{MT@\@tempb @\@tempa}{%
+          \MT@next@listname@#4%
+        }%
+      \fi
+    \fi
+  }%
+}
+\def\MT@next@listname@#1{%
+  \ifnum#1=\@ne
+    \MT@exp@cs\MT@in@rlist{MT@\@tempb @\@tempa @sizes}%
+    \ifMT@inlist@
+      \let\MT@listname\MT@size@name
+    \fi
+  \else
+    \MT@let@cn\MT@listname{MT@\@tempb @\@tempa}%
+  \fi
+}
+\def\MT@if@list@exists{%
+  \MT@let@cn\MT@context{MT@\MT@feat @context}%
+  \MT@ifstreq{@}\MT@context{\let\MT@context\@empty}\relax
+  \MT@get@listname{\MT@feat @c}%
+  \MT@ifdefined@c@TF\MT@listname{%
+    \MT@edef@n{MT@\MT@feat @c@name}{\MT@listname}%
+    \ifMT@nonselected
+      \MT@vinfo{... Applying non-selected expansion (list `\MT@listname')}%
+    \else
+      \MT@vinfo{... Loading \@nameuse{MT@abbr@\MT@feat} list `\MT@listname'}%
+    \fi
+    \@firstoftwo
+  }{%
+    \MT@let@nc{MT@\MT@feat @c@name}\@empty
+    \ifMT@nonselected
+      \MT@vinfo{... Applying non-selected expansion (no list)}%
+    \else
+      \MT@ifstreq\MT@feat{tr}\relax{%
+        \MT@warning{I cannot find a \@nameuse{MT@abbr@\MT@feat} list
+          for font\MessageBreak`\MT@@font'%
+            \ifx\MT@context\@empty\else\space(context: `\MT@context')\fi.
+          Switching off\MessageBreak\@nameuse{MT@abbr@\MT@feat} for this font}%
+      }%
+    \fi
+    \@secondoftwo
+  }%
+}
+\def\MT@get@inh@list{%
+  \let\MT@context\@empty
+  \MT@get@listname{\MT@feat @inh}%
+  \MT@ifdefined@c@TF\MT@listname{%
+    \MT@edef@n{MT@\MT@feat @inh@name}{\MT@listname}%
+    \MT@let@cn\@tempc{MT@\MT@feat @inh@\MT@listname}%
+    \ifx\@tempc\@empty \else
+      \begingroup
+      \edef\MT@curr@list@name{inheritance list\noexpand\MessageBreak`\MT@listname'}%
+      \MT@set@inputenc{inh}%
+      \expandafter\MT@inh@do\@tempc,\relax,%
+      \MT@glet@nc{MT@\MT@feat @inh@\MT@listname}\@empty
+      \endgroup
+    \fi
+  }{%
+    \MT@let@nc{MT@\MT@feat @inh@name}\@undefined
+  }%
+}
+\def\MT@get@slot{%
+  \escapechar`\\
+  \let\MT@char@\m@ne
+  \MT@noresttrue
+  \MT@toks=\expandafter{\@tempa}%
+  \MT@exp@two@c\MT@is@active\string\@tempa\@nil
+  \expandafter\MT@is@letter\@tempa\relax\relax
+  \ifnum\MT@char@ < \z@
+    \MT@ifdefined@n@TF{\MT@encoding\MT@detokenize@c\@tempa}%
+      \MT@is@symbol
+      {\expandafter\MT@is@composite\@tempa\relax\relax}%
+    \ifnum\MT@char@ < \z@
+      \expandafter\MT@exp@two@c\expandafter\MT@is@char\expandafter
+          \meaning\expandafter\@tempa\MT@charstring\relax\relax\relax
+    \fi
+  \fi
+  \let\MT@char\MT@char@
+  \MT@get@slot@
+  \escapechar\m@ne
+}
+\newif\ifMT@norest
+\def\MT@is@letter#1#2\relax{%
+  \ifcat a\noexpand#1\relax
+    \edef\MT@char@{\number`#1}%
+    \ifx\\#2\\%
+    \else
+      \MT@norestfalse
+    \fi
+  \else
+    \ifcat !\noexpand#1\relax
+      \edef\MT@char@{\number`#1}%
+      \ifx\\#2\\%
+        \ifnum\MT@char@ > \MT@max@char \MT@warn@ascii \fi
+      \else
+        \MT@norestfalse
+        \expandafter\MT@is@number#1#2\relax\relax
+      \fi
+    \fi
+  \fi
+}
+\def\MT@is@number#1#2#3\relax{%
+  \ifx\relax#3\relax \else
+    \ifx\relax#2\relax \else
+      \MT@noresttrue
+      \if#1"\relax
+        \def\x{\uppercase{\edef\MT@char@{\number#1#2#3}}}\x
+      \else
+        \if#1'\relax
+          \def\MT@char@{\number#1#2#3}%
+        \else
+          \MT@ifint{#1#2#3}{%
+            \def\MT@char@{\number#1#2#3}%
+          }\MT@norestfalse
+        \fi
+      \fi
+      \ifnum\MT@char@ > \MT@max@slot
+        \MT@warn@number@too@large{\noexpand#1\noexpand#2\noexpand#3}%
+        \let\MT@char@\m@ne
+      \fi
+    \fi
+  \fi
+}
+\def\MT@is@active#1#2\@nil{%
+  \ifnum\catcode`#1 = \active
+    \begingroup
+      \set@display@protect
+      \let\IeC\@firstofone
+      \let\@inpenc@undefined@\MT@undefined@char
+      \let\UTF@two@octets@noexpand\@empty
+      \let\UTF@three@octets@noexpand\@empty
+      \let\UTF@four@octets@noexpand\@empty
+      \def\UTFviii@defined##1{\ifx ##1\relax
+        \MT@undefined@char{utf8}\else\expandafter ##1\fi}%
+      \MT@ifdefined@c@T\PrerenderUnicode
+        {\PrerenderUnicode{\@tempa}\let\unicode@charfilter\@firstofone}%
+      \edef\x{\endgroup
+        \def\noexpand\@tempa{\expandafter\expandafter\expandafter\@empty\@tempa}%
+        \MT@toks={\the\MT@toks\space(=
+                  \expandafter\expandafter\expandafter\@empty\@tempa)}%
+      }%
+    \x
+  \fi
+}
+\def\MT@undefined@char#1{undefined in input encoding ``#1''}
+\def\MT@is@symbol{%
+  \expandafter\def\expandafter\MT@char\expandafter
+      {\csname\MT@encoding\MT@detokenize@c\@tempa\endcsname}%
+  \expandafter\expandafter\expandafter
+    \MT@is@opt@char\MT@char\iffontchar\char\else\fi\relax
+  \expandafter\MT@exp@two@c\expandafter\MT@is@char\expandafter
+    \meaning\expandafter\MT@char\MT@charstring\relax\relax\relax
+  \ifnum\MT@char@ < \z@
+    \expandafter\expandafter\expandafter\MT@is@tlig\MT@char\relax\relax
+    \ifnum\MT@char@ < \z@
+      \expandafter\expandafter\expandafter\MT@is@letter\MT@char\relax\relax
+    \fi
+  \fi
+}
+\def\MT@is@opt@char#1\iffontchar#2\char#3\else#4\fi\relax{%
+  \MT@ifempty{#1}{%
+    \iffontchar#2%
+      \expandafter\chardef
+        \csname\MT@encoding\MT@detokenize@c\@tempa\endcsname=#3\relax
+    \fi
+  }\relax
+}
+\begingroup
+  \catcode`\/=\z@
+  /MT@map@tlist@n{/\CHARLEX}/@makeother
+  /lowercase{%
+    /def/x{/endgroup
+      /def/MT@charstring{\CHAR"}%
+      /def/MT@is@char##1\CHAR"##2##3##4/relax{%
+        /ifx/relax##4/relax
+          /ifMT@xunicode
+            /expandafter/MT@is@charx/MT@strip@prefix##1>/relax\CHAR "%
+              /relax/relax/relax/relax/relax
+          /fi
+        /else
+          /ifx/relax##1/relax
+            /if##3\/relax
+              /edef/MT@char@{/number"##2}%
+              /MT@ifstreq/MT@charstring{##3##4}/relax/MT@norestfalse
+            /else
+              /edef/MT@char@{/number"##2##3}%
+              /MT@ifstreq/MT@charstring{##4}/relax
+                {/MT@is@xchar##2##3|##4\CHAR"/relax}%
+            /fi
+          /fi
+        /fi
+      }%
+      /def/MT@is@xchar##1|##2\CHAR"##3##4/relax{%
+        /MT@ifstreq/MT@charstring{##3##4}%
+          {/edef/MT@char@{/number"##1##2}}/MT@norestfalse
+      }%
+      /def/MT@charxstring{\CHAR "}%
+      /def/MT@strip@prefix##1>##2/relax{##2}%
+      /def/MT@is@charx##1\CHAR "##2##3##4##5##6/relax{%
+        /ifx/relax##1/relax
+          /ifx/relax##6/relax/else
+            /edef/MT@char@{/number"##2##3##4##5}%
+            /MT@ifstreq{\RELAX >\CHAR "}{##6}/relax/MT@norestfalse
+          /fi
+        /fi
+      }%
+    }%
+  }
+/x
+\def\MT@is@tlig#1#2\relax{%
+  \ifx\remove@tlig#1%
+    \MT@remove@tlig
+  \fi
+}
+\def\MT@remove@tlig{%
+  \expandafter\MT@exp@two@c\expandafter\MT@is@number
+  \expandafter\@secondoftwo\MT@char\relax\relax
+}
+\def\MT@is@composite#1#2\relax{%
+  \ifx\\#2\\\else
+    \expandafter\def\expandafter\MT@char\expandafter{\csname\expandafter
+                    \string\csname\MT@encoding\endcsname
+                    \MT@detokenize@n{#1}-\MT@detokenize@n{#2}\endcsname}%
+    \ifx\UnicodeEncodingName\@undefined\else
+      \expandafter\expandafter\expandafter
+        \MT@is@uni@comp\MT@char\iffontchar\else\fi\relax
+    \fi
+    \expandafter\expandafter\expandafter\MT@is@letter\MT@char\relax\relax
+    \ifnum\MT@char@ < \z@
+      \ifMT@xunicode
+        \edef\MT@char{\MT@exp@two@c\MT@strip@prefix\meaning\MT@char>\relax}%
+        \expandafter\MT@exp@two@c\expandafter\MT@is@charx\expandafter
+            \MT@char\MT@charxstring\relax\relax\relax\relax\relax
+      \fi
+    \fi
+  \fi
+}
+\def\MT@is@uni@comp#1\iffontchar#2\else#3\fi\relax{%
+  \ifx\\#1\\\edef\MT@char{\iffontchar#2\fi}\fi
+}
+\def\MT@set@listname{%
+  \edef\MT@curr@list@name{\@nameuse{MT@abbr@\MT@feat} list\noexpand\MessageBreak
+    `\@nameuse{MT@\MT@feat @c@name}'}%
+}
+\def\MT@warn@ascii{%
+  \MT@warning@nl{Character `\the\MT@toks' (= \MT@char@)
+    is outside of ASCII range.\MessageBreak
+    You must load the `inputenc' package before using\MessageBreak
+    8-bit characters in \MT@curr@list@name}%
+}
+\def\MT@warn@number@too@large#1{%
+  \MT@warning@nl{%
+    Number #1 in encoding `\MT@encoding' too large!\MessageBreak
+    Ignoring it in \MT@curr@list@name}%
+}
+\def\MT@warn@rest{%
+  \MT@warning@nl{%
+    Unknown slot number of character\MessageBreak`\the\MT@toks'%
+    \MT@warn@maybe@inputenc\MessageBreak
+    in font encoding `\MT@encoding'.\MessageBreak
+    Make sure it's a single character\MessageBreak
+    (or a number) in \MT@curr@list@name}%
+}
+\def\MT@warn@unknown{%
+  \MT@warning@nl{%
+    Unknown slot number of character\MessageBreak`\the\MT@toks'%
+    \MT@warn@maybe@inputenc\MessageBreak
+    in font encoding `\MT@encoding' in \MT@curr@list@name}%
+}
+\def\MT@warn@maybe@inputenc{%
+  \MT@ifdefined@n@T
+     {MT@\MT@feat @\MT@cat @\csname MT@\MT@feat @\MT@cat @name\endcsname @inputenc}%
+    { (input encoding `\@nameuse
+     {MT@\MT@feat @\MT@cat @\csname MT@\MT@feat @\MT@cat @name\endcsname @inputenc}')}%
+}
+\def\MT@warn@unknown@once#1{%
+  \def\MT@warn@unknown{%
+    \MT@warning@nl{One or more slots in the configuration are unknown.\MessageBreak
+                   Make sure that no text commands are used.\MessageBreak
+                   See the documentation for details (the note\MessageBreak
+                   on `#1' in section 11: `Hints and caveats')}%
+    \MT@glet\MT@warn@unknown\relax}%
+}
+\let\MT@font@list\@empty
+\let\MT@font\@empty
+\MT@addto@setup{%
+  \MT@with@package@T{luatexja}{\MT@warn@unknown@once{luatexja}}%
+  \MT@with@package@T{xeCJK}   {\MT@warn@unknown@once{xeCJK}}%
+  \@ifpackageloaded{CJK}{%
+    \@ifpackageloaded{xeCJK}{\@firstofone}{%
+      \@ifpackagelater{CJK}{2006/10/17}% 4.7.0
+        {\def\MT@orig@pickupfont{\CJK@ifundefined\CJK@plane}}%
+        {\def\MT@orig@pickupfont{\@ifundefined{CJK@plane}}}%
+      \g@addto@macro\MT@orig@pickupfont
+        {{\expandafter\ifx\font@name\relax\define@newfont\fi}}%
+      \@ifpackageloaded{CJKutf8}%
+        {\@ifpackagelater{CJKutf8}{2008/05/22}% 4.8.0
+          {\ifpdf\expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi}%
+          {\@firstoftwo}}%
+        {\@firstoftwo}%
+      {\g@addto@macro\MT@orig@pickupfont{%
+        {\expandafter\ifx\csname\curr@fontshape/\f@size/\CJK@plane\endcsname\relax
+           \define@newfont\else\xdef\font@name{%
+             \csname \curr@fontshape/\f@size/\CJK@plane\endcsname}\fi}}}%
+      {\g@addto@macro\MT@orig@pickupfont{%
+        {\expandafter\ifx\csname \curr@fontshape/\f@size/\CJK@plane\endcsname\relax
+           \define@newfont\def\CJK@temp{v}%
+           \ifx\CJK@temp\CJK@plane
+             \expandafter\ifx\csname CJK@cmap@\f@family\CJK@plane\endcsname\relax
+             \else\csname CJK@cmap@\f@family\CJK@plane\endcsname\fi
+           \else \CJK@addcmap\CJK@plane \fi
+         \else\xdef\font@name{%
+           \csname \curr@fontshape/\f@size/\CJK@plane\endcsname}\fi}}}%
+      \@gobble
+    }%
+  }{\@firstofone}%
+  {\def\MT@orig@pickupfont{\expandafter\ifx\font@name\relax\define@newfont\fi}}%
+  \ifx\pickup@font\MT@orig@pickupfont \else
+    \MT@warning@nl{%
+      Command \string\pickup@font\space is not defined as expected.%
+      \MessageBreak Patching it anyway. Some things may break%
+     .\MessageBreak Double-check whether micro-typography is indeed%
+      \MessageBreak applied to the document.%
+      \MessageBreak (Hint: Turn on `verbose' mode)%
+    }%
+  \fi
+  \g@addto@macro\pickup@font{\begingroup}%
+  \MT@with@package@T{trace}{\g@addto@macro\pickup@font{\conditionally@traceoff}}%
+  \g@addto@macro\pickup@font{%
+      \escapechar\m@ne
+      \MT@let@cn\MT@font{MT@subst@\expandafter\string\font@name}%
+      \ifx\MT@font\relax
+        \let\MT@font\font@name
+      \else
+        \ifx\MT@font\font@name \else
+          \MT@register@subst@font
+        \fi
+      \fi
+      \MT@setupfont
+    \endgroup
+  }%
+  \let\MT@pickupfont\pickup@font
+  \def\MT@MT@pickupfont {\let\pickup@font\MT@pickupfont}%
+  \def\MT@ltx@pickupfont{\let\pickup@font\MT@orig@pickupfont}%
+  \g@addto@macro\do@subst@correction
+    {\edef\MT@font{\csname\curr@fontshape/\f@size\endcsname}%
+     \MT@glet@nc{MT@subst@\expandafter\string\font@name}\MT@font}%
+  \let\MT@orig@add@accent\add@accent
+  \def\add@accent#1#2{%
+    \MT@ltx@pickupfont
+    \MT@orig@add@accent{#1}{#2}%
+    \MT@MT@pickupfont
+  }%
+}
+\def\MT@check@font{\MT@exp@one@n\MT@in@clist\MT@font\MT@font@list}
+\def\MT@register@font{\xdef\MT@font@list{\MT@font@list\MT@font,}}
+\def\MT@register@subst@font{%
+  \MT@exp@one@n\MT@in@clist\font@name\MT@font@list
+  \ifMT@inlist@\else
+    \xdef\MT@font@list{\MT@font@list\font@name,}%
+    \expandafter\MT@rem@from@clist\MT@font\MT@font@list
+  \fi
+}
+\let\MT@active@features\@empty
+\def\MT@check@font@cx{%
+  \MT@if@true
+  \MT@map@clist@c\MT@active@features{%
+    \expandafter\MT@exp@one@n\expandafter\MT@in@clist\expandafter\MT@font
+      \csname MT@##1@\csname MT@##1@context\endcsname font@list\endcsname
+    \ifMT@inlist@
+      \MT@let@nc{MT@\@nameuse{MT@abbr@##1}}\relax
+    \else
+      \MT@if@false
+    \fi
+  }%
+  \ifMT@if@ \MT@inlist@true \else \MT@inlist@false \fi
+}
+\def\MT@register@subst@font@cx{%
+  \MT@map@clist@c\MT@active@features{%
+    \expandafter\MT@exp@one@n\expandafter\MT@in@clist\expandafter\font@name
+      \csname MT@##1@\csname MT@##1@context\endcsname font@list\endcsname
+    \ifMT@inlist@ \else
+      \MT@exp@cs\MT@xadd
+        {MT@##1@\csname MT@##1@context\endcsname font@list}%
+        {\font@name,}%
+      \expandafter\MT@exp@one@n\expandafter\MT@rem@from@clist\expandafter\MT@font
+         \csname MT@##1@\csname MT@##1@context\endcsname font@list\endcsname
+    \fi
+  }%
+}
+\def\MT@register@font@cx{%
+  \MT@map@clist@c\MT@active@features{%
+    \MT@exp@cs\ifx{MT@\@nameuse{MT@abbr@##1}}\relax\else
+      \MT@exp@cs\MT@xadd
+        {MT@##1@\csname MT@##1@context\endcsname font@list}%
+        {\MT@font,}%
+      \def\@tempa{##1}%
+      \MT@exp@cs\MT@map@tlist@c{MT@##1@doc@contexts}\MT@maybe@rem@from@list
+    \fi
+  }%
+}
+\def\MT@maybe@rem@from@list#1{%
+  \MT@ifstreq{\@tempa/#1}{\@tempa/\csname MT@\@tempa @context\endcsname}\relax{%
+    \expandafter\MT@exp@one@n\expandafter\MT@rem@from@clist\expandafter
+       \MT@font \csname MT@\@tempa @#1font@list\endcsname
+  }%
+}
+\def\microtypecontext{\MT@begin@catcodes\MT@microtypecontext}
+\def\MT@microtypecontext#1{\MT@end@catcodes\MT@addto@setup{\microtypecontext{#1}}}
+\MT@addto@setup{%
+  \DeclareRobustCommand\microtypecontext{%
+    \MT@begin@catcodes
+    \MT@microtypecontext
+  }%
+  \def\MT@microtypecontext#1{%
+    \MT@end@catcodes
+    \MT@setup@contexts
+    \let\MT@reset@context\relax
+    \MT@glet\glb@currsize\@empty
+    \setkeys{MTC}{#1}%
+    \selectfont
+    \MT@reset@context
+  }%
+}
+\DeclareRobustCommand\textmicrotypecontext{\MT@begin@catcodes\MT@textmicrotypecontext}
+\def\MT@textmicrotypecontext#1{\MT@end@catcodes\MT@text@microtypecontext{#1}}
+\def\MT@text@microtypecontext#1#2{{\microtypecontext{#1}#2}}
+\def\MT@reset@context@{%
+  \MT@vinfo{<<< Resetting contexts\on@line
+  }%
+  \selectfont
+}
+\def\MT@setup@contexts{%
+  \MT@map@clist@c\MT@active@features
+    {\MT@glet@nc{MT@##1@@font@list}\MT@font@list}%
+  \MT@glet\MT@check@font\MT@check@font@cx
+  \MT@glet\MT@register@font\MT@register@font@cx
+  \MT@glet\MT@register@subst@font\MT@register@subst@font@cx
+  \MT@glet\MT@setup@contexts\relax
+}
+\MT@map@clist@c\MT@features@long{%
+  \define@key{MTC}{#1}[]{%
+    \edef\@tempb{\@nameuse{MT@rbba@#1}}%
+    \MT@exp@one@n\MT@in@clist\@tempb\MT@active@features
+    \ifMT@inlist@
+      \MT@ifempty{##1}{\def\MT@val{@}}{\def\MT@val{##1}}%
+      \MT@exp@cs\ifx{MT@\@tempb @context}\MT@val
+      \else
+        \MT@vinfo{>>> Changing #1 context to `\MT@val'\MessageBreak\on@line
+                 }%
+        \def\MT@reset@context{\aftergroup\MT@reset@context@}%
+        \MT@glet@nn{MT@reset@\@tempb @codes}{MT@reset@\@tempb @codes@}%
+        \expandafter\MT@exp@one@n\expandafter\MT@in@tlist\expandafter
+          \MT@val \csname MT@\@tempb @doc@contexts\endcsname
+        \ifMT@inlist@ \else
+          \MT@exp@cs\MT@xadd{MT@\@tempb @doc@contexts}{{\MT@val}}%
+        \fi
+        \MT@edef@n{MT@\@tempb @context}{\MT@val}%
+      \fi
+    \fi
+  }%
+}
+\define@key{MTC}{activate}[]{%
+  \setkeys{MTC}{protrusion={#1}}%
+  \setkeys{MTC}{expansion={#1}}%
+}
+\MT@exp@one@n\MT@map@clist@n{\MT@features,nl}{%
+  \MT@def@n{MT@#1@context}{@}%
+  \MT@def@n{MT@#1@doc@contexts}{{@}}%
+}
+\let\MT@extra@context\@empty
+\def\DeclareMicrotypeSet{%
+  \MT@begin@catcodes
+  \@ifstar
+    \MT@DeclareSetAndUseIt
+    \MT@DeclareSet
+}
+\newcommand\MT@DeclareSet[3][]{%
+  \MT@ifempty{#1}{%
+    \MT@map@clist@c\MT@features{\begingroup\MT@declare@sets{##1}{#2}{#3}\endgroup}%
+  }{%
+    \MT@map@clist@n{#1}{\begingroup
+      \MT@ifempty{##1}\relax{%
+        \MT@is@feature{##1}{set declaration `#2'}{%
+          \MT@exp@one@n\MT@declare@sets
+            {\csname MT@rbba@##1\endcsname}{#2}{#3}%
+        }%
+      }%
+    \endgroup}%
+  }%
+  \MT@end@catcodes
+}
+\newcommand\MT@DeclareSetAndUseIt[3][]{%
+  \MT@DeclareSet[#1]{#2}{#3}%
+  \UseMicrotypeSet[#1]{#2}%
+}
+\let\MT@curr@set@name\@empty
+\def\MT@declare@sets#1#2#3{%
+  \def\MT@curr@set@name{#2}%
+  \MT@ifdefined@n@T{MT@#1@set@@\MT@curr@set@name}{%
+    \MT@warning{Redefining \@nameuse{MT@abbr@#1} set `\MT@curr@set@name'}%
+    \MT@map@clist@n{font,encoding,family,series,shape,size}{%
+      \MT@glet@nc{MT@#1list@##1@\MT@curr@set@name}\@undefined
+    }%
+  }%
+  \MT@glet@nc{MT@#1@set@@\MT@curr@set@name}\@empty
+  \setkeys{MT@#1@set}{#3}%
+}
+\def\MT@define@set@key@#1#2{%
+  \define@key{MT@#2@set}{#1}[]{%
+    \MT@glet@nc{MT@#2list@#1@\MT@curr@set@name}\@empty
+    \MT@map@clist@n{##1}{%
+      \KV@@sp@def\MT@val{####1}%
+      \MT@get@highlevel{#1}%
+      \MT@exp@two@n\g@addto@macro
+        {\csname MT@#2list@#1@\MT@curr@set@name\expandafter\endcsname}%
+        {\MT@val,}%
+    }%
+    \expandafter\g@addto@macro\expandafter\MT@font@sets
+      \csname MT@#2list@#1@\MT@curr@set@name\endcsname
+  }%
+}
+\def\MT@get@highlevel#1{%
+  \expandafter\MT@test@ast\MT@val*\@nil\relax{%
+    \MT@ifempty\@tempa{\def\@tempa{#1}}\relax
+    \MT@ifdefined@n@TF{\@tempa default}%
+      {\edef\MT@val{\expandafter\noexpand\csname \@tempa default\endcsname}}%
+      {\MT@warning{`\@backslashchar\@tempa default' is not a defined command.\MessageBreak
+                   Ignoring `#1 = {\@tempa*}' in font set\MessageBreak`\MT@curr@set@name'}%
+       \let\MT@val\@empty}%
+  }%
+}
+\def\MT@test@ast#1*#2\@nil{%
+  \def\@tempa{#1}%
+  \MT@ifempty{#2}%
+}
+\let\MT@font@sets\@empty
+\def\MT@fix@font@set#1{%
+  \MT@ifdefined@c@T{#1}{%
+    \xdef#1{#1}%
+    \ifMT@fontspec
+      \xdef#1{\expandafter\MT@scrubfeatures#1()\relax}%
+    \fi
+    \global\@onelevel@sanitize#1%
+  }%
+}
+\def\MT@define@set@key@size#1{%
+  \define@key{MT@#1@set}{size}[]{%
+    \MT@map@clist@n{##1}{%
+      \def\MT@val{####1}%
+      \expandafter\MT@get@range\MT@val--\@nil
+      \ifx\MT@val\relax \else
+        \MT@exp@cs\MT@xadd
+          {MT@#1list@size@\MT@curr@set@name}%
+          {{{\MT@lower}{\MT@upper}\relax}}%
+      \fi
+    }%
+  }%
+}
+\def\MT@get@range#1-#2-#3\@nil{%
+  \MT@ifempty{#1}{%
+    \MT@ifempty{#2}{%
+      \let\MT@val\relax
+    }{%
+      \def\MT@lower{0}%
+      \def\MT@val{#2}%
+      \MT@get@size
+      \edef\MT@upper{\MT@val}%
+    }%
+  }{%
+    \def\MT@val{#1}%
+    \MT@get@size
+    \ifx\MT@val\relax \else
+      \edef\MT@lower{\MT@val}%
+      \MT@ifempty{#2}{%
+        \MT@ifempty{#3}%
+          {\def\MT@upper{-1}}%
+          {\def\MT@upper{2048}}%
+      }{%
+        \def\MT@val{#2}%
+        \MT@get@size
+        \ifx\MT@val\relax \else
+          \MT@ifdim\MT@lower>\MT@val{%
+            \MT@error{%
+              Invalid size range (\MT@lower\space > \MT@val) in font set
+              `\MT@curr@set@name'.\MessageBreak Swapping sizes}{}%
+            \edef\MT@upper{\MT@lower}%
+            \edef\MT@lower{\MT@val}%
+          }{%
+            \edef\MT@upper{\MT@val}%
+          }%
+          \MT@ifdim\MT@lower=\MT@upper
+            {\def\MT@upper{-1}}%
+            \relax
+        \fi
+      }%
+    \fi
+  }%
+}
+\def\MT@get@size{%
+  \if*\MT@val\relax
+    \def\@tempa{\normalsize}%
+  \else
+    \MT@let@cn\@tempa{\MT@val}%
+  \fi
+  \ifx\@tempa\relax\else
+    \MT@get@size@
+  \fi
+  \MT@ifdimen\MT@val{%
+    \@defaultunits\@tempdima\MT@val pt\relax\@nnil
+    \edef\MT@val{\strip@pt\@tempdima}%
+  }{%
+    \MT@warning{Could not parse font size `\MT@val'\MessageBreak
+                in font set `\MT@curr@set@name'}%
+    \let\MT@val\relax
+  }%
+}
+\def\MT@get@size@@{%
+  \begingroup
+    \def\set@fontsize##1##2##3##4\@nil{\endgroup\def\MT@val{##2}}%
+    \@tempa\@nil
+}
+^^X\@ifclassloaded{svjour3}{%
+^^X  \def\MT@get@size@{%
+^^X    \@tempcnta=\currentiflevel
+^^X    \MT@get@size@@
+^^X    \MT@loop
+^^X      \ifnum\numexpr\currentiflevel-1>\@tempcnta
+^^X      \csname fi\endcsname
+^^X    \MT@repeat
+^^X  }%
+^^X}{%
+  \let\MT@get@size@\MT@get@size@@
+^^X}
+\def\MT@define@set@key@font#1{%
+  \define@key{MT@#1@set}{font}[]{%
+    \MT@glet@nc{MT@#1list@font@\MT@curr@set@name}\@empty
+    \MT@map@clist@n{##1}{%
+      \def\MT@val{####1}%
+      \MT@ifstreq\MT@val*{\def\MT@val{*/*/*/*/*}}\relax
+      \expandafter\MT@get@font\MT@val/////\@nil
+      \MT@exp@two@n\g@addto@macro
+        {\csname MT@#1list@font@\MT@curr@set@name\expandafter\endcsname}%
+        {\MT@val,}%
+    }%
+    \expandafter\g@addto@macro\expandafter\MT@font@sets
+      \csname MT@#1list@font@\MT@curr@set@name\endcsname
+  }%
+}
+\def\MT@get@font#1/#2/#3/#4/#5/#6\@nil{%
+  \MT@get@font@{#1}{#2}{#3}{#4}{#5}{0}%
+  \ifx\MT@val\relax\def\MT@val{0}\fi
+  \expandafter\g@addto@macro\expandafter\@tempb\expandafter{\MT@val}%
+  \let\MT@val\@tempb
+}
+\def\MT@get@font@#1#2#3#4#5#6{%
+  \let\@tempb\@empty
+  \def\MT@temp{#1/#2/#3/#4/#5}%
+  \MT@get@axis{encoding}{#1}%
+  \MT@get@axis{family}  {#2}%
+  \MT@get@axis{series}  {#3}%
+  \MT@get@axis{shape}   {#4}%
+  \ifnum#6>\z@\edef\@tempb{\@tempb*}\fi
+  \MT@ifempty{#5}{%
+    \MT@warn@axis@empty{size}{\string\normalsize}%
+    \def\MT@val{*}%
+  }{%
+    \def\MT@val{#5}%
+  }%
+  \MT@get@size
+}
+\def\MT@get@axis#1#2{%
+  \def\MT@val{#2}%
+  \MT@get@highlevel{#1}%
+  \MT@ifempty\MT@val{%
+    \MT@warn@axis@empty{#1}{\csname #1default\endcsname}%
+    \expandafter\def\expandafter\MT@val\expandafter{\csname #1default\endcsname}%
+  }\relax
+  \expandafter\g@addto@macro\expandafter\@tempb\expandafter{\MT@val/}%
+}
+\def\MT@warn@axis@empty#1#2{%
+  \MT@warning{#1 axis is empty in font specification\MessageBreak
+    `\MT@temp'. Using `#2' instead}%
+}
+\MT@exp@one@n\MT@map@clist@n{\MT@features,nl}{%
+  \MT@define@set@key@{encoding}{#1}%
+  \MT@define@set@key@{family}  {#1}%
+  \MT@define@set@key@{series}  {#1}%
+  \MT@define@set@key@{shape}   {#1}%
+  \MT@define@set@key@size      {#1}%
+  \MT@define@set@key@font      {#1}%
+}
+\def\UseMicrotypeSet{%
+  \MT@begin@catcodes
+  \MT@UseMicrotypeSet
+}
+\newcommand*\MT@UseMicrotypeSet[2][]{%
+  \MT@ifempty{#1}{%
+    \MT@map@clist@c\MT@features{\begingroup\MT@use@set{##1}{#2}\endgroup}%
+  }{%
+    \MT@map@clist@n{#1}{\begingroup
+      \MT@ifempty{##1}\relax{%
+        \MT@is@feature{##1}{activation of set `#2'}{%
+          \MT@exp@one@n\MT@use@set
+            {\csname MT@rbba@##1\endcsname}{#2}%
+        }%
+      }%
+    \endgroup}%
+  }%
+  \MT@end@catcodes
+}
+\def\MT@use@set#1#2{%
+  \MT@ifdefined@n@TF{MT@#1@set@@#2}{%
+    \MT@xdef@n{MT@#1@setname}{#2}%
+  }{%
+    \MT@ifdefined@n@TF{MT@#1@setname}\relax{%
+      \MT@xdef@n{MT@#1@setname}{\@nameuse{MT@default@#1@set}}%
+    }%
+    \MT@error{%
+      The \@nameuse{MT@abbr@#1} set `#2' is undeclared.\MessageBreak
+      Using set `\@nameuse{MT@#1@setname}' instead}{}%
+  }%
+}
+\def\DeclareMicrotypeSetDefault{%
+  \MT@begin@catcodes
+  \MT@DeclareMicrotypeSetDefault
+}
+\newcommand*\MT@DeclareMicrotypeSetDefault[2][]{%
+  \MT@ifempty{#1}{%
+    \MT@map@clist@c\MT@features{\begingroup\MT@set@default@set{##1}{#2}\endgroup}%
+  }{%
+    \MT@map@clist@n{#1}{\begingroup
+      \MT@ifempty{##1}\relax{%
+        \MT@is@feature{##1}{declaration of default set `#2'}{%
+          \MT@exp@one@n\MT@set@default@set
+            {\csname MT@rbba@##1\endcsname}{#2}%
+        }%
+      }%
+    \endgroup}%
+  }%
+  \MT@end@catcodes
+}
+\def\MT@set@default@set#1#2{%
+  \MT@ifdefined@n@TF{MT@#1@set@@#2}{%
+    \MT@xdef@n{MT@default@#1@set}{#2}%
+  }{%
+    \MT@error{%
+      The \@nameuse{MT@abbr@#1} set `#2' is not declared.\MessageBreak
+      Cannot make it the default set. Using set\MessageBreak `all' instead}{}%
+    \MT@xdef@n{MT@default@#1@set}{all}%
+  }%
+}
+\let\MT@variants\@empty
+\def\DeclareMicrotypeVariants{%
+  \MT@begin@catcodes
+  \@ifstar
+    \MT@DeclareVariants
+    {\let\MT@variants\@empty\MT@DeclareVariants}%
+}
+\def\MT@DeclareVariants#1{%
+  \MT@map@clist@n{#1}{%
+    \def\@tempa{##1}%
+    \@onelevel@sanitize\@tempa
+    \xdef\MT@variants{\MT@variants{\@tempa}}%
+  }%
+  \MT@end@catcodes
+}
+\def\DeclareMicrotypeAlias{%
+  \MT@begin@catcodes
+  \MT@DeclareMicrotypeAlias
+}
+\newcommand*\MT@DeclareMicrotypeAlias[2]{%
+  \def\@tempb{#2}%
+  \@onelevel@sanitize\@tempb
+  \MT@ifdefined@n@T{MT@#1@alias}{%
+    \MT@warning{Alias font family `\@tempb' will override
+      alias `\@nameuse{MT@#1@alias}'\MessageBreak
+      for font family `#1'}}%
+  \MT@xdef@n{MT@#1@alias}{\@tempb}%
+  \MT@ifdefined@c@T\MT@family{%
+    \MT@glet\MT@familyalias\@tempb
+  }%
+  \MT@end@catcodes
+}
+\def\LoadMicrotypeFile#1{%
+  \edef\@tempa{\zap@space#1 \@empty}%
+  \@onelevel@sanitize\@tempa
+  \MT@exp@one@n\MT@in@clist\@tempa\MT@file@list
+  \ifMT@inlist@
+    \MT@vinfo{... Configuration file mt-\@tempa.cfg already loaded}%
+  \else
+    \MT@xadd\MT@file@list{\@tempa,}%
+    \MT@begin@catcodes
+    \InputIfFileExists{mt-\@tempa.cfg}{%
+      \edef\MT@curr@file{mt-\@tempa.cfg}%
+      \MT@vinfo{... Loading configuration file \MT@curr@file}%
+    }{%
+      \MT@warning{Configuration file mt-\@tempa.cfg\MessageBreak
+                  does not exist}%
+    }%
+    \MT@end@catcodes
+  \fi
+}
+\def\DeclareMicrotypeBabelHook#1#2{%
+  \MT@map@clist@n{#1}{%
+    \KV@@sp@def\@tempa{##1}%
+    \MT@gdef@n{MT@babel@\@tempa}{#2}%
+  }%
+}
+\def\SetProtrusion{%
+  \MT@begin@catcodes
+  \MT@SetProtrusion
+}
+\newcommand*\MT@SetProtrusion[3][]{%
+  \let\MT@extra@context\@empty
+  \MT@set@named@keys{MT@pr@c}{#1}%
+  \def\MT@permutelist{pr@c}%
+  \setkeys{MT@cfg}{#2}%
+  \MT@permute
+  \MT@gdef@n{MT@pr@c@\MT@pr@c@name}{#3}%
+  \MT@end@catcodes
+}
+\def\MT@set@named@keys#1#2{%
+  \def\x##1name=##2,##3\@nil{%
+    \setkeys{#1}{name=##2}%
+    \gdef\MT@options{##1##3}%
+    \MT@rem@from@clist{name=}\MT@options
+  }%
+  \x#2,name=,\@nil
+  \@expandtwoargs\setkeys{#1}\MT@options
+}
+\def\MT@define@code@key#1#2{%
+  \define@key{MT@#2}{#1}[]{%
+    \@tempcnta=\@ne
+    \MT@map@clist@n{##1}{%
+      \KV@@sp@def\MT@val{####1}%
+      \MT@get@highlevel{#1}%
+      \MT@edef@n{MT@temp#1\the\@tempcnta}{\MT@val}%
+      \advance\@tempcnta \@ne
+    }%
+  }%
+}
+\def\MT@define@code@key@family#1{%
+  \define@key{MT@#1}{family}[]{%
+    \@tempcnta=\@ne
+    \MT@map@clist@n{##1}{%
+      \KV@@sp@def\MT@val{####1}%
+      \MT@get@highlevel{family}%
+      \ifMT@fontspec
+        \edef\x{\edef\noexpand\MT@val{\noexpand\MT@scrubfeature\MT@val()\relax}}\x
+      \fi
+      \MT@edef@n{MT@tempfamily\the\@tempcnta}{\MT@val}%
+      \advance\@tempcnta \@ne
+    }%
+  }%
+}
+\def\MT@define@code@key@size#1{%
+  \define@key{MT@#1}{size}[]{%
+    \MT@map@clist@n{##1}{%
+      \KV@@sp@def\MT@val{####1}%
+      \expandafter\MT@get@range\MT@val--\@nil
+      \ifx\MT@val\relax \else
+        \MT@exp@cs\MT@xadd{MT@tempsize}%
+           {{{\MT@lower}{\MT@upper}{\MT@curr@set@name}}}%
+      \fi
+    }%
+  }%
+}
+\def\MT@define@code@key@font#1{%
+  \define@key{MT@#1}{font}[]{%
+    \MT@map@clist@n{##1}{%
+      \KV@@sp@def\MT@val{####1}%
+      \MT@ifstreq\MT@val*{\def\MT@val{*/*/*/*/*}}\relax
+      \expandafter\MT@get@font@and@size\MT@val/////\@nil
+      \ifMT@fontspec
+        \edef\@tempb{\expandafter\MT@scrubfeatures\@tempb()\relax}%
+      \fi
+      \MT@xdef@n{MT@\MT@permutelist @\@tempb\MT@extra@context}%
+        {\csname MT@\MT@permutelist @name\endcsname}%
+      \MT@exp@cs\MT@xaddb
+        {MT@\MT@permutelist @\@tempb\MT@extra@context @sizes}%
+        {{{\MT@val}{\m@ne}{\MT@curr@set@name}}}%
+    }%
+  }%
+}
+\def\MT@get@font@and@size#1/#2/#3/#4/#5/#6\@nil{%
+  \MT@get@font@{#1}{#2}{#3}{#4}{#5}{1}%
+}
+\MT@define@code@key{encoding}{cfg}
+\MT@define@code@key@family   {cfg}
+\MT@define@code@key{series}  {cfg}
+\MT@define@code@key{shape}   {cfg}
+\MT@define@code@key@size     {cfg}
+\MT@define@code@key@font     {cfg}
+\def\MT@define@opt@key#1#2{%
+  \define@key{MT@#1@c}{#2}[]{\MT@ifempty{##1}\relax{%
+    \MT@xdef@n{MT@#1@c@\MT@curr@set@name @#2}{##1}}}%
+}
+\newcount\MT@listname@count
+\MT@map@clist@c\MT@features{%
+  \define@key{MT@#1@c}{name}[]{%
+    \MT@ifempty{##1}{%
+      \MT@ifdefined@n@TF{MT@#1@c@\MT@curr@file/\the\inputlineno}{%
+        \global\advance\MT@listname@count\@ne
+        \MT@edef@n{MT@#1@c@name}{\MT@curr@file/\the\inputlineno
+                                 (\number\MT@listname@count)}%
+      }{%
+        \MT@edef@n{MT@#1@c@name}{\MT@curr@file/\the\inputlineno}%
+      }%
+    }{%
+      \MT@edef@n{MT@#1@c@name}{##1}%
+      \MT@ifdefined@n@T{MT@#1@c@\csname MT@#1@c@name\endcsname}{%
+        \MT@warning{Redefining \@nameuse{MT@abbr@#1} list `\@nameuse{MT@#1@c@name}'}%
+      }%
+    }%
+    \MT@let@cn\MT@curr@set@name{MT@#1@c@name}%
+  }%
+  \MT@define@opt@key{#1}{load}%
+  \MT@define@opt@key{#1}{factor}%
+  \MT@define@opt@key{#1}{preset}%
+  \MT@define@opt@key{#1}{inputenc}%
+  \define@key{MT@#1@c}{context}[]{\MT@ifempty{##1}\relax{\def\MT@extra@context{##1}}}%
+}
+\def\MT@warn@nodim#1{%
+  \MT@warning{`\@tempa' is not a dimension.\MessageBreak
+              Ignoring it and setting values relative to\MessageBreak #1}%
+}
+\define@key{MT@pr@c}{unit}[character]{%
+  \MT@glet@nc{MT@pr@c@\MT@curr@set@name @unit}\@empty
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{character}\relax{%
+    \MT@ifdimen\@tempa
+      {\MT@glet@nc{MT@pr@c@\MT@curr@set@name @unit}\@tempa}%
+      {\MT@warn@nodim{character widths}}%
+  }%
+}
+\renewcommand*\DeclareCharacterInheritance[1][]{%
+  \let\MT@extra@context\@empty
+  \let\MT@extra@inputenc\@undefined
+  \let\MT@inh@feat\@empty
+  \setkeys{MT@inh@}{#1}%
+  \MT@begin@catcodes
+  \MT@set@inh@list
+}
+\def\MT@set@inh@list#1#2{%
+  \MT@ifempty\MT@inh@feat{%
+    \MT@map@clist@c\MT@features{\begingroup
+      \MT@ifstreq{##1}{tr}\relax{\MT@declare@char@inh{##1}{#1}{#2}}%
+    \endgroup}%
+  }{%
+    \MT@map@clist@c\MT@inh@feat{\begingroup
+      \KV@@sp@def\@tempa{##1}%
+      \MT@ifempty\@tempa\relax{%
+        \edef\@tempa{\csname MT@rbba@\@tempa\endcsname}%
+        \MT@ifstreq\@tempa{tr}\relax{%
+          \MT@exp@one@n\MT@declare@char@inh{\@tempa}{#1}{#2}}}%
+    \endgroup}%
+  }%
+  \MT@end@catcodes
+}
+\MT@map@clist@c\MT@features@long{%
+  \define@key{MT@inh@}{#1}[]{\edef\MT@inh@feat{\MT@inh@feat#1,}}}
+\define@key{MT@inh@}{inputenc}{\def\MT@extra@inputenc{#1}}
+\def\MT@declare@char@inh#1#2#3{%
+  \MT@edef@n{MT@#1@inh@name}%
+    {\MT@curr@file/\the\inputlineno (\@nameuse{MT@abbr@#1})}%
+  \MT@let@cn\MT@curr@set@name{MT@#1@inh@name}%
+  \MT@ifdefined@c@T\MT@extra@inputenc{%
+    \MT@xdef@n{MT@#1@inh@\MT@curr@set@name @inputenc}{\MT@extra@inputenc}}%
+  \MT@gdef@n{MT@#1@inh@\csname MT@#1@inh@name\endcsname}{#3}%
+  \def\MT@permutelist{#1@inh}%
+  \setkeys{MT@inh}{#2}%
+  \MT@permute
+}
+\MT@define@code@key{encoding}{inh}
+\MT@define@code@key@family   {inh}
+\MT@define@code@key{series}  {inh}
+\MT@define@code@key{shape}   {inh}
+\MT@define@code@key@size     {inh}
+\MT@define@code@key@font     {inh}
+\def\MT@inh@do#1,{%
+  \ifx\relax#1\@empty \else
+    \MT@inh@split #1==\relax
+    \expandafter\MT@inh@do
+  \fi
+}
+\def\MT@has@inh@prefix#1(#2)#3#4\@nil{%
+  \let\MT@temp\relax
+  \ifx\relax#3%
+    \def\@tempa{#1#2}%
+    \let\MT@inh@prefix\@empty
+  \else
+    \MT@ifstreq{\MT@feat}{pr}{%
+      \MT@ifstreq{#2}{l}{\def\MT@inh@prefix@{{1000}{0}}\@firstoftwo}{%
+        \MT@ifstreq{#2}{r}{\def\MT@inh@prefix@{{0}{1000}}\@firstoftwo}{%
+          \MT@ifstreq{#2}{lr}{\def\MT@inh@prefix@{{500}{500}}\@firstoftwo}{%
+            \MT@warning@nl{`#2' is not a valid prefix in inheritance list%
+              \MessageBreak\MT@listname. Ignoring it}%
+            \@secondoftwo}}}%
+      {\def\@tempa{#3}%
+       \def\MT@inh@prefix{#2}%
+       \@gobble}%
+      {\@firstofone}%
+    }{\@firstofone}%
+   {\let\MT@char\m@ne
+    \let\MT@temp\@gobble
+   }%
+  \fi
+  \MT@temp
+}
+\MT@gdef@n{MT@pr@c@U/euroitc///}{euroitc}
+\MT@gdef@n{MT@pr@c@U/euroitcs///}{euroitc}
+\MT@gdef@n{MT@pr@c@U/euroitc//it/}{euroitci}
+\MT@gdef@n{MT@pr@c@U/euroitcs//it/}{euroitci}
+\MT@gdef@n{MT@pr@c@euroitc}{E={100,50}}
+\MT@gdef@n{MT@pr@c@euroitci}{E={100,}}
+\def\MT@permute{%
+  \let\MT@cnt@encoding\@ne
+  \MT@permute@
+  \MT@map@tlist@n{{encoding}{family}{series}{shape}}\MT@permute@reset
+  \MT@glet\MT@tempsize\@undefined
+}
+\def\MT@permute@{%
+  \let\MT@cnt@family\@ne
+  \MT@permute@@
+  \MT@increment\MT@cnt@encoding
+  \MT@ifdefined@n@T{MT@tempencoding\MT@cnt@encoding}%
+    \MT@permute@
+}
+\def\MT@permute@@{%
+  \let\MT@cnt@series\@ne
+  \MT@permute@@@
+  \MT@increment\MT@cnt@family
+  \MT@ifdefined@n@T{MT@tempfamily\MT@cnt@family}%
+    \MT@permute@@
+}
+\def\MT@permute@@@{%
+  \let\MT@cnt@shape\@ne
+  \MT@permute@@@@
+  \MT@increment\MT@cnt@series
+  \MT@ifdefined@n@T{MT@tempseries\MT@cnt@series}%
+    \MT@permute@@@
+}
+\def\MT@permute@@@@{%
+  \MT@permute@@@@@
+  \MT@increment\MT@cnt@shape
+  \MT@ifdefined@n@T{MT@tempshape\MT@cnt@shape}%
+    \MT@permute@@@@
+}
+\def\MT@permute@@@@@{%
+  \MT@permute@define{encoding}%
+  \ifMT@document
+    \ifx\MT@tempencoding\@empty \else
+      \MT@ifdefined@n@TF{T@\MT@tempencoding}\relax
+        {\expandafter\expandafter\expandafter\@gobble}%
+    \fi
+  \fi
+  \MT@permute@@@@@@
+}
+\def\MT@permute@@@@@@{%
+  \MT@permute@define{family}%
+  \MT@permute@define{series}%
+  \MT@permute@define{shape}%
+  \edef\@tempa{\MT@tempencoding
+              /\MT@tempfamily
+              /\MT@tempseries
+              /\MT@tempshape
+              /\MT@ifdefined@c@T\MT@tempsize *}%
+  \MT@ifstreq\@tempa{////}\relax{%
+    \ifx\MT@tempencoding\@empty
+      \MT@warning{%
+        You have to specify an encoding for\MessageBreak
+        \@nameuse{MT@abbr@\MT@permutelist} list
+        `\@nameuse{MT@\MT@permutelist @name}'.\MessageBreak
+        Ignoring it}%
+    \else
+      \MT@ifdefined@c@TF\MT@tempsize{%
+        \MT@ifdefined@n@T{MT@\MT@permutelist @\@tempa\MT@extra@context @sizes}{%
+          \MT@map@tlist@c\MT@tempsize\MT@check@rlist
+        }%
+        \MT@exp@cs\MT@xaddb
+          {MT@\MT@permutelist @\@tempa\MT@extra@context @sizes}%
+          \MT@tempsize
+      }{%
+        \MT@ifdefined@n@T{MT@\MT@permutelist @\@tempa\MT@extra@context}{%
+          \MT@ifstreq{\csname MT@\MT@permutelist @\@tempa\MT@extra@context\endcsname}%
+             {\csname MT@\MT@permutelist @\csname MT@\MT@permutelist @name\endcsname @load\endcsname}%
+              \relax{%
+            \MT@warning{\@nameuse{MT@abbr@\MT@permutelist} list
+              `\@nameuse{MT@\MT@permutelist @name}' will\MessageBreak override
+              list `\@nameuse{MT@\MT@permutelist @\@tempa\MT@extra@context}'
+              for \MessageBreak font `\@tempa'}%
+          }%
+        }%
+      }%
+      \MT@xdef@n{MT@\MT@permutelist @\@tempa\MT@extra@context}%
+          {\csname MT@\MT@permutelist @name\endcsname}%
+    \fi
+  }%
+}
+\def\MT@permute@define#1{%
+  \@tempcnta=\csname MT@cnt@#1\endcsname\relax
+  \MT@ifdefined@n@TF{MT@temp#1\the\@tempcnta}%
+    {\MT@edef@n{MT@temp#1}{\csname MT@temp#1\the\@tempcnta\endcsname}}%
+    {\MT@let@nc{MT@temp#1}\@empty}%
+}
+\def\MT@permute@reset#1{%
+  \@tempcnta=\@ne
+  \MT@loop
+    \MT@let@nc{MT@temp#1\the\@tempcnta}\@undefined
+    \advance\@tempcnta\@ne
+    \MT@ifdefined@n@TF{MT@temp#1\the\@tempcnta}%
+      \iftrue
+      \iffalse
+  \MT@repeat
+}
+\def\MT@check@rlist#1{\expandafter\MT@check@rlist@ #1}
+\def\MT@check@rlist@#1#2#3{%
+  \def\@tempb{#1}%
+  \def\@tempc{#2}%
+  \MT@if@false
+  \MT@exp@cs\MT@map@tlist@c
+    {MT@\MT@permutelist @\@tempa\MT@extra@context @sizes}%
+    \MT@check@range
+}
+\def\MT@check@range#1{\expandafter\MT@check@range@ #1}
+\def\MT@check@range@#1#2#3{%
+  \MT@ifdim{#2}=\m@ne{%
+    \MT@ifdim\@tempc=\m@ne{%
+      \MT@ifdim\@tempb={#1}\MT@if@true\relax
+    }{%
+      \MT@ifdim\@tempb>{#1}\relax{%
+        \MT@ifdim\@tempc>{#1}{%
+          \MT@if@true
+          \edef\@tempb{#1 (with range: \@tempb\space to \@tempc)}%
+        }\relax
+      }%
+    }%
+  }{%
+    \MT@ifdim\@tempc=\m@ne{%
+      \MT@ifdim\@tempb<{#2}{%
+        \MT@ifdim\@tempb<{#1}\relax\MT@if@true
+      }\relax
+    }{%
+      \MT@ifdim\@tempb<{#2}{%
+        \MT@ifdim\@tempc>{#1}{%
+          \MT@if@true
+          \edef\@tempb{#1 to #2 (with range: \@tempb\space to \@tempc)}%
+        }\relax
+      }\relax
+    }%
+  }%
+  \ifMT@if@
+    \MT@ifstreq{#3}%
+        {\csname MT@\MT@permutelist @\csname MT@\MT@permutelist @name\endcsname @load\endcsname}%
+        \relax{%
+      \MT@warning{\@nameuse{MT@abbr@\MT@permutelist} list
+        `\@nameuse{MT@\MT@permutelist @name}' will override\MessageBreak
+        list `#3' for font \@tempa,\MessageBreak size \@tempb}%
+    }%
+    \expandafter\MT@tlist@break
+  \fi
+}
+\newif\ifMT@opt@expansion
+\newif\ifMT@opt@auto
+\newif\ifMT@opt@DVI
+\def\MT@optwarn@admissible#1#2{%
+  \MT@warning@nl{`#1' is not an admissible value for option\MessageBreak
+                 `#2'. Assuming `false'}%
+}
+\def\MT@optwarn@nan#1#2{%
+  \MT@warning@nl{Value `#1' for option `#2' is not a\MessageBreak number.
+                 Using default value of \number\@nameuse{MT@#2@default}}%
+}
+\def\MT@opt@def@set#1{%
+  \MT@ifdefined@n@TF{MT@\@tempb @set@@\MT@val}{%
+    \MT@xdef@n{MT@\@tempb @setname}{\MT@val}%
+  }{%
+    \MT@xdef@n{MT@\@tempb @setname}{\@nameuse{MT@default@\@tempb @set}}%
+    \MT@warning@nl{The #1 set `\MT@val' is undeclared.\MessageBreak
+                   Using set `\@nameuse{MT@\@tempb @setname}' instead}%
+  }%
+}
+\MT@map@clist@n{protrusion,expansion}{%
+  \define@key{MT}{#1}[true]{%
+    \csname MT@opt@#1true\endcsname
+    \MT@map@clist@n{##1}{%
+      \KV@@sp@def\MT@val{####1}%
+      \MT@ifempty\MT@val\relax{%
+        \csname MT@#1true\endcsname
+        \edef\@tempb{\csname MT@rbba@#1\endcsname}%
+        \MT@ifstreq\MT@val{true}\relax
+        {%
+          \MT@ifstreq\MT@val{false}{%
+            \csname MT@#1false\endcsname
+          }{%
+            \MT@ifstreq\MT@val{compatibility}{%
+              \MT@let@nc{MT@\@tempb @level}\@ne
+            }{%
+              \MT@ifstreq\MT@val{nocompatibility}{%
+                \MT@let@nc{MT@\@tempb @level}\tw@
+              }{%
+                \MT@opt@def@set{#1}%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+}
+\define@key{MT}{activate}[true]{%
+   \setkeys{MT}{protrusion={#1}}%
+   \setkeys{MT}{expansion={#1}}%
+}
+\MT@map@clist@n{spacing,kerning,tracking}{%
+  \define@key{MT}{#1}[true]{%
+    \MT@map@clist@n{##1}{%
+      \KV@@sp@def\MT@val{####1}%
+      \MT@ifempty\MT@val\relax{%
+        \csname MT@#1true\endcsname
+        \MT@ifstreq\MT@val{true}\relax
+        {%
+          \MT@ifstreq\MT@val{false}{%
+            \csname MT@#1false\endcsname
+          }{%
+            \edef\@tempb{\csname MT@rbba@#1\endcsname}%
+            \MT@opt@def@set{#1}%
+          }%
+        }%
+      }%
+    }%
+  }%
+}
+\def\MT@def@bool@opt#1#2{%
+  \define@key{MT}{#1}[true]{%
+    \def\@tempa{##1}%
+    \MT@ifstreq\@tempa{true}\relax{%
+      \MT@ifstreq\@tempa{false}\relax{%
+        \MT@optwarn@admissible{##1}{#1}%
+        \def\@tempa{false}%
+      }%
+    }%
+    #2%
+  }%
+}
+\MT@map@clist@n{draft,selected,babel}{%
+  \MT@def@bool@opt{#1}{\csname MT@#1\@tempa\endcsname}}
+\MT@def@bool@opt{auto}{\csname MT@auto\@tempa\endcsname \MT@opt@autotrue}
+\MT@def@bool@opt{defersetup}{%
+  \csname if\@tempa\endcsname \else
+    \AtEndOfPackage{%
+      \MT@setup@
+      \let\MT@setup@\@empty
+      \let\MT@addto@setup\@firstofone
+    }%
+  \fi
+}
+\MT@def@bool@opt{final}{}
+\define@key{MT}{disable}[true]{%
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{true}\MT@disabletrue{%
+    \MT@ifstreq\@tempa{ifdraft}{\ifMT@draft\MT@disabletrue\fi}{%
+      \MT@ifstreq\@tempa{false}\relax{%
+        \MT@optwarn@admissible{#1}{disable}%
+      }%
+    }%
+  }%
+}
+\define@key{MT}{verbose}[true]{%
+  \let\MT@vinfo\MT@info@nl
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{true}\relax{%
+    \MT@ifstreq\@tempa{errors}{%
+      \let\MT@warning   \MT@warn@err
+      \let\MT@warning@nl\MT@warn@err
+    }{%
+      \let\MT@vinfo\@gobble
+      \MT@ifstreq\@tempa{silent}{%
+        \let\MT@warning   \MT@info
+        \let\MT@warning@nl\MT@info@nl
+      }{%
+        \MT@ifstreq\@tempa{false}\relax{\MT@optwarn@admissible{#1}{verbose}}%
+      }%
+    }%
+  }%
+}
+\MT@map@clist@n{%
+    stretch,shrink,step,%
+    letterspace}{%
+  \define@key{MT}{#1}[\csname MT@#1@default\endcsname]{%
+    \def\@tempa{##1 }%
+    \MT@ifint\@tempa
+      {\MT@edef@n{MT@#1}{\@tempa}}%
+      {\MT@optwarn@nan{##1}{#1}}%
+  }%
+}
+\define@key{MT}{factor}[\MT@factor@default]{%
+  \def\@tempa{#1 }%
+  \MT@ifint\@tempa
+    {\edef\MT@pr@factor{\@tempa}}
+    {\MT@optwarn@nan{#1}{factor}}%
+}
+\define@key{MT}{unit}[character]{%
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{character}\relax{%
+    \MT@ifdimen\@tempa
+      {\let\MT@pr@unit\@tempa}%
+      {\MT@warning@nl{`\@tempa' is not a dimension.\MessageBreak
+              Ignoring it and setting values relative to\MessageBreak
+              character widths}}%
+  }%
+}
+\let\MT@patches@list\relax
+\let\MT@nopatches@list\@empty
+\define@key{MT}{patch}[all]{%
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{all}
+    \relax
+    {\MT@ifstreq\@tempa{none}
+      {\let\MT@patches@list\@empty}
+      {\def\MT@patches@list{#1}}}%
+}
+\define@key{MT}{nopatch}[all]{%
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{all}
+    {\let\MT@nopatches@list\relax}
+    {\MT@ifstreq\@tempa{none}
+      \relax
+      {\def\MT@nopatches@list{#1}}}%
+}
+\MT@addto@setup{%
+  \ifx\MT@patches@list\relax
+    \let\MT@patches@list\MT@patches@def
+  \fi
+  \ifx\MT@nopatches@list\@empty\else
+    \ifx\MT@nopatches@list\relax
+      \let\MT@nopatches@list\MT@patches@def
+    \fi
+    \MT@map@clist@c\MT@nopatches@list{%
+      \MT@rem@from@clist{#1}\MT@patches@list}%
+  \fi
+  \ifx\MT@patches@list\@empty\else
+^^X    \MT@map@clist@c\MT@patches@list{\MT@apply@patch{#1}}%
+^^Q    \MT@warning@nl{Patches require the etex extensions. Ignoring them}%
+  \fi
+}
+\input{microtype-\MT@engine tex.def}
+\MT@protrusiontrue
+\define@key{MT}{config}[]{\relax}
+\def\MT@get@config#1config=#2,#3\@nil{%
+  \MT@ifempty{#2}%
+    {\def\MT@config@file{\MT@MT.cfg}}%
+    {\def\MT@config@file{#2.cfg}}%
+}
+\expandafter\expandafter\expandafter\MT@get@config
+  \csname opt@\@currname.\@currext\endcsname,config=,\@nil
+\IfFileExists{\MT@config@file}{%
+  \MT@info@nl{Loading configuration file \MT@config@file}%
+  \MT@begin@catcodes
+    \let\MT@begin@catcodes\relax
+    \let\MT@end@catcodes\relax
+    \let\MT@curr@file\MT@config@file
+    \input{\MT@config@file}%
+  \endgroup
+}{\MT@warning@nl{%
+    Could not find configuration file `\MT@config@file'!\MessageBreak
+    This will almost certainly cause undesired results.\MessageBreak
+    Please fix your installation}%
+}
+\def\MT@check@active@set#1{%
+  \MT@ifdefined@n@TF{MT@#1@setname}{%
+    \MT@info@nl{Using \@nameuse{MT@abbr@#1} set `\@nameuse{MT@#1@setname}'}%
+  }{%
+    \MT@ifdefined@n@TF{MT@default@#1@set}{%
+      \MT@glet@nn{MT@#1@setname}{MT@default@#1@set}%
+      \MT@info@nl{Using default \@nameuse{MT@abbr@#1} set `\@nameuse{MT@#1@setname}'}%
+    }{%
+      \MT@gdef@n{MT@#1@setname}{@}%
+      \MT@warning@nl{No \@nameuse{MT@abbr@#1} set chosen, no default set declared.
+                     \MessageBreak Using empty set}%
+    }%
+  }%
+}
+\MT@ifdefined@c@T\MicroType@Hook{\MT@error{%
+  Command \@backslashchar MicroType@Hook is deprecated.\MessageBreak
+  Use \@backslashchar Microtype@Hook instead}
+  {You might want to inform the font package authors.}\MicroType@Hook}
+\MT@ifdefined@c@T\Microtype@Hook\Microtype@Hook
+\def\microtypesetup{\setkeys{MT}}
+\MT@addto@setup{\def\microtypesetup#1{\setkeys{MTX}{#1}\selectfont}}
+\let\MT@saved@setupfont\MT@setupfont
+\define@key{MTX}{deactivate}[]{%
+  \MT@info{Deactivate `\MT@MT' package}%
+  \let\MT@setupfont\relax
+}
+\define@key{MTX}{reactivate}[]{%
+  \MT@info{Reactivate `\MT@MT' package}%
+  \let\MT@setupfont\MT@saved@setupfont
+}
+\define@key{MTX}{patch}[all]{%
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{all}
+    {\let\@tempa\MT@patches@def}
+    {\MT@ifstreq\@tempa{none}
+      {\let\@tempa\@empty}
+      \relax}%
+  \ifx\@tempa\@empty\else
+^^X    \MT@map@clist@c\@tempa{\MT@apply@patch{##1}}%
+^^Q    \MT@warning@nl{Patches require the etex extensions. Ignoring them}%
+  \fi
+}
+\define@key{MTX}{nopatch}[all]{%
+  \def\@tempa{#1}%
+  \MT@ifstreq\@tempa{all}
+    {\let\@tempa\MT@patches@def}
+    {\MT@ifstreq\@tempa{none}
+      {\let\@tempa\@empty}
+      \relax}%
+  \ifx\@tempa\@empty\else
+^^X    \MT@map@clist@c\@tempa{\MT@undo@patch{##1}}%
+  \fi
+}
+\def\MT@ProcessOptionsWithKV#1{%
+  \let\@tempc\relax
+  \let\MT@temp\@empty
+    \MT@map@clist@c\@classoptionslist{%
+      \def\CurrentOption{##1}%
+      \MT@ifdefined@n@T{KV@#1@\expandafter\MT@getkey\CurrentOption=\@nil}{%
+        \edef\MT@temp{\MT@temp,\CurrentOption,}%
+        \@expandtwoargs\@removeelement\CurrentOption
+          \@unusedoptionlist\@unusedoptionlist
+      }%
+    }%
+    \edef\MT@temp{\noexpand\setkeys{#1}%
+                    {\MT@temp\@ptionlist{\@currname.\@currext}}}%
+  \MT@temp
+  \MT@clear@options
+}
+\def\MT@getkey#1=#2\@nil{#1}
+\MT@ProcessOptionsWithKV{MT}
+\MT@addto@setup{%
+\ifMT@disable
+  \MT@warning@nl{The `disable' option is in effect.\MessageBreak
+                 Disabling all micro-typographic extensions.\MessageBreak
+                 This might lead to different line and page breaks}%
+  \let\MT@setupfont\relax
+  \renewcommand*\LoadMicrotypeFile[1]{}%
+  \renewcommand*\microtypesetup[1]{}%
+  \renewcommand*\microtypecontext[1]{}%
+  \renewcommand*\lsstyle{}%
+\else
+  \MT@setup@PDF
+  \MT@setup@copies
+  \MT@map@tlist@c\MT@font@sets\MT@fix@font@set
+  \MT@setup@protrusion
+  \MT@setup@expansion
+  \MT@setup@tracking
+  \MT@setup@warntracking
+  \MT@setup@spacing
+  \MT@setup@kerning
+  \MT@setup@noligatures
+}
+\MT@addto@setup{%
+  \ifx\MT@active@features\@empty \else
+    \edef\MT@active@features{\expandafter\@gobble\MT@active@features}%
+  \fi
+  \MT@documenttrue
+}
+\def\MT@set@babel@context#1{%
+  \MT@ifdefined@n@TF{MT@babel@#1}{%
+    \MT@vinfo{*** Changing to language context `#1'\MessageBreak\on@line}%
+    \expandafter\MT@exp@one@n\expandafter\microtypecontext
+      \csname MT@babel@#1\endcsname
+  }{%
+    \microtypecontext{protrusion=,expansion=,spacing=,kerning=}%
+  }%
+}
+\@ifpackageloaded{babel}{
+  \def\MT@shorthandoff#1#2{%
+    \MT@info@nl{Switching off #1 babel's active characters (#2)}%
+    \shorthandoff{#2}}
+}{
+  \def\MT@shorthandoff#1#2{%
+    \MT@error{You must load `babel' before `\MT@MT'}
+             {Otherwise, `\MT@MT' cannot switch off #1 babel's\MessageBreak
+              active characters.}}
+}
+\MT@addto@setup{%
+  \ifMT@babel
+    \@ifpackageloaded{babel}{%
+      \MT@info@nl{Redefining babel's language switching commands}%
+      \let\MT@orig@select@language\select@language
+      \def\select@language#1{%
+        \MT@orig@select@language{#1}%
+        \MT@set@babel@context{#1}%
+      }%
+      \let\MT@orig@foreign@language\foreign@language
+      \def\foreign@language#1{%
+        \MT@orig@foreign@language{#1}%
+        \MT@set@babel@context{#1}%
+      }%
+      \ifMT@kerning
+        \MT@if@false
+        \MT@with@babel@and@T{french}  \MT@if@true
+        \MT@with@babel@and@T{frenchb} \MT@if@true
+        \MT@with@babel@and@T{francais}\MT@if@true
+        \MT@with@babel@and@T{canadien}\MT@if@true
+        \MT@with@babel@and@T{acadian} \MT@if@true
+        \ifMT@if@\MT@shorthandoff{French}{:;!?}\fi
+        \MT@if@false
+        \MT@with@babel@and@T{turkish} \MT@if@true
+        \ifMT@if@\MT@shorthandoff{Turkish}{:!=}\fi
+      \fi
+      \MT@set@babel@context\languagename
+    }{%
+      \@ifpackageloaded{polyglossia}{%
+        \MT@info@nl{Registering with polyglossia's language switching hook}%
+        \gappto\polyglossia@language@switched{%
+          \MT@set@babel@context{\languagename}%
+        }%
+        \MT@set@babel@context\languagename
+      }{%
+        \MT@warning@nl{%
+          You did not load the babel or the polyglossia package.\MessageBreak
+          The `babel' option won't have any effect}%
+      }%
+    }%
+  \fi
+}
+\MT@addto@setup{\fi
+  \selectfont}
+\edef\MT@curr@file{\jobname.tex}
+\AtBeginDocument{\MT@setup@ \MT@glet\MT@setup@\@empty}
+\MT@ifdefined@c@T\MT@setup@spacing@check
+  {\AtBeginDocument{\MT@setup@spacing@check}}
+\MT@restore@catcodes
+\endinput
+%%
+%% End of file `microtype.sty'.
