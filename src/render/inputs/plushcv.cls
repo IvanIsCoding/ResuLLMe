@@ -114,12 +114,12 @@
 
 %Main Font Definitions
 \def \pathmainfont {fonts/inter/}
-\def \mainfont {inter-light}
-\def \mainfontbold {inter-semibold}
+\def \mainfont {Inter-Light}
+\def \mainfontbold {Inter-SemiBold}
 % \def \mainbolditalicfont {}
 % \def \mainitalicfont {}
 \def \mainfontsize {9.5}
-\def \mainsansfont {inter-light}
+\def \mainsansfont {Inter-Light}
 
 %Main Subheading Font Definitions
 %Used for company name and sub-skills

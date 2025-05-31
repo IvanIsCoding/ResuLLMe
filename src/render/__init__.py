@@ -24,7 +24,6 @@ def render_latex(latex_command, latex_data):
         tectonic_env = os.environ.copy()
         tectonic_env["XDG_CACHE_HOME"] = str(cache_dir)
         tectonic_env["TECTONIC_CACHE_DIR"] = f"{str(cache_dir)}/tectonic_cache"
-        print(f"DEBUG: Using this environment: {tectonic_env}")
 
         # run latex command
         latex_process = subprocess.Popen(
