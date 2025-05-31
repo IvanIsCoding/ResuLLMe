@@ -1,2 +1,0 @@
-streamlit-ext==0.1.9
-stqdm==0.0.5
