@@ -6,6 +6,7 @@ platforms = ["linux-64", "linux-aarch64", "osx-arm64", "win-64"]
 version = "2.0.0"
 
 [tasks]
+run-app = { cmd = "streamlit run src/Main.py" }
 
 [dependencies]
 streamlit = "==1.45.1"

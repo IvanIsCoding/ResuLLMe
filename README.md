@@ -20,7 +20,22 @@ ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs
 * Convert the résumés to a JSON Resume format
 * Render the JSON resume using LaTeX to generate a new PDF of the enhanced resume
 
-## 🏃 Running
+## 🏃 Running Natively
+
+
+To run the app locally, you will need to install [Pixi](https://prefix.dev/):
+
+```
+curl -fsSL https://pixi.sh/install.sh | bash
+```
+
+Lastly, to run ResuLLMe locally, execute:
+
+```
+pixi run run-app
+```
+
+### 🪄 Running with Docker
 
 To run ResuLLMe locally, the simplest way is to use Docker:
 
@@ -30,25 +45,6 @@ docker-compose up -d
 
 This will make the app avaialable at [`https://localhost:8501/`](https://localhost:8501/)
 
-### 🪄 Installation Instructions for Running Natively
-
-To run the app without Docker, you will need to install two things for the app to work. The first item is to install the Python dependencies:
-
-```
-pip install -r requirements.txt
-```
-
-The second item is to install the LaTeX packages:
-
-```
-xargs sudo apt install -y < packages.txt
-```
-
-Lastly, to run ResuLLMe locally, execute:
-
-```
-streamlit run src/Main.py
-```
 
 ## 🤲 Contributing
 
