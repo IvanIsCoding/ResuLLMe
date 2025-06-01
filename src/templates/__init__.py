@@ -14,7 +14,7 @@ template_commands = {
     "Deedy": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
     "Modern": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
     "Plush": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
-    "Alta": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "resume.tex"],
+    "Alta": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
 }
 
 
