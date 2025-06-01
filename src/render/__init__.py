@@ -34,9 +34,9 @@ def render_latex(latex_command, latex_data):
         latex_command_conda = [c for c in latex_command]
 
         if "IS_STREAMLIT_CLOUD" in os.environ:
-            print("Running in Streamlit Cloud, using conda environment for Tectonic")
-            print("Executable: ", sys.executable)
-            latex_command_conda = [find_tectonic_streamlit_cloud()] + [c for c in latex_command][1:]
+            tectonic_path = find_tectonic_streamlit_cloud()
+            print(f"DEBUG: Running in Streamlit Cloud, Tectonic path: {tectonic_path}")
+            latex_command_conda = [tectonic_path] + [c for c in latex_command][1:]
             
 
         # Find the Tectonic Vendored Cache
