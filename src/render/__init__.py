@@ -22,12 +22,7 @@ def render_latex(latex_command, latex_data):
         if "IS_STREAMLIT_CLOUD" in os.environ:
             print("Running in Streamlit Cloud, using conda environment for Tectonic")
             print("Executable: ", sys.executable)
-            latex_command_conda = [
-                "conda",
-                "run",
-                "-n",
-                "scc-resullme-tectonic"
-            ] + [c for c in latex_command] # prepend empty string to avoid issues with conda environment
+            latex_command_conda = ["/home/adminuser/.conda/bin/tectonic"] + [c for c in latex_command][1:]
             
 
         # Find the Tectonic Vendored Cache
