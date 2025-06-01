@@ -3,7 +3,7 @@ channels:
 - conda-forge
 - nodefaults
 dependencies:
-- streamlit ==1.45.1
+- streamlit
 - openai ==1.82.1
 - google-generativeai ==0.8.5
 - pdfminer-six >=20250506,<20250507
