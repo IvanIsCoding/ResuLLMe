@@ -35,6 +35,8 @@ Lastly, to run ResuLLMe locally, execute:
 pixi run run-app
 ```
 
+This will make the app avaialable at [`https://localhost:8501/`](https://localhost:8501/)
+
 ### 🪄 Running with Docker
 
 To run ResuLLMe locally, the simplest way is to use Docker:
