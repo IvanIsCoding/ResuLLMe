@@ -42,37 +42,37 @@
 \RequirePackage{accsupp}
 \RequirePackage[margin=2cm]{geometry}
 \RequirePackage[fixed]{fontawesome}
-\RequirePackage{ifxetex,ifluatex}
+%\RequirePackage{ifxetex,ifluatex}
 \RequirePackage{scrlfile}
 \RequirePackage{xparse}
 
 %% v1.1.5: added for convenience
-\newif\ifxetexorluatex
-\ifxetex
-  \xetexorluatextrue
-\else
-  \ifluatex
-    \xetexorluatextrue
-  \else
-    \xetexorluatexfalse
-  \fi
-\fi
+%\newif\ifxetexorluatex
+%\ifxetex
+%  \xetexorluatextrue
+%\else
+%  \ifluatex
+%    \xetexorluatextrue
+%  \else
+%    \xetexorluatexfalse
+%  \fi
+%\fi
 
-\ifxetexorluatex
+%\ifxetexorluatex
   \RequirePackage{fontspec}
-\else
+%\else
   %% v1.3.2 attempts to make ligatures
   %% copy-paste as normal characters
-  \RequirePackage{cmap}
-  \RequirePackage[utf8]{inputenc}
-  \RequirePackage[T1]{fontenc}
-  \input{glyphtounicode}
-  \pdfglyphtounicode{f_f}{FB00}
-  \pdfglyphtounicode{f_f_i}{FB03}
-  \pdfglyphtounicode{f_f_l}{FB04}
-  \pdfglyphtounicode{f_i}{FB01}
-  \pdfgentounicode=1
-\fi
+%  \RequirePackage{cmap}
+%  \RequirePackage[utf8]{inputenc}
+%  \RequirePackage[T1]{fontenc}
+%  \input{glyphtounicode}
+%  \pdfglyphtounicode{f_f}{FB00}
+%  \pdfglyphtounicode{f_f_i}{FB03}
+%  \pdfglyphtounicode{f_f_l}{FB04}
+%  \pdfglyphtounicode{f_i}{FB01}
+%  \pdfgentounicode=1
+%\fi
 
 \if@raggedtwoe
   \RequirePackage[newcommands]{ragged2e}

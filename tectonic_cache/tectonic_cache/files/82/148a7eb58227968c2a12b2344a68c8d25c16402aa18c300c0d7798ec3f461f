@@ -1,0 +1,124 @@
+%% Copyright (C) 2011-2020 by Martin Scharrer <martin@scharrer-online.de>
+%% ----------------------------------------------------------------------
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Martin Scharrer.
+%%
+%% This work consists of the files trimclip.dtx, adjustbox.ins
+%% and the derived files trimclip.sty,
+%% tc-dvips.def, tc-pdftex.def, tc-luatex.def, tc-pgf.def and tc-xetex.def.
+%% Further author information are located in the .def files.
+%%
+\ProvidesFile{tc-xetex.def}[2019/01/04 v2.2 Clipping driver for xetex]
+\def\@cliptoboxdim#1{%
+    \setbox#1=\hbox{%
+        \adjcalc@settobp\WIDTH{\wd#1}%
+        \adjcalc@settobp\DEPTH{\dp#1}%
+        \adjcalc@settobp\TOTALHEIGHT{\ht#1+\dp#1}%
+        \special{pdf:content q }%
+        \special{pdf:code  0 -\DEPTH \WIDTH \TOTALHEIGHT re W n }%
+        \special{pdf:literal direct -1 0 0 -1 0 0 cm }%
+        \special{pdf:content q }%
+        \special{pdf:literal direct -1 0 0 -1 0 0 cm }%
+        \hbox to 0 pt{\copy#1\hss}%
+        \special{pdf:literal direct Q }%
+        \special{pdf:literal direct Q }%
+        \hskip\wd#1%
+    }%
+}
+\def\@clip@bpdimens#1#2#3#4#5{%
+    \adjcalc@settobp\TOTALHEIGHT{\ht#1+\dp#1}%
+    \adjcalc@settobp\HEIGHT{\ht#1}%
+    \adjcalc@settobp\DEPTH{-\dp#1}%
+    \adjcalc@settobp\WIDTH{\wd#1}%
+    \adjcalc@settobp\RADIUSTL{#2}%
+    \adjcalc@settobp\RADIUSTR{#3}%
+    \adjcalc@settobp\RADIUSBL{#4}%
+    \adjcalc@settobp\RADIUSBR{#5}%
+    \adjcalc@settobp\RADIUSTLb{\tc@bezfacn#2}%
+    \adjcalc@settobp\HEIGHTmRADIUSTL{\ht#1-#2}%
+    \adjcalc@settobp\HEIGHTmRADIUSTLb{\ht#1-\tc@bezfacn#2}%
+    \adjcalc@settobp\HEIGHTmRADIUSTR{\ht#1-#3}%
+    \adjcalc@settobp\HEIGHTmRADIUSTRb{\ht#1-\tc@bezfacn#3}%
+    \adjcalc@settobp\WIDTHmRADIUSTR{\wd#1-#3}%
+    \adjcalc@settobp\WIDTHmRADIUSTRb{\wd#1-\tc@bezfacn#3}%
+    \adjcalc@settobp\RADIUSBRmDEPTH{#5-\dp#1}%
+    \adjcalc@settobp\RADIUSBRmDEPTHb{\tc@bezfacn#5-\dp#1}%
+    \adjcalc@settobp\WIDTHmRADIUSBR{\wd#1-#5}%
+    \adjcalc@settobp\WIDTHmRADIUSBRb{\wd#1-\tc@bezfacn#5}%
+    \adjcalc@settobp\RADIUSBLmDEPTH{#4-\dp#1}%
+    \adjcalc@settobp\RADIUSBLmDEPTHb{\tc@bezfacn#4-\dp#1}%
+    \adjcalc@settobp\RADIUSBLb{\tc@bezfacn#4}%
+    \adjcalc@settobp\LINEWIDTH{\fboxrule}%
+}
+\def\@clip@roundedboxpath@pdfcode{%
+    0 \HEIGHTmRADIUSTL m
+    0 \HEIGHTmRADIUSTLb \RADIUSTLb \HEIGHT \RADIUSTL \HEIGHT c
+    \WIDTHmRADIUSTR \HEIGHT l
+    \WIDTHmRADIUSTRb \HEIGHT \WIDTH \HEIGHTmRADIUSTRb \WIDTH \HEIGHTmRADIUSTR c
+    \WIDTH \RADIUSBRmDEPTH l
+    \WIDTH \RADIUSBRmDEPTHb \WIDTHmRADIUSBRb \DEPTH \WIDTHmRADIUSBR \DEPTH c
+    \RADIUSBL \DEPTH l
+    \RADIUSBLb \DEPTH 0 \RADIUSBLmDEPTHb 0 \RADIUSBLmDEPTH c
+    0 \RADIUSBLmDEPTH l
+}
+\def\@clipcornersofbox#1#2#3#4#5{%
+    \setbox#1=\hbox{%
+        \@clip@bpdimens{#1}{#2}{#3}{#4}{#5}%
+        \special{pdf:content q }%
+        \special{pdf:literal direct
+            \@clip@roundedboxpath@pdfcode
+            h W n
+        }%
+        \special{pdf:literal direct -1 0 0 -1 0 0 cm }%
+        \special{pdf:content q }%
+        \special{pdf:literal direct -1 0 0 -1 0 0 cm }%
+        \hbox to 0pt{\copy#1\hss}%
+        \special{pdf:literal direct Q }%
+        \special{pdf:literal direct Q }%
+        \hskip\wd#1%
+    }%
+}
+\def\@rndframearoundbox#1#2#3#4#5#6{%
+    \setbox#1=\hbox{%
+        \adjsetlength\@tempdima{\fboxsep+.5\fboxrule}%
+        \@marginbox#1\@tempdima\@tempdima\@tempdima\@tempdima%
+        \@clip@bpdimens{#1}{#2}{#3}{#4}{#5}%
+        \edef\@tempa{#6}%
+        \ifx\@empty\@tempa\else
+            \@clipcornersofbox{#1}{#2}{#3}{#4}{#5}%
+        \fi
+        %
+        \hbox to 0pt{\copy#1\hss}%
+        \hbox to 0pt{%
+            \color@setgroup
+            \adjbox@rndframe@color
+            \special{pdf:content q }%
+            \special{pdf:literal direct
+                \LINEWIDTH w
+                \@clip@roundedboxpath@pdfcode
+                h s
+            }%
+            \special{pdf:literal direct -1 0 0 -1 0 0 cm }%
+            \special{pdf:content q }%
+            \special{pdf:literal direct -1 0 0 -1 0 0 cm }%
+            \special{pdf:literal direct Q }%
+            \special{pdf:literal direct Q }%
+            \color@endgroup
+        }%
+        \hskip\wd#1%
+    }%
+    \adjsetlength\@tempdima{.5\fboxrule}%
+    \@marginbox#1\@tempdima\@tempdima\@tempdima\@tempdima%
+}
+\endinput
+%%
+%% End of file `tc-xetex.def'.
