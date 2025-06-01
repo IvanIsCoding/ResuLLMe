@@ -8,7 +8,7 @@
 
 ## 🚀 Concept
 
-ResuLLMe is a prototype that uses Large Language Models (LLMs) to tailor résumés. It's goal is to enhance résumés to help candidates avoid common mistakes that occur while applying for jobs. It is like a smart career advisor to check your résumé.
+ResuLLMe is an app that uses Large Language Models (LLMs) to tailor résumés. It's goal is to enhance résumés to help candidates avoid common mistakes that occur while applying for jobs. It is like a smart career advisor to check your résumé.
 
 You can use ResuLLMe live at [https://resullme.streamlit.app/](https://resullme.streamlit.app/).
 
@@ -21,7 +21,10 @@ ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs
 * Render the JSON resume using LaTeX to generate a new PDF of the enhanced resume
 
 > [!IMPORTANT]  
-> ResuLLMe was updated to support macOS and Windows. For that to happen, we had to switch the LaTeX engine. If you prefer the old rendering behavior, check the code in the `stable/v1` branch.
+> ResuLLMe was updated to support macOS and Windows. For that to happen, we had to switch the LaTeX engine. If you prefer the old rendering behavior, check the code in the `v1` branch.
+
+> [!NOTE]  
+> If ResuLLMe fails to extract data from your CV, you can manually download the JSON output, edit it and re-render at the "Render JSON Resume" tab
 
 ## 🏃 Running Natively
 
