@@ -3,6 +3,7 @@ import subprocess
 import os
 import shutil
 import pathlib
+import sys
 
 
 def render_latex(latex_command, latex_data):
@@ -20,6 +21,7 @@ def render_latex(latex_command, latex_data):
 
         if "IS_STREAMLIT_CLOUD" in os.environ:
             print("Running in Streamlit Cloud, using conda environment for Tectonic")
+            print("Executable: ", sys.executable)
             latex_command_conda = [
                 "conda",
                 "run",
