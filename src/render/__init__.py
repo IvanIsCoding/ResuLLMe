@@ -23,7 +23,14 @@ def render_latex(latex_command, latex_data):
                 conda_bin = os.environ["CONDA_PREFIX"] + "/bin"
                 latex_command_conda[0] = conda_bin + "/tectonic"
             else:
-                print("Warning: Tectonic is NOT running in a conda environment!")
+                import pathlib
+                directory = pathlib.Path("/home/adminuser/.conda")
+                # Recursively search for files containing 'tectonic' in their name
+                for file in directory.rglob("*"):
+                    if file.is_file() and "tectonic" in file.name:
+                        print(f"DEBUG: {file}")
+                raise RuntimeError("Tectonic is NOT running in a conda environment!")
+            
 
         # Find the Tectonic Vendored Cache
         current_dir = pathlib.Path(__file__).resolve().parent
