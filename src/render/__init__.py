@@ -15,6 +15,15 @@ def render_latex(latex_command, latex_data):
         # write latex data to a file
         with open(f"{tmpdirname}/resume.tex", "w") as f:
             f.write(latex_data)
+        
+        latex_command_conda = [c for c in latex_command]
+
+        if latex_command_conda[0] == "tectonic":
+            if "CONDA_PREFIX" in os.environ:
+                conda_bin = os.environ["CONDA_PREFIX"] + "/bin"
+                latex_command_conda[0] = conda_bin + "/tectonic"
+            else:
+                print("Warning: Tectonic is NOT running in a conda environment!")
 
         # Find the Tectonic Vendored Cache
         current_dir = pathlib.Path(__file__).resolve().parent
@@ -27,7 +36,7 @@ def render_latex(latex_command, latex_data):
 
         # run latex command
         latex_process = subprocess.Popen(
-            latex_command, cwd=tmpdirname, env=tectonic_env,
+            latex_command_conda, cwd=tmpdirname, env=tectonic_env,
         )
         latex_process.wait()
 
