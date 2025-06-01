@@ -1,4 +1,4 @@
-name: scc-resullme-tectonic
+name: default
 channels:
 - conda-forge
 - nodefaults

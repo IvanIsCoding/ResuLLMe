@@ -4,7 +4,21 @@ import os
 import shutil
 import pathlib
 import sys
+import functools
 
+@functools.lru_cache(maxsize=None)
+def find_tectonic_streamlit_cloud():
+    import streamlit as st
+    current_dir = pathlib.Path(st.__file__).parent
+    while current_dir.parent != current_dir:
+        if (current_dir / "tectonic").exists():
+            return str(current_dir / "tectonic")
+        if (current_dir / "bin").exists():
+            current_bin_dir = current_dir / "bin"
+            if (current_bin_dir / "tectonic").exists():
+                return str(current_bin_dir / "tectonic")
+        current_dir = current_dir.parent
+    return "tectonic"
 
 def render_latex(latex_command, latex_data):
     src_path = os.path.dirname(os.path.realpath(__file__)) + "/inputs"
@@ -22,7 +36,7 @@ def render_latex(latex_command, latex_data):
         if "IS_STREAMLIT_CLOUD" in os.environ:
             print("Running in Streamlit Cloud, using conda environment for Tectonic")
             print("Executable: ", sys.executable)
-            latex_command_conda = ["/home/adminuser/.conda/bin/tectonic"] + [c for c in latex_command][1:]
+            latex_command_conda = [find_tectonic_streamlit_cloud()] + [c for c in latex_command][1:]
             
 
         # Find the Tectonic Vendored Cache
