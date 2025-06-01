@@ -1,0 +1,15 @@
+\begingroup
+\catcode`\-=12
+\catcode`\/=12
+\catcode`\.=12
+\catcode`\:=12
+\catcode`\+=12
+\catcode`\-=12
+\gdef\pgfrevision{3.1.9a}
+\gdef\pgfversion{3.1.9a}
+\gdef\pgfversiondatetime{2021-05-15 12:06:55 +0200}
+\gdef\pgfrevisiondatetime{2021-05-15 12:06:55 +0200}
+\gdef\pgf@glob@TMPa#1-#2-#3 #4\relax{#1/#2/#3}
+\xdef\pgfversiondate{\expandafter\pgf@glob@TMPa\pgfversiondatetime\relax}
+\xdef\pgfrevisiondate{\expandafter\pgf@glob@TMPa\pgfrevisiondatetime\relax}
+\endgroup

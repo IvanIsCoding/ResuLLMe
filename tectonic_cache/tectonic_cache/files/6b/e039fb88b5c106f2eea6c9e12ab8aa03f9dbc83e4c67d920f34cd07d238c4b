@@ -1,0 +1,418 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{roboto}
+    [2019/12/11 (Bob Tennent)  Supports Roboto fonts for all LaTeX engines.]
+
+\RequirePackage{ifxetex,ifluatex,xkeyval,textcomp}
+
+\newif\ifroboto@otf 
+\ifxetex
+  \roboto@otftrue
+\else\ifluatex
+  \roboto@otftrue
+\else  % [pdf]LaTeX
+  \roboto@otffalse
+\fi\fi
+
+\newif\ifroboto@lining \roboto@liningfalse
+\newif\ifroboto@tabular \roboto@tabularfalse
+\newif\ifroboto@default \roboto@defaultfalse
+
+\newcommand*{\Roboto@scale}{1}
+\DeclareOptionX{scaled}{\renewcommand*{\Roboto@scale}{#1}}
+\DeclareOptionX{scale}{\renewcommand*{\Roboto@scale}{#1}}
+
+\newif\ifroboto@light \roboto@lightfalse
+\newif\ifroboto@thin \roboto@thinfalse
+\newif\ifroboto@medium \roboto@mediumfalse
+\newif\ifroboto@black \roboto@blackfalse
+\newif\ifroboto@condensed \roboto@condensedfalse
+\newif\ifroboto@slab  \roboto@slabfalse
+
+\DeclareOptionX{default}{\roboto@defaulttrue\roboto@slabfalse}
+\DeclareOptionX{sfdefault}{\roboto@defaulttrue\roboto@slabfalse}
+\DeclareOptionX{type1}{\roboto@otffalse}
+\DeclareOptionX{medium}{\roboto@mediumtrue\roboto@blackfalse}
+\DeclareOptionX{bold}{\roboto@blackfalse\roboto@mediumfalse}
+\DeclareOptionX{black}{\roboto@blacktrue\roboto@mediumfalse}
+\DeclareOptionX{thin}{\roboto@thintrue\roboto@lightfalse}
+\DeclareOptionX{light}{\roboto@lighttrue\roboto@thinfalse}
+\DeclareOptionX{regular}{\roboto@lightfalse\roboto@thinfalse}
+\DeclareOptionX{condensed}{\roboto@condensedtrue\roboto@slabfalse\roboto@thinfalse}
+\DeclareOptionX{rm}{\roboto@slabtrue\roboto@condensedfalse\roboto@defaultfalse}
+\DeclareOptionX{lining}{\roboto@liningtrue}
+\DeclareOptionX{nf}{\roboto@liningtrue}
+\DeclareOptionX{lf}{\roboto@liningtrue}
+\DeclareOptionX{oldstyle}{\roboto@liningfalse}
+\DeclareOptionX{osf}{\roboto@liningfalse}
+\DeclareOptionX{tabular}{\roboto@tabulartrue}
+\DeclareOptionX{t}{\roboto@tabulartrue}
+\DeclareOptionX{proportional}{\roboto@tabularfalse}
+\DeclareOptionX{p}{\roboto@tabularfalse}
+
+
+\ExecuteOptionsX{bold,regular,lining,proportional}
+\ProcessOptionsX\relax
+
+\ifroboto@otf
+  \def\roboto@boldstyle{Bold}
+  \ifroboto@medium\def\roboto@boldstyle{Medium}\fi
+  \ifroboto@black\def\roboto@boldstyle{Black}\fi
+  \def\roboto@regstyle{Regular}
+  \ifroboto@light\def\roboto@regstyle{Light}\fi
+  \ifroboto@thin\def\roboto@regstyle{Thin}\fi
+
+\else % type1
+
+  \ifroboto@condensed
+    \def\bfseries@sf{bc}
+    \def\mdseries@sf{c}
+    \ifroboto@light\def\mdseries@sf{lc}\fi
+    \def\seriesdefault{\mdseries@sf}
+  \else
+    \ifroboto@slab
+      \def\mdseries@rm{m}
+      \def\bfseries@rm{b}
+    \else
+      \def\mdseries@sf{m}
+      \def\bfseries@sf{b}
+    \fi
+    \ifroboto@medium\def\bfseries@sf{sb}\fi
+    \ifroboto@black\def\bfseries@sf{eb}\fi
+    \ifroboto@thin\def\mdseries@sf{el}
+       \ifroboto@slab\def\mdseries@rm{el}\fi\fi
+    \ifroboto@light\def\mdseries@sf{l}
+       \ifroboto@slab\def\mdseries@rm{l}\fi\fi
+    \ifroboto@slab
+      \def\seriesdefault{\mdseries@rm}
+    \else
+      \def\seriesdefault{\mdseries@sf}
+    \fi
+  \fi
+
+\fi
+
+\ifroboto@otf
+  \ifroboto@lining
+    \def\roboto@figurestyle{Lining}
+  \else
+    \def\roboto@figurestyle{OldStyle} 
+  \fi
+  \ifroboto@tabular
+    \def\roboto@figurealign{Monospaced} 
+  \else
+    \def\roboto@figurealign{Proportional} 
+  \fi
+\else % type1
+  \ifroboto@lining
+    \def\roboto@figurestyle{LF}
+  \else
+    \def\roboto@figurestyle{OsF}
+  \fi
+  \ifroboto@tabular
+    \def\roboto@figurealign{T}
+  \else
+    \def\roboto@figurealign{}
+  \fi
+\fi
+
+
+\ifroboto@otf
+  \RequirePackage{fontspec}
+\else
+  \RequirePackage{fontenc,fontaxes,mweights}
+\fi
+
+\ifroboto@otf
+  \def\roboto@regular{Regular}
+  \ifxetex\XeTeXtracingfonts=1\fi
+  \defaultfontfeatures{
+        Ligatures = TeX ,
+        Scale     = \Roboto@scale ,
+        Extension = .otf }
+  \ifroboto@condensed
+    \setsansfont
+        [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+          UprightFont    = *-\roboto@regstyle ,
+          ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+          BoldFont       = *-Bold ,
+          BoldItalicFont = *-BoldItalic ,
+        ]
+        {RobotoCondensed}
+  \else
+    \setsansfont
+        [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+          UprightFont    = *-\roboto@regstyle ,
+          ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+          BoldFont       = *-\roboto@boldstyle ,
+          BoldItalicFont = *-\roboto@boldstyle Italic ,
+        ]
+        {Roboto}
+  \fi
+  % grab current family in case of subsequent change:
+  \let\robotofamily\sfdefault  
+  \ifroboto@slab
+    \setmainfont
+        [ UprightFont    = *-\roboto@regstyle ,
+          BoldFont       = *-Bold ,
+        ]
+        {RobotoSlab}
+  \fi
+  \ifroboto@default\renewcommand*\familydefault{\robotofamily}\fi
+  \newfontfamily\roboto
+        [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+          UprightFont    = *-\roboto@regstyle ,
+          ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+          BoldFont       = *-\roboto@boldstyle ,
+          BoldItalicFont = *-\roboto@boldstyle Italic ,
+        ]
+        {Roboto}
+  \newfontfamily\robotocondensed
+        [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+          UprightFont    = *-\roboto@regstyle ,
+          ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+          BoldFont       = *-Bold ,
+          BoldItalicFont = *-BoldItalic ,
+        ]
+        {RobotoCondensed}
+  \newfontfamily\robotoboldcondensed
+        [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+          UprightFont    = *-Bold ,
+          ItalicFont     = *-BoldItalic,
+          BoldFont       = *-Bold ,
+          BoldItalicFont = *-BoldItalic ,
+        ]
+        {RobotoCondensed}
+  \newfontfamily\robotoslab
+        [ UprightFont    = *-\roboto@regstyle ,
+          BoldFont       = *-Bold ,
+        ]
+        {RobotoSlab}
+  \ifroboto@condensed
+    \newfontfamily\robotoregular
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Regular ,
+            ItalicFont     = *-Italic,
+          ]
+          {RobotoCondensed}
+    \newfontfamily\robotolight
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Light ,
+            ItalicFont     = *-LightItalic,
+          ]
+          {RobotoCondensed}
+    \newfontfamily\robotobold
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Bold ,
+            ItalicFont     = *-BoldItalic,
+          ]
+          {RobotoCondensed}
+    \newfontfamily\robotoosf
+          [ Numbers = {Proportional,OldStyle},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {RobotoCondensed}
+    \newfontfamily\robotolf
+          [ Numbers = {Proportional,Lining},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {RobotoCondensed}
+    \newfontfamily\robototlf
+          [ Numbers = {Monospaced,Lining},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {RobotoCondensed}
+    \newfontfamily\robototosf
+          [ Numbers = {Monospaced,OldStyle},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {RobotoCondensed}
+  \else\ifroboto@slab
+    \newfontfamily\robotoregular
+          [ 
+            UprightFont    = *-Regular ,
+          ]
+          {RobotoSlab}
+    \newfontfamily\robotothin
+          [ 
+            UprightFont    = *-Thin ,
+          ]
+          {RobotoSlab}
+    \newfontfamily\robotolight
+          [ 
+            UprightFont    = *-Light ,
+          ]
+          {RobotoSlab}
+    \newfontfamily\robotobold
+          [ 
+            UprightFont    = *-Bold ,
+          ]
+          {RobotoSlab}
+    \newfontfamily\robotolf
+          [ Numbers = {Lining},
+            UprightFont    = *-\roboto@regstyle ,
+            BoldFont       = *-\roboto@boldstyle ,
+          ]
+          {RobotoSlab}
+  \else
+    \newfontfamily\robotoregular
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Regular ,
+            ItalicFont     = *-Italic,
+          ]
+          {Roboto}
+    \newfontfamily\robotomedium
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Medium ,
+            ItalicFont     = *-MediumItalic,
+          ]
+          {Roboto}
+    \newfontfamily\robotothin
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Thin ,
+            ItalicFont     = *-ThinItalic,
+          ]
+          {Roboto}
+    \newfontfamily\robotolight
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Light ,
+            ItalicFont     = *-LightItalic,
+          ]
+          {Roboto}
+    \newfontfamily\robotobold
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Bold ,
+            ItalicFont     = *-BoldItalic,
+          ]
+          {Roboto}
+    \newfontfamily\robotoblack
+          [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
+            UprightFont    = *-Black ,
+            ItalicFont     = *-BlackItalic,
+          ]
+          {Roboto}
+    \newfontfamily\robotoosf
+          [ Numbers = {Proportional,OldStyle},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {Roboto}
+    \newfontfamily\robotolf
+          [ Numbers = {Proportional,Lining},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {Roboto}
+    \newfontfamily\robototlf
+          [ Numbers = {Monospaced,Lining},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {Roboto}
+    \newfontfamily\robototosf
+          [ Numbers = {Monospaced,OldStyle},
+            UprightFont    = *-\roboto@regstyle ,
+            ItalicFont     = *-\ifx\roboto@regstyle\roboto@regular Italic\else\roboto@regstyle Italic\fi,
+            BoldFont       = *-\roboto@boldstyle ,
+            BoldItalicFont = *-\roboto@boldstyle Italic ,
+          ]
+          {Roboto}
+  \fi\fi
+
+
+\else % type1
+  \def\robotofamily{Roboto-\roboto@figurealign\roboto@figurestyle}
+  \def\robotoslabfamily{RobotoSlab-TLF}
+  \newcommand*\roboto{\fontfamily{\robotofamily}\selectfont}
+  \newcommand*\robotoslab{\fontfamily{\robotoslabfamily}\selectfont}
+  \newcommand*\robotocondensed{\fontseries{c}\selectfont}
+  \newcommand*\robotoboldcondensed{\fontseries{bc}\selectfont}
+  \def\sfdefault{\robotofamily}
+  \ifroboto@default\edef\familydefault{\sfdefault}\edef\seriesdefault{\mdseries@sf}\fi
+  \ifroboto@slab\edef\rmdefault{\robotoslabfamily}\fi
+  
+  \ifroboto@slab
+    \def\robotoregular{\fontfamily{\rmdefault}\fontseries{m}\selectfont}
+    \def\robotomedium{\fontfamily{\rmdefault}\fontseries{sb}\selectfont}
+    \def\robotothin{\fontfamily{\rmdefault}\fontseries{el}\selectfont}
+    \def\robotolight{\fontfamily{\rmdefault}\fontseries{l}\selectfont}
+    \def\robotobold{\fontfamily{\rmdefault}\fontseries{b}\selectfont}
+    \def\robotoblack{\fontfamily{\rmdefault}\fontseries{eb}\selectfont}
+  \else
+    \def\robotoregular{\fontfamily{\sfdefault}\fontseries{m}\selectfont}
+    \def\robotomedium{\fontfamily{\sfdefault}\fontseries{sb}\selectfont}
+    \def\robotothin{\fontfamily{\sfdefault}\fontseries{el}\selectfont}
+    \def\robotolight{\fontfamily{\sfdefault}\fontseries{l}\selectfont}
+    \def\robotobold{\fontfamily{\sfdefault}\fontseries{b}\selectfont}
+    \def\robotoblack{\fontfamily{\sfdefault}\fontseries{eb}\selectfont}
+  \fi
+
+  \ifroboto@condensed
+    \def\robototlf{\fontfamily{Roboto-TLF}\fontseries{c}\selectfont}
+    \def\robotolf{\fontfamily{Roboto-LF}\fontseries{c}\selectfont}
+    \def\robotoosf{\fontfamily{Roboto-OsF}\fontseries{c}\selectfont}
+    \def\robotoTOsF{\fontfamily{Roboto-TOsF}\fontseries{c}\selectfont}
+  \else\ifroboto@slab
+    \def\robototlf{\fontfamily{RobotoSlab-TLF}\selectfont}
+    \def\robotottlf{\fontfamily{RobotoSlab-TLF}\selectfont}
+    \def\robotoosf{\fontfamily{RobotoSlab-OsF}\selectfont}
+    \def\robotosf{\fontfamily{RobotoSlab-TOsF}\selectfont}
+  \else
+    \def\robototlf{\fontfamily{Roboto-TLF}\selectfont}
+    \def\robotolf{\fontfamily{Roboto-LF}\selectfont}
+    \def\robotoosf{\fontfamily{Roboto-OsF}\selectfont}
+    \def\robototosf{\fontfamily{Roboto-TOsF}\selectfont}
+  \fi\fi
+
+
+\fi
+
+\DeclareTextFontCommand{\robotoRegular}{\robotoregular}
+\DeclareTextFontCommand{\robotoMedium}{\robotomedium}
+\DeclareTextFontCommand{\robotoThin}{\robotothin}
+\DeclareTextFontCommand{\robotoLight}{\robotolight}
+\DeclareTextFontCommand{\robotoBold}{\robotobold}
+\DeclareTextFontCommand{\robotoBlack}{\robotoblack}
+\DeclareTextFontCommand{\robotoTLF}{\robototlf}
+\DeclareTextFontCommand{\robotoLF}{\robotolf}
+\DeclareTextFontCommand{\robotoOsF}{\robotoosf}
+\DeclareTextFontCommand{\robotoTOsF}{\robototosf}
+
+\def\robotoslablgr{\fontencoding{LGR}\fontfamily{RobotoSlab-TLF}\selectfont}  
+    % use RobotoSlab-* even for otf
+\ifroboto@lining
+  \def\robotolgr@figurestyle{LF}
+\else
+  \def\robotolgr@figurestyle{OsF}
+\fi
+\ifroboto@tabular
+  \def\robotolgr@figurealign{T}
+\else
+  \def\robotolgr@figurealign{}
+\fi
+\def\robotolgr{\fontencoding{LGR}\fontfamily{Roboto-\robotolgr@figurealign\robotolgr@figurestyle}\selectfont}  
+    % use Roboto-* even for otf
+
+\ifroboto@otf
+  % turn off defaults in case other fonts are selected:
+  \defaultfontfeatures{}
+\fi
+
+\endinput

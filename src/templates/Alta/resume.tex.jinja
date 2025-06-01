@@ -18,7 +18,7 @@
 % This is a hacky way to get ride of a buggy blank first page on the document... but it works!
 \AddToHook{shipout/before}[nofirstpage]{\SkipFirstPage}
 \newcommand\SkipFirstPage{\DiscardShipoutBox\RemoveFromHook{shipout/before}[nofirstpage]}
-\documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
+\documentclass[10pt,a4paper,ragged2e]{altacv}
 %% AltaCV uses the fontawesome5 and packages.
 %% See http://texdoc.net/pkg/fontawesome5 for full list of symbols.
 
@@ -30,18 +30,11 @@
 
 % Change the font if you want to, depending on whether
 % you're using pdflatex or xelatex/lualatex
-\ifxetexorluatex
-  % If using xelatex or lualatex:
-  \setmainfont{Roboto}
-  \setsansfont{Lato}
-  \renewcommand{\familydefault}{\sfdefault}
-\else
-  % If using pdflatex:
-  \usepackage[rm]{roboto}
-  \usepackage[defaultsans]{lato}
-  % \usepackage{sourcesanspro}
-  \renewcommand{\familydefault}{\sfdefault}
-\fi
+\usepackage[rm]{roboto}
+\usepackage[defaultsans]{lato}
+% \usepackage{sourcesanspro}
+\renewcommand{\familydefault}{\sfdefault}
+
 
 % Change the colours if you want to
 \definecolor{SlateGrey}{HTML}{2E2E2E}
