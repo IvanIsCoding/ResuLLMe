@@ -20,6 +20,9 @@ ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs
 * Convert the résumés to a JSON Resume format
 * Render the JSON resume using LaTeX to generate a new PDF of the enhanced resume
 
+> [!IMPORTANT]  
+> ResuLLMe was updated to support macOS and Windows. For that to happen, we had to switch the LaTeX engine. If you prefer the old rendering behavior, check the code in the `stable/v1` branch.
+
 ## 🏃 Running Natively
 
 

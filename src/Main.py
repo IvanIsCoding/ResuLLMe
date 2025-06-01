@@ -28,8 +28,8 @@ def get_llm_model_and_api(model_type):
                 type="password",
             )
         api_model = os.getenv("OPENAI_DEFAULT_MODEL") or st.selectbox(
-            "Select a model to use for the LLMs (gpt-3.5-turbo is the most well-tested):",
-            ["gpt-3.5-turbo", "gpt-4-turbo", "gpt-4o"],
+            "Select a model to use for the LLMs (gpt-4.1 is the latest, gpt-3.5-turbo is the most well-tested):",
+            ["gpt-4.1-2025-04-14", "gpt-3.5-turbo", "gpt-4-turbo", "gpt-4o"],
             index=0,
         )
     elif model_type == "Gemini":
@@ -39,7 +39,7 @@ def get_llm_model_and_api(model_type):
                 "Enter your Gemini API Key: [(contact Gemini support for more details)]",
                 type="password",
             )
-        api_model = "gemini-1.5-flash"
+        api_model = "gemini-2.5-flash"
     else:
         if os.getenv("GEMINI_API_KEY"):
             api_key = os.getenv("GEMINI_API_KEY")
