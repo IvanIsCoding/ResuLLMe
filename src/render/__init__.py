@@ -18,18 +18,14 @@ def render_latex(latex_command, latex_data):
         
         latex_command_conda = [c for c in latex_command]
 
-        if latex_command_conda[0] == "tectonic":
-            if "CONDA_PREFIX" in os.environ:
-                conda_bin = os.environ["CONDA_PREFIX"] + "/bin"
-                latex_command_conda[0] = conda_bin + "/tectonic"
-            else:
-                import pathlib
-                directory = pathlib.Path("/home/adminuser/.conda")
-                # Recursively search for files containing 'tectonic' in their name
-                for file in directory.rglob("*"):
-                    if file.is_file() and "tectonic" in file.name:
-                        print(f"DEBUG: {file}")
-                raise RuntimeError("Tectonic is NOT running in a conda environment!")
+        if "IS_STREAMLIT_CLOUD" in os.environ:
+            print("Running in Streamlit Cloud, using conda environment for Tectonic")
+            latex_command_conda = [
+                "conda",
+                "run",
+                "-n",
+                "scc-resullme-tectonic"
+            ] + [c for c in latex_command] # prepend empty string to avoid issues with conda environment
             
 
         # Find the Tectonic Vendored Cache
