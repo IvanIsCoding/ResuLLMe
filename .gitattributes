@@ -1,2 +1,4 @@
 src/render/inputs/** linguist-vendored
-*.jinja linguist-language=Python
+*.jinja linguist-language=Python# SCM syntax highlighting & preventing 3-way merges
+pixi.lock merge=binary linguist-language=YAML linguist-generated=true
+tectonic_cache/** linguist-vendored

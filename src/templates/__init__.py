@@ -8,13 +8,12 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from doc_utils import escape_for_latex
 
 template_commands = {
-    "Simple": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
-    "Awesome": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
-    "BGJC": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
-    "Deedy": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
-    "Modern": ["pdflatex", "-interaction=nonstopmode", "resume.tex"],
-    "Plush": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
-    "Alta": ["xelatex", "-interaction=nonstopmode", "resume.tex"],
+    "Simple": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
+    "Awesome": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
+    "BGJC": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
+    "Deedy": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
+    "Modern": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
+    "Plush": ["tectonic", "-X", "compile", "-Z", "continue-on-errors", "--untrusted", "--only-cached", "resume.tex"],
 }
 
 
@@ -22,11 +21,11 @@ def generate_latex(template_name, json_resume, prelim_section_ordering):
     dir_path = os.path.dirname(os.path.realpath(__file__))
 
     latex_jinja_env = jinja2.Environment(
-        block_start_string="\BLOCK{",
+        block_start_string=r"\BLOCK{",
         block_end_string="}",
-        variable_start_string="\VAR{",
+        variable_start_string=r"\VAR{",
         variable_end_string="}",
-        comment_start_string="\#{",
+        comment_start_string=r"\#{",
         comment_end_string="}",
         line_statement_prefix="%-",
         line_comment_prefix="%#",
