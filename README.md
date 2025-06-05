@@ -13,7 +13,7 @@ ResuLLMe is an app that uses Large Language Models (LLMs) to tailor résumés. I
 You can use ResuLLMe live at [https://resullme.streamlit.app/](https://resullme.streamlit.app/).
 
 ## 🛠 How It Works
-ResuLLMe now supports both OpenAI and Gemini, empowering the application to enhance résumés with even more powerful and diverse language models, providing users with smarter, more accurate career guidance.  
+ResuLLMe supports both ChatGPT, Gemini, and Ollama backing the application to enhance résumés with even more powerful and diverse language models, providing users with smarter, more accurate career guidance.  
 
 ResuLLMe receives your previous CV as a PDF or Word Document. Then, it uses LLMs to:
 * Improve the résumé following published résumé guidelines by well-reputed schools
@@ -63,4 +63,4 @@ All contributions are welcome, but some that would particularly be useful to the
 * Fixes in existing LaTeX templates
 * Adding new LaTeX templates
 * Improved prompts
-* Support for other LLMs (e.g. Bard, Claude, LLaMA)
+* Support for other LLMs (e.g. Claude)

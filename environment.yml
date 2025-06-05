@@ -16,3 +16,4 @@ dependencies:
   - docx2txt==0.9
   - stqdm==0.0.5
   - streamlit-ext==0.1.15
+  - streamlit-pydantic==0.6.0
