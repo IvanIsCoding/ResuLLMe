@@ -8,6 +8,18 @@ class ResumeBasics(BaseModel):
     website: Optional[str] = Field(None)
     address: Optional[str] = Field(None)
 
+class ResumeWorkItem(BaseModel):
+    company: str = Field(...)
+    position: Optional[str] = Field(None)
+    startDate: Optional[str] = Field(None)
+    endDate: Optional[str] = Field(None)
+    location: Optional[str] = Field(None)
+    highlights: Optional[List[str]] = Field(None)
+
+
+class ResumeWork(BaseModel):
+    work: List[ResumeWorkItem] = Field(default_factory=list)
+
 class ResumeEducationItem(BaseModel):
     institution: str = Field(...)
     area: Optional[str] = Field(None)
@@ -44,6 +56,7 @@ class ResumeAwards(BaseModel):
 
 class Resume(BaseModel):
     basics: ResumeBasics = Field(...)
+    work: ResumeWork = Field(...)
     education: ResumeEducation = Field(...)
     projects: Projects = Field(...)
     awards: ResumeAwards = Field(...)
