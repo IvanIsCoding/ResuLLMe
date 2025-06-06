@@ -14,7 +14,7 @@ class ResumeSkillItem(BaseModel):
 
 
 class ResumeSkills(BaseModel):
-    skills: List[ResumeSkillItem] = Field(default_factory=list)
+    skills: Optional[List[ResumeSkillItem]] = Field(default_factory=list)
 
 class ResumeWorkItem(BaseModel):
     company: str = Field(...)
@@ -26,7 +26,7 @@ class ResumeWorkItem(BaseModel):
 
 
 class ResumeWork(BaseModel):
-    work: List[ResumeWorkItem] = Field(default_factory=list)
+    work: Optional[List[ResumeWorkItem]] = Field(default_factory=list)
 
 class ResumeEducationItem(BaseModel):
     institution: str = Field(...)
@@ -40,7 +40,7 @@ class ResumeEducationItem(BaseModel):
 
 
 class ResumeEducation(BaseModel):
-    education: List[ResumeEducationItem] = Field(..., alias="education entry")
+    education: Optional[List[ResumeEducationItem]] = Field(..., alias="education entry")
 
 class ResumeProjectItem(BaseModel):
     name: str = Field(...)
@@ -49,8 +49,8 @@ class ResumeProjectItem(BaseModel):
     url: Optional[str] = Field(None)
 
 
-class Projects(BaseModel):
-    projects: List[ResumeProjectItem] = Field(None)
+class ResumeProjects(BaseModel):
+    projects: Optional[List[ResumeProjectItem]] = Field(None)
 
 class ResumeAwardItem(BaseModel):
     title: str = Field(...)
@@ -64,8 +64,8 @@ class ResumeAwards(BaseModel):
 
 class Resume(BaseModel):
     basics: ResumeBasics = Field(...)
-    skills: ResumeSkills = Field(...)
-    work: ResumeWork = Field(...)
-    education: ResumeEducation = Field(...)
-    projects: Projects = Field(...)
-    awards: ResumeAwards = Field(...)
+    skills: Optional[ResumeSkills] = Field(...)
+    work: Optional[ResumeWork] = Field(...)
+    education: Optional[ResumeEducation] = Field(...)
+    projects: Optional[ResumeProjects] = Field(...)
+    awards: Optional[ResumeAwards] = Field(...)
