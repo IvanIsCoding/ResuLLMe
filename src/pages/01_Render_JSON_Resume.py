@@ -22,10 +22,11 @@ st.markdown(
     "Do you want to regenerate your resume with edited information or with a different template? Simply provide the JSON Resume and we will render it for you"
 )
 
-resume_data = sp.pydantic_form(key="my_form", model=Resume)
+resume_data = sp.pydantic_input(key="my_form", model=Resume)
 
 if resume_data:
-    st.json(resume_data.json(exclude_none=True))
+    print(resume_data)
+    st.json(resume_data)
 
 uploaded_file = st.file_uploader("Choose a file", type=["json"])
 

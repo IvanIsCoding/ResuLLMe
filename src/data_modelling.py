@@ -26,7 +26,7 @@ class ResumeWorkItem(BaseModel):
 
 
 class ResumeWork(BaseModel):
-    work: Optional[List[ResumeWorkItem]] = Field(None, alias="work_experience")
+    work: Optional[List[ResumeWorkItem]] = Field(None, alias="work_experience_entry")
 
 class ResumeEducationItem(BaseModel):
     institution: Optional[str] = Field(None)
