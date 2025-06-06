@@ -1,7 +1,9 @@
 import streamlit as st
 import streamlit_ext as ste
+import streamlit_pydantic as sp
 import os
 
+from data_modelling import Resume
 from doc_utils import extract_text_from_upload
 from templates import generate_latex, template_commands
 from render import render_latex
@@ -20,6 +22,10 @@ st.markdown(
     "Do you want to regenerate your resume with edited information or with a different template? Simply provide the JSON Resume and we will render it for you"
 )
 
+resume_data = sp.pydantic_form(key="my_form", model=Resume)
+
+if resume_data:
+    st.json(resume_data.json(exclude_none=True))
 
 uploaded_file = st.file_uploader("Choose a file", type=["json"])
 
