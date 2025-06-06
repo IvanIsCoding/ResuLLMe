@@ -8,6 +8,14 @@ class ResumeBasics(BaseModel):
     website: Optional[str] = Field(None)
     address: Optional[str] = Field(None)
 
+class ResumeSkillItem(BaseModel):
+    name: str = Field(...)
+    keywords: Optional[List[str]] = Field(None)
+
+
+class ResumeSkills(BaseModel):
+    skills: List[ResumeSkillItem] = Field(default_factory=list)
+
 class ResumeWorkItem(BaseModel):
     company: str = Field(...)
     position: Optional[str] = Field(None)
@@ -56,6 +64,7 @@ class ResumeAwards(BaseModel):
 
 class Resume(BaseModel):
     basics: ResumeBasics = Field(...)
+    skills: ResumeSkills = Field(...)
     work: ResumeWork = Field(...)
     education: ResumeEducation = Field(...)
     projects: Projects = Field(...)
