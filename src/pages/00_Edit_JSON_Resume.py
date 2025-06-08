@@ -37,7 +37,10 @@ chosen_option = st.selectbox(
     index=0,  # default to the first option
 )
 
-json_resume_from_form = sp.pydantic_input(key="resume_form", model=Resume.parse_obj(st.session_state.saved_json_resume))
+json_resume_from_form = sp.pydantic_input(
+    key="resume_form",
+    model=Resume.construct(**st.session_state.saved_json_resume)
+)
 
 st.json(json_resume_from_form)
 
