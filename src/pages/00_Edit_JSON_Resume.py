@@ -8,6 +8,22 @@ from render import render_latex
 
 from data_modelling import Resume
 
+IFRAME = '<iframe src="https://ghbtns.com/github-btn.html?user=IvanIsCoding&repo=ResuLLMe&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>'
+
+st.set_page_config(
+    page_title="ResuLLMe",
+    page_icon=":clipboard:",
+    layout="wide",
+    initial_sidebar_state="auto",
+)
+
+st.markdown(
+    f"""
+    # ResuLLMe {IFRAME}
+    """,
+    unsafe_allow_html=True,
+)
+
 template_options = list(template_commands.keys())
 
 chosen_option = st.selectbox(
@@ -29,7 +45,6 @@ section_ordering = st.multiselect(
 generate_button = st.button("Generate Resume")
 
 if generate_button:
-    print(f"DEBUG: Chosen option: {type(chosen_option)}")
     latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
 
     resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
