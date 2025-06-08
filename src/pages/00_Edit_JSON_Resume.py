@@ -8,6 +8,9 @@ from render import render_latex
 
 from data_modelling import Resume
 
+if 'saved_json_resume' not in st.session_state:
+    st.session_state.saved_json_resume = dict()
+
 IFRAME = '<iframe src="https://ghbtns.com/github-btn.html?user=IvanIsCoding&repo=ResuLLMe&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>'
 
 st.set_page_config(
@@ -32,9 +35,9 @@ chosen_option = st.selectbox(
     index=0,  # default to the first option
 )
 
-json_resume = sp.pydantic_input(key="my_form", model=Resume)
+json_resume_from_form = sp.pydantic_input(key="resume_form", model=Resume)
 
-st.json(json_resume)
+st.json(json_resume_from_form)
 
 section_ordering = st.multiselect(
     "Optional: which section ordering would you like to use?",
@@ -45,7 +48,7 @@ section_ordering = st.multiselect(
 generate_button = st.button("Generate Resume")
 
 if generate_button:
-    latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
+    latex_resume = generate_latex(chosen_option, json_resume_from_form, section_ordering)
 
     resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
 
