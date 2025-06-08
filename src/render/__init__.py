@@ -64,6 +64,7 @@ def render_latex(latex_command, latex_data):
 
     return pdf_data
 
+
 def filter_json_resume(data):
     """
     Filter the JSON resume to prune empty fields.

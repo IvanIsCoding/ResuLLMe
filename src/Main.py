@@ -129,7 +129,9 @@ if __name__ == "__main__":
                 json_resume = generate_json_resume(text, api_key, api_model, model_type)
 
                 st.session_state.saved_uuid = str(uuid.uuid4())
-                st_ls["saved_json_resume"] = base64.b64encode(json.dumps(json_resume).encode("utf-8"))
+                st_ls["saved_json_resume"] = base64.b64encode(
+                    json.dumps(json_resume).encode("utf-8")
+                )
                 st.switch_page("pages/00_Edit_JSON_Resume.py")
 
             except openai.RateLimitError as e:
