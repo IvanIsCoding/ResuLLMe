@@ -42,7 +42,7 @@ def get_llm_model_and_api(model_type):
             api_key = os.getenv("GEMINI_API_KEY")
         elif os.getenv("OPENAI_API_KEY"):
             api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
+        else:
             api_key = st.text_input(
                 "Enter the self-hosted API key: [(Most times you can just write random text)]",
                 type="password",

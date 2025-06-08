@@ -50,9 +50,9 @@ class ResumeAwardItem(BaseModel):
 
 
 class Resume(BaseModel):
-    basics: ResumeBasics = Field(...)
-    skills: Optional[List[ResumeSkillItem]] = Field(...)
-    work: Optional[List[ResumeWorkItem]] = Field(...)
-    education: Optional[List[ResumeEducationItem]] = Field(...)
-    projects: Optional[List[ResumeProjectItem]] = Field(...)
-    awards: Optional[List[ResumeAwardItem]] = Field(...)
+    basics: Optional[ResumeBasics] = Field(None)
+    skills: Optional[List[ResumeSkillItem]] = Field(None)
+    work: Optional[List[ResumeWorkItem]] = Field(None)
+    education: Optional[List[ResumeEducationItem]] = Field(None)
+    projects: Optional[List[ResumeProjectItem]] = Field(None)
+    awards: Optional[List[ResumeAwardItem]] = Field(None)

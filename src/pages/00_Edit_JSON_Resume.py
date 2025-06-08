@@ -4,7 +4,7 @@ import streamlit_pydantic as sp
 import json
 
 from templates import generate_latex, template_commands
-from render import render_latex
+from render import render_latex, filter_json_resume
 
 from data_modelling import Resume
 
@@ -27,6 +27,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.json(st.session_state.saved_json_resume)
+
 template_options = list(template_commands.keys())
 
 chosen_option = st.selectbox(
@@ -35,7 +37,7 @@ chosen_option = st.selectbox(
     index=0,  # default to the first option
 )
 
-json_resume_from_form = sp.pydantic_input(key="resume_form", model=Resume)
+json_resume_from_form = sp.pydantic_input(key="resume_form", model=Resume.parse_obj(st.session_state.saved_json_resume))
 
 st.json(json_resume_from_form)
 
@@ -45,10 +47,11 @@ section_ordering = st.multiselect(
     ["education", "work", "skills", "projects", "awards"],
 )
 
-generate_button = st.button("Generate Resume")
+generate_button = st.button("Render Resume")
 
 if generate_button:
-    latex_resume = generate_latex(chosen_option, json_resume_from_form, section_ordering)
+    json_resume_to_render = filter_json_resume(json_resume_from_form)
+    latex_resume = generate_latex(chosen_option, json_resume_to_render, section_ordering)
 
     resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
 
@@ -72,7 +75,7 @@ if generate_button:
         with col3:
             ste.download_button(
                 label="Download JSON Source",
-                data=json.dumps(json_resume, indent=4),
+                data=json.dumps(json_resume_to_render, indent=4),
                 file_name="resume.json",
                 mime="text/json",
             )

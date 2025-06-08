@@ -63,3 +63,14 @@ def render_latex(latex_command, latex_data):
             pdf_data = f.read()
 
     return pdf_data
+
+def filter_json_resume(data):
+    """
+    Filter the JSON resume to prune empty fields.
+    """
+    if isinstance(data, list):
+        return [filter_json_resume(item) for item in data]
+    if not isinstance(data, dict):
+        return data
+    filtered_data = {k: filter_json_resume(v) for k, v in data.items()}
+    return {k: v for k, v in filtered_data.items() if v}
