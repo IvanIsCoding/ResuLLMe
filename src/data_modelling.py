@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List
 
+
 class ResumeBasics(BaseModel):
     name: Optional[str] = Field(None)
     email: Optional[str] = Field(None)
@@ -8,13 +9,11 @@ class ResumeBasics(BaseModel):
     website: Optional[str] = Field(None)
     address: Optional[str] = Field(None)
 
+
 class ResumeSkillItem(BaseModel):
     name: str = Field(...)
     keywords: Optional[List[str]] = Field(None)
 
-
-class ResumeSkills(BaseModel):
-    skills: Optional[List[ResumeSkillItem]] = Field(None)
 
 class ResumeWorkItem(BaseModel):
     company: Optional[str] = Field(None)
@@ -24,9 +23,6 @@ class ResumeWorkItem(BaseModel):
     location: Optional[str] = Field(None)
     highlights: Optional[List[str]] = Field(None)
 
-
-class ResumeWork(BaseModel):
-    work: Optional[List[ResumeWorkItem]] = Field(None)
 
 class ResumeEducationItem(BaseModel):
     institution: Optional[str] = Field(None)
@@ -39,18 +35,12 @@ class ResumeEducationItem(BaseModel):
     location: Optional[str] = Field(None)
 
 
-class ResumeEducation(BaseModel):
-    education: Optional[List[ResumeEducationItem]] = Field(None)
-
 class ResumeProjectItem(BaseModel):
     name: Optional[str] = Field(None)
     description: Optional[str] = Field(None)
     keywords: Optional[List[str]] = Field(None)
     url: Optional[str] = Field(None)
 
-
-class ResumeProjects(BaseModel):
-    projects: Optional[List[ResumeProjectItem]] = Field(None)
 
 class ResumeAwardItem(BaseModel):
     title: Optional[str] = Field(None)
@@ -59,13 +49,10 @@ class ResumeAwardItem(BaseModel):
     summary: Optional[str] = Field(None)
 
 
-class ResumeAwards(BaseModel):
-    awards: List[ResumeAwardItem] = Field(None)
-
 class Resume(BaseModel):
     basics: ResumeBasics = Field(...)
-    skills: Optional[ResumeSkills] = Field(...)
-    work: Optional[ResumeWork] = Field(...)
-    education: Optional[ResumeEducation] = Field(...)
-    projects: Optional[ResumeProjects] = Field(...)
-    awards: Optional[ResumeAwards] = Field(...)
+    skills: Optional[List[ResumeSkillItem]] = Field(...)
+    work: Optional[List[ResumeWorkItem]] = Field(...)
+    education: Optional[List[ResumeEducationItem]] = Field(...)
+    projects: Optional[List[ResumeProjectItem]] = Field(...)
+    awards: Optional[List[ResumeAwardItem]] = Field(...)

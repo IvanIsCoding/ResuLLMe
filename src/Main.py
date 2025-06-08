@@ -14,7 +14,7 @@ def select_llm_model():
     model_type = st.selectbox(
         "Select the model you want to use:",
         ["OpenAI", "Gemini", "Self-Hosted"],
-        index=0
+        index=0,
     )
     return model_type
 
@@ -48,13 +48,13 @@ def get_llm_model_and_api(model_type):
         if not api_key:
             api_key = st.text_input(
                 "Enter the self-hosted API key: [(Most times you can just write random text)]",
-                    type="password",
+                type="password",
             )
         # Use Ollama API as default
         location = "http://127.0.0.1:11434/v1"
         location = st.text_input(
             "Enter the self-hosted API location (e.g. " + location + "):",
-            type="default"
+            type="default",
         )
         model_list = []
         try:
@@ -65,14 +65,12 @@ def get_llm_model_and_api(model_type):
                 "The current API key or location is incorrect. Please try again."
             )
         api_model = st.selectbox(
-            "Select a model to use for the LLMs:",
-            model_list,
-            index=0
+            "Select a model to use for the LLMs:", model_list, index=0
         )
     return api_key, api_model
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     IFRAME = '<iframe src="https://ghbtns.com/github-btn.html?user=IvanIsCoding&repo=ResuLLMe&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>'
 
     st.set_page_config(
@@ -93,7 +91,9 @@ if __name__ == '__main__':
         "Welcome to ResuLLMe! Drop your previous CV below, select one of the templates, and let the LLMs generate your resume for you"
     )
 
-    uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt", "json"])
+    uploaded_file = st.file_uploader(
+        "Choose a file", type=["pdf", "docx", "txt", "json"]
+    )
 
     template_options = list(template_commands.keys())
 
@@ -102,8 +102,10 @@ if __name__ == '__main__':
         text = extract_text_from_upload(uploaded_file)
 
         if len(text) < 50:
-            st.warning("The text extracted from the uploaded file is too short. Are you sure this is the correct file?",
-                       icon="⚠️")
+            st.warning(
+                "The text extracted from the uploaded file is too short. Are you sure this is the correct file?",
+                icon="⚠️",
+            )
 
         model_type = select_llm_model()
         api_key, api_model = get_llm_model_and_api(model_type)
@@ -120,7 +122,9 @@ if __name__ == '__main__':
             ["education", "work", "skills", "projects", "awards"],
         )
 
-        improve_check = st.checkbox("I want to improve the resume with LLMs", value=False)
+        improve_check = st.checkbox(
+            "I want to improve the resume with LLMs", value=False
+        )
 
         generate_button = st.button("Generate Resume")
 
@@ -131,9 +135,13 @@ if __name__ == '__main__':
                         text = tailor_resume(text, api_key, api_model, model_type)
 
                 json_resume = generate_json_resume(text, api_key, api_model, model_type)
-                latex_resume = generate_latex(chosen_option, json_resume, section_ordering)
+                latex_resume = generate_latex(
+                    chosen_option, json_resume, section_ordering
+                )
 
-                resume_bytes = render_latex(template_commands[chosen_option], latex_resume)
+                resume_bytes = render_latex(
+                    template_commands[chosen_option], latex_resume
+                )
 
                 col1, col2, col3 = st.columns(3)
 
@@ -171,11 +179,13 @@ if __name__ == '__main__':
             except openai.NotFoundError as e:
                 st.warning(
                     "It looks like you do not have entered you Credit Card information on OpenAI's site. Buy pre-paid credits to use the API and try again.",
-                    icon="💳"
+                    icon="💳",
                 )
                 st.write(e)
             except Exception as e:
-                st.error("An error occurred while generating the resume. Please try again.")
+                st.error(
+                    "An error occurred while generating the resume. Please try again."
+                )
                 st.write(e)
     else:
         st.info("Please upload a file to get started.")

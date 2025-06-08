@@ -6,9 +6,11 @@ import pathlib
 import sys
 import functools
 
+
 @functools.lru_cache(maxsize=None)
 def find_tectonic_streamlit_cloud():
     import streamlit as st
+
     current_dir = pathlib.Path(st.__file__).parent
     while current_dir.parent != current_dir:
         if (current_dir / "tectonic").exists():
@@ -20,6 +22,7 @@ def find_tectonic_streamlit_cloud():
         current_dir = current_dir.parent
     return "tectonic"
 
+
 def render_latex(latex_command, latex_data):
     src_path = os.path.dirname(os.path.realpath(__file__)) + "/inputs"
 
@@ -30,14 +33,13 @@ def render_latex(latex_command, latex_data):
         # write latex data to a file
         with open(f"{tmpdirname}/resume.tex", "w") as f:
             f.write(latex_data)
-        
+
         latex_command_conda = [c for c in latex_command]
 
         if "IS_STREAMLIT_CLOUD" in os.environ:
             tectonic_path = find_tectonic_streamlit_cloud()
             print(f"DEBUG: Running in Streamlit Cloud, Tectonic path: {tectonic_path}")
             latex_command_conda = [tectonic_path] + [c for c in latex_command][1:]
-            
 
         # Find the Tectonic Vendored Cache
         current_dir = pathlib.Path(__file__).resolve().parent
@@ -50,7 +52,9 @@ def render_latex(latex_command, latex_data):
 
         # run latex command
         latex_process = subprocess.Popen(
-            latex_command_conda, cwd=tmpdirname, env=tectonic_env,
+            latex_command_conda,
+            cwd=tmpdirname,
+            env=tectonic_env,
         )
         latex_process.wait()
 

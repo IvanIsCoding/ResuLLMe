@@ -178,15 +178,15 @@ def generate_json_resume(cv_text, api_key, model="gpt-4o", model_type="OpenAI"):
         model = genai.GenerativeModel(model)
 
     for prompt in stqdm(
-            [
-                BASICS_PROMPT,
-                EDUCATION_PROMPT,
-                AWARDS_PROMPT,
-                PROJECTS_PROMPT,
-                SKILLS_PROMPT,
-                WORK_PROMPT,
-            ],
-            desc="This may take a while...",
+        [
+            BASICS_PROMPT,
+            EDUCATION_PROMPT,
+            AWARDS_PROMPT,
+            PROJECTS_PROMPT,
+            SKILLS_PROMPT,
+            WORK_PROMPT,
+        ],
+        desc="This may take a while...",
     ):
         filled_prompt = prompt.replace(CV_TEXT_PLACEHOLDER, cv_text)
         if model_type == "OpenAI":

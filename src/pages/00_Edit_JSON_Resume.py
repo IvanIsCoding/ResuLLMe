@@ -39,10 +39,10 @@ if generate_button:
     try:
         with col1:
             btn = ste.download_button(
-                    label="Download PDF",
-                    data=resume_bytes,
-                    file_name="resume.pdf",
-                    mime="application/pdf",
+                label="Download PDF",
+                data=resume_bytes,
+                file_name="resume.pdf",
+                mime="application/pdf",
             )
         with col2:
             ste.download_button(
@@ -54,7 +54,7 @@ if generate_button:
         with col3:
             ste.download_button(
                 label="Download JSON Source",
-                    data=json.dumps(json_resume, indent=4),
+                data=json.dumps(json_resume, indent=4),
                 file_name="resume.json",
                 mime="text/json",
             )

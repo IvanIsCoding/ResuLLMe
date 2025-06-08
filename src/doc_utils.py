@@ -49,7 +49,7 @@ def escape_for_latex(data):
             "\\": r"\textbackslash{}",
             "\n": "\\newline%\n",
             "-": r"{-}",
-            "\xA0": "~",  # Non-breaking space
+            "\xa0": "~",  # Non-breaking space
             "[": r"{[}",
             "]": r"{]}",
         }
