@@ -14,7 +14,7 @@ def select_llm_model():
     model_type = st.selectbox(
         "Select the model you want to use:",
         ["OpenAI", "Gemini", "Self-Hosted"],
-        index=0
+        index=1
     )
     return model_type
 
@@ -36,7 +36,7 @@ def get_llm_model_and_api(model_type):
         api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
             api_key = st.text_input(
-                "Enter your Gemini API Key: [(contact Gemini support for more details)]",
+                "Enter your Gemini API Key: [(click here to obtain a new key if you do not have one)](https://aistudio.google.com/apikey)",
                 type="password",
             )
         api_model = "gemini-2.5-flash"
