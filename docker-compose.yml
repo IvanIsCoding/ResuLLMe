@@ -1,8 +1,7 @@
-version: '3'
 services:
   resullme:
     build:
-        context: ./
-        dockerfile: Dockerfile
+      context: ./
+      dockerfile: Dockerfile
     ports:
-      - 8501:8501
+      - 8502:8502
