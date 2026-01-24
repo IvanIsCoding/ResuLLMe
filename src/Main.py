@@ -39,7 +39,7 @@ def get_llm_model_and_api(model_type):
                 "Enter your Gemini API Key: [(click here to obtain a new key if you do not have one)](https://aistudio.google.com/apikey)",
                 type="password",
             )
-        api_model = "gemini-2.5-flash"
+        api_model = "gemini-3-flash-preview"
     else:
         if os.getenv("GEMINI_API_KEY"):
             api_key = os.getenv("GEMINI_API_KEY")
