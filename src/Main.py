@@ -29,7 +29,7 @@ def get_llm_model_and_api(model_type):
             )
         api_model = os.getenv("OPENAI_DEFAULT_MODEL") or st.selectbox(
             "Select a model to use for the LLMs:",
-            ["gpt-5", "gpt-4.1", "gpt-3.5-turbo"],
+            ["gpt-5-mini", "gpt-5.2"],
             index=0,
         )
     elif model_type == "Gemini":
