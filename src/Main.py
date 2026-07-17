@@ -29,7 +29,7 @@ def get_llm_model_and_api(model_type):
             )
         api_model = os.getenv("OPENAI_DEFAULT_MODEL") or st.selectbox(
             "Select a model to use for the LLMs:",
-            ["gpt-5-mini", "gpt-5.2"],
+            ["gpt-5.6-luna", "gpt-5.6-terra"],
             index=0,
         )
     elif model_type == "Gemini":
@@ -39,7 +39,7 @@ def get_llm_model_and_api(model_type):
                 "Enter your Gemini API Key: [(click here to obtain a new key if you do not have one)](https://aistudio.google.com/apikey)",
                 type="password",
             )
-        api_model = "gemini-3-flash-preview"
+        api_model = "gemini-3.5-flash"
     else:
         if os.getenv("GEMINI_API_KEY"):
             api_key = os.getenv("GEMINI_API_KEY")
